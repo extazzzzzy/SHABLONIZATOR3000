@@ -5,11 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="976abf02-ba36-4c50-a031-5e18a62c783a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/documents/1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pages/1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/php/1" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/diary_template.docx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/python/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/python/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/python/template.docx" beforeDir="false" afterPath="$PROJECT_DIR$/templates/template.docx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/python/send_request_to_python.php" beforeDir="false" afterPath="$PROJECT_DIR$/python/send_request_to_python.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,7 +42,7 @@
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/MAMP/htdocs/SHABLONIZATOR3000/python&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/MAMP/htdocs/SHABLONIZATOR3000/templates&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -54,8 +53,8 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\MAMP\htdocs\SHABLONIZATOR3000\python" />
       <recent name="C:\MAMP\htdocs\SHABLONIZATOR3000\templates" />
+      <recent name="C:\MAMP\htdocs\SHABLONIZATOR3000\python" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\MAMP\htdocs\SHABLONIZATOR3000\templates" />
@@ -75,6 +74,12 @@
       <updated>1714372341945</updated>
       <workItem from="1714372342959" duration="5466000" />
       <workItem from="1714379488780" duration="314000" />
+      <workItem from="1714380615546" duration="3241000" />
+      <workItem from="1714387861555" duration="229000" />
+      <workItem from="1714398698373" duration="625000" />
+      <workItem from="1714399340662" duration="2623000" />
+      <workItem from="1714402655208" duration="386000" />
+      <workItem from="1714407028108" duration="1389000" />
     </task>
     <servers />
   </component>
