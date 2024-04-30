@@ -9,9 +9,13 @@ if ($mysql->connect_errno) {
     exit("Ошибка подключения к базе данных: " . $mysql->connect_error);
 }
 
-if (isset($_POST["ID"]) && isset($_POST["FULLNAME"]) && isset($_POST["LOGIN"]) && isset($_POST["PASSWORD"]) && isset($_POST["STUDENT_COURSE"]) && isset($_POST["STUDENT_GROUP"]) && isset($_POST["INSTITUTE"]) && isset($_POST["PREPARATION_DIRECTION"])) {
+if (isset($_POST["ID"]) && isset($_POST["FULLNAME"]) && isset($_POST["FULLNAME_ROD"]) && isset($_POST["FULLNAME_DAT"]) && isset($_POST["LOGIN"]) && isset($_POST["PASSWORD"]) && isset($_POST["STUDENT_COURSE"]) && isset($_POST["STUDENT_GROUP"]) && isset($_POST["INSTITUTE"]) && isset($_POST["PREPARATION_DIRECTION"])) {
     $ID = $_POST["ID"];
+
     $FULLNAME = $_POST["FULLNAME"];
+    $FULLNAME_ROD = $_POST["FULLNAME_ROD"];
+    $FULLNAME_DAT = $_POST["FULLNAME_DAT"];
+
     $LOGIN = $_POST["LOGIN"];
     $PASSWORD = $_POST["PASSWORD"];
     $STUDENT_COURSE = $_POST["STUDENT_COURSE"];
@@ -20,7 +24,7 @@ if (isset($_POST["ID"]) && isset($_POST["FULLNAME"]) && isset($_POST["LOGIN"]) &
     $PREPARATION_DIRECTION = $_POST["PREPARATION_DIRECTION"];
 
 
-    $sql = "UPDATE user SET FULLNAME = '$FULLNAME', LOGIN = '$LOGIN', PASSWORD = '$PASSWORD', STUDENT_COURSE = '$STUDENT_COURSE', STUDENT_GROUP = '$STUDENT_GROUP', INSTITUTE = '$INSTITUTE', PREPARATION_DIRECTION = '$PREPARATION_DIRECTION' WHERE ID = '$ID'";
+    $sql = "UPDATE user SET FULLNAME = '$FULLNAME', FULLNAME_ROD = '$FULLNAME_ROD', FULLNAME_DAT = '$FULLNAME_DAT', LOGIN = '$LOGIN', PASSWORD = '$PASSWORD', STUDENT_COURSE = '$STUDENT_COURSE', STUDENT_GROUP = '$STUDENT_GROUP', INSTITUTE = '$INSTITUTE', PREPARATION_DIRECTION = '$PREPARATION_DIRECTION' WHERE ID = '$ID'";
 
 
     if ($mysql->query($sql) === TRUE) {

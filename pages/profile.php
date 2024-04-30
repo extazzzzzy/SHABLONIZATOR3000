@@ -4,7 +4,11 @@ $connectMySQL = new mysqli('localhost', 'root', 'root', 'shablonizator3000');
 
 $ID = $_SESSION['ID'];
 $result = $connectMySQL->query("SELECT * FROM user WHERE ID = '$ID'");
+
 $FULLNAME = $connectMySQL->query("SELECT `FULLNAME` FROM `user` WHERE `ID` = '$ID'")->fetch_assoc()['FULLNAME'];
+$FULLNAME_ROD = $connectMySQL->query("SELECT `FULLNAME_ROD` FROM `user` WHERE `ID` = '$ID'")->fetch_assoc()['FULLNAME_ROD'];
+$FULLNAME_DAT = $connectMySQL->query("SELECT `FULLNAME_DAT` FROM `user` WHERE `ID` = '$ID'")->fetch_assoc()['FULLNAME_DAT'];
+
 $LOGIN = $connectMySQL->query("SELECT `LOGIN` FROM `user` WHERE `ID` = '$ID'")->fetch_assoc()['LOGIN'];
 $PASSWORD = $connectMySQL->query("SELECT `PASSWORD` FROM `user` WHERE `ID` = '$ID'")->fetch_assoc()['PASSWORD'];
 $STUDENT_COURSE = $connectMySQL->query("SELECT `STUDENT_COURSE` FROM `user` WHERE `ID` = '$ID'")->fetch_assoc()['STUDENT_COURSE'];
@@ -121,6 +125,28 @@ $PREPARATION_DIRECTION = $connectMySQL->query("SELECT `PREPARATION_DIRECTION` FR
             font-weight: normal;
             font-size: medium;
         }
+        .icon {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-size: contain;
+            cursor: pointer;
+            vertical-align: middle;
+            margin-left: 5px;
+        }
+        .tooltip {
+            position: absolute;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+            display: none;
+            z-index: 999;
+        }
+        .icon:hover + .tooltip {
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -136,13 +162,30 @@ $PREPARATION_DIRECTION = $connectMySQL->query("SELECT `PREPARATION_DIRECTION` FR
         ?>
         <form action="../php/change_profile_info.php" method="post">
             <input type="hidden" name="ID" value="<?php echo $row['ID']; ?>">
-            <input type="text" minlength="15" id="FULLNAME" name="FULLNAME" value="<?php echo $FULLNAME; ?>" placeholder="Введите ФИО">
+            <input type="text" minlength="10" id="FULLNAME" name="FULLNAME" value="<?php echo $FULLNAME; ?>" placeholder="Введите ФИО">
+
+            <div style="display: flex">
+                <input type="text" minlength="10" id="FULLNAME_ROD" name="FULLNAME_ROD" value="<?php echo $FULLNAME_ROD; ?>" placeholder="Введите ФИО(родительный падеж)">
+                <ion-icon class="icon" name="help-circle-outline"></ion-icon>
+                <div class="tooltip" style="font-size: 14px">
+                    Информация о ФИО в родительном падеже
+                </div>
+            </div>
+
+            <div style="display: flex">
+                <input type="text" minlength="10" id="FULLNAME_DAT" name="FULLNAME_DAT" value="<?php echo $FULLNAME_DAT; ?>" placeholder="Введите ФИО(дательный падеж)">
+                <ion-icon class="icon" name="help-circle-outline"></ion-icon>
+                <div class="tooltip" style="font-size: 14px">
+                    Информация о ФИО в дательном падеже
+                </div>
+            </div>
+
             <input type="text" id="LOGIN" name="LOGIN" value="<?php echo $LOGIN; ?>" placeholder="Введите логин">
             <input type="password" maxlength="30" id="PASSWORD" name="PASSWORD" value="<?php echo $PASSWORD; ?>" placeholder="Введите пароль">
             <input type="text" id="STUDENT_COURSE" name="STUDENT_COURSE" value="<?php echo $STUDENT_COURSE; ?>" placeholder="Введите номер курса">
             <input type="text" id="STUDENT_GROUP" name="STUDENT_GROUP" value="<?php echo $STUDENT_GROUP; ?>" placeholder="Введите номер группы">
             <input type="text" minlength="10" id="INSTITUTE" name="INSTITUTE" value="<?php echo $INSTITUTE; ?>" placeholder="Введите название Высшей школы">
-            <input type="text" minlength="10" id="PREPARATION_DIRECTION" name="PREPARATION_DIRECTION" value="<?php echo $PREPARATION_DIRECTION; ?>" placeholder="Введите направление подготовки">
+            <input type="text" minlength="5" id="PREPARATION_DIRECTION" name="PREPARATION_DIRECTION" value="<?php echo $PREPARATION_DIRECTION; ?>" placeholder="Введите направление подготовки">
             <button type="submit">Изменить данные</button>
         </form>
             <form action="../php/logout.php">
@@ -152,5 +195,7 @@ $PREPARATION_DIRECTION = $connectMySQL->query("SELECT `PREPARATION_DIRECTION` FR
     }
     ?>
 </div>
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>
 </html>
