@@ -17,9 +17,8 @@ session_start();
         if ($result->num_rows > 0)
         {
             $data = $result->fetch_assoc();
-            $_SESSION['id'] = $data['id'];
-            $_SESSION['role'] = $data['role'];
-            header("Location: ../Pages/profile.php");
+            $_SESSION['ID'] = $data['ID'];
+            header("Location: ../pages/profile.php");
         }
         else
         {
@@ -28,6 +27,6 @@ session_start();
     }
     else
     {
-        header("Location: authorization.php");
+        header("Location: auth.php");
     }
 ?>

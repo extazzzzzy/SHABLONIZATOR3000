@@ -4,13 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="976abf02-ba36-4c50-a031-5e18a62c783a" name="Changes" comment="">
+    <list default="true" id="976abf02-ba36-4c50-a031-5e18a62c783a" name="Changes" comment="Страницы авторизации, регистрации, заполнения, выбора шаблона, профиля">
+      <change afterPath="$PROJECT_DIR$/php/change_profile_info.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/php/logout.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/documents/ready_document.docx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/python/.idea/.name" beforeDir="false" afterPath="$PROJECT_DIR$/python/.idea/.name" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/python/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/python/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/python/send_request_to_python.php" beforeDir="false" afterPath="$PROJECT_DIR$/python/send_request_to_python.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/diary_template.docx" beforeDir="false" afterPath="$PROJECT_DIR$/templates/diary_template.docx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/auth.php" beforeDir="false" afterPath="$PROJECT_DIR$/pages/auth.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/profile.php" beforeDir="false" afterPath="$PROJECT_DIR$/pages/profile.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/register.php" beforeDir="false" afterPath="$PROJECT_DIR$/pages/register.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/php/authorization.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/authorization.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,7 +19,6 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="ComposerSettings">
-    <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution />
   </component>
   <component name="FileTemplateManagerImpl">
@@ -29,42 +29,61 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="h-idwidwi &lt;hidwdiwi@gmail.com&gt;" />
+        <option value="h-idwidwi" />
+        <option value="h-i" />
+      </list>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="C:\MAMP\bin\php\php8.1.0\php.exe" />
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="C:\php\php.exe" />
   <component name="ProjectId" id="2flOkbOvCER2JTOXarn1VxGVXkf" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/MAMP/htdocs/SHABLONIZATOR3000/templates&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/OSPanel/domains/SHABLONIZATOR3000/php",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\MAMP\htdocs\SHABLONIZATOR3000\templates" />
-      <recent name="C:\MAMP\htdocs\SHABLONIZATOR3000\python" />
+      <recent name="C:\OSPanel\domains\SHABLONIZATOR3000\php" />
+      <recent name="C:\OSPanel\domains\SHABLONIZATOR3000\images" />
+      <recent name="C:\OSPanel\domains\SHABLONIZATOR3000\fonts" />
+      <recent name="C:\OSPanel\domains\SHABLONIZATOR3000" />
+      <recent name="C:\OSPanel\domains\SHABLONIZATOR3000\pages" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\OSPanel\domains\SHABLONIZATOR3000\pages" />
       <recent name="C:\MAMP\htdocs\SHABLONIZATOR3000\templates" />
       <recent name="C:\MAMP\htdocs\SHABLONIZATOR3000\python" />
       <recent name="C:\MAMP\htdocs\SHABLONIZATOR3000\pyth" />
       <recent name="C:\MAMP\htdocs\SHABLONIZATOR3000\pyth\templates" />
-      <recent name="C:\MAMP\htdocs\SHABLONIZATOR3000" />
     </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="ComposerRunConfigurationType" factoryName="Composer Script">
+      <option name="pathToComposerJson" value="$PROJECT_DIR$/composer.json" />
+      <method v="2" />
+    </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -76,19 +95,30 @@
       <updated>1714372341945</updated>
       <workItem from="1714372342959" duration="5466000" />
       <workItem from="1714379488780" duration="314000" />
-      <workItem from="1714380615546" duration="3241000" />
-      <workItem from="1714387861555" duration="229000" />
-      <workItem from="1714398698373" duration="625000" />
-      <workItem from="1714399340662" duration="2623000" />
-      <workItem from="1714402655208" duration="386000" />
-      <workItem from="1714407028108" duration="1389000" />
-      <workItem from="1714411066050" duration="523000" />
+      <workItem from="1714382495784" duration="74000" />
+      <workItem from="1714383555920" duration="9748000" />
+      <workItem from="1714458350431" duration="151000" />
+      <workItem from="1714458506674" duration="4621000" />
+    </task>
+    <task id="LOCAL-00001" summary="Страницы авторизации, регистрации, заполнения, выбора шаблона, профиля">
+      <option name="closed" value="true" />
+      <created>1714458599540</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1714458599540</updated>
       <workItem from="1714458644811" duration="1478000" />
       <workItem from="1714463783916" duration="1135000" />
     </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Страницы авторизации, регистрации, заполнения, выбора шаблона, профиля" />
+    <MESSAGE value="Бек авторизации, регистрации" />
+    <option name="LAST_COMMIT_MESSAGE" value="Бек авторизации, регистрации" />
   </component>
 </project>
