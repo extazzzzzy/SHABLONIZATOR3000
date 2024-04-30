@@ -90,9 +90,9 @@
     </div>
     <h1>Авторизация</h1>
     <form action="../php/authorization.php" method="post">
-        <input id="ph_num" maxlength="11" type="text" name="phone_number" placeholder="Введите номер телефона" required>
-        <input type="password" maxlength="30" name="password" placeholder="Введите пароль" required>
-        <input type="submit" value="Войти">
+        <input type="text" id="LOGIN" name="LOGIN" placeholder="Введите логин" required>
+        <input type="password" maxlength="30" id="PASSWORD" name="PASSWORD" placeholder="Введите пароль" required>
+        <input type="submit" name="submit" value="Отправить">
     </form>
     <a href="register.php">Зарегистрироваться</a>
 </div>

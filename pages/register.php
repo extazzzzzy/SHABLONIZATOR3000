@@ -81,10 +81,13 @@
     </div>
     <h1>Регистрация</h1>
     <form action="../php/registration.php" method="post">
-        <input type="text" maxlength="30" name="first_name" placeholder="Введите имя" required>
-        <input type="text" id="ph_num" maxlength="11" name="phone_number" placeholder="Введите номер телефона" required>
-        <input type="password" maxlength="30" name="password" placeholder="Введите пароль" required>
-        <input type="text" maxlength="100" name="address" placeholder="Введите адрес" required>
+        <input type="text" minlength="15" id="FULLNAME" name="FULLNAME" placeholder="Введите ФИО" required>
+        <input type="text" id="LOGIN" name="LOGIN" placeholder="Введите логин" required>
+        <input type="password" maxlength="30" id="PASSWORD" name="PASSWORD" placeholder="Введите пароль" required>
+        <input type="text" id="STUDENT_COURSE" name="STUDENT_COURSE" placeholder="Введите номер курса" required>
+        <input type="text" id="STUDENT_GROUP" name="STUDENT_GROUP" placeholder="Введите номер группы" required>
+        <input type="text" minlength="10" id="INSTITUTE" name="INSTITUTE" placeholder="Введите название Высшей школы" required>
+        <input type="text" minlength="10" id="PREPARATION_DIRECTION" name="PREPARATION_DIRECTION" placeholder="Введите направление подготовки" required>
         <input type="submit" name="submit" value="Отправить">
     </form>
     <a href="auth.php">Уже есть аккаунт</a>
