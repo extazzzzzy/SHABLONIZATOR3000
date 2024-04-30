@@ -15,14 +15,14 @@ $COMPANY_CHIEF_POSITION = "Кандидат наук";
 
 $INSTITUTE = "ИШЦТ";
 $PRACTICE_DEADLINES = "с 22 апреля 2024 года по 4 мая 2024 года";
-$YEAR_WORK = "2024";
-$DIRECTION_OF_PREPARATION = "Программная инженерия";
+$WORK_YEAR = "2024";
+$PREPARATION_DIRECTION = "Программная инженерия";
 $STUDENT_QUALITIES = "Целеустремлённость, стрессоустойчивость";
-$SPEED_OF_PROBLEM_SOLVING = "Быстро";
-$AMOUNT_OF_WORK = "в полном объёме";
-$OTHER_REMARKS = "Замечаний нет";
+$PROBLEM_SOLVING_SPEED = "Быстро";
+$WORK_AMOUNT = "в полном объёме";
+$REMARKS1 = "Замечаний нет";
 $STUDENT_ASSESSMENT = "5";
-$result = shell_exec('python main.py ' . escapeshellarg($PRACTICE_PLACE) . ' ' . escapeshellarg($PRACTICE_PLACE_ADDRESS) . ' ' . escapeshellarg($STUDENT_COURSE) . ' ' . escapeshellarg($STUDENT_GROUP) . ' ' . escapeshellarg($STUDENT_FULLNAME_IMEN) . ' ' . escapeshellarg($PRACTICE_KIND_IMEN) . ' ' . escapeshellarg($ORGANIZATION_CHIEF_FULLNAME) . ' ' . escapeshellarg($ORGANIZATION_CHIEF_POSITION) . ' ' . escapeshellarg($USU_CHIEF_FULLNAME) . ' ' . escapeshellarg($USU_CHIEF_POSITION) . ' ' . escapeshellarg($COMPANY_CHIEF_POSITION) . ' ' . escapeshellarg($INSTITUTE) . ' ' . escapeshellarg($PRACTICE_DEADLINES) . ' ' . escapeshellarg($YEAR_WORK) . ' ' . escapeshellarg($DIRECTION_OF_PREPARATION) . ' ' .escapeshellarg($STUDENT_QUALITIES) . ' ' . escapeshellarg($SPEED_OF_PROBLEM_SOLVING) . ' ' . escapeshellarg($AMOUNT_OF_WORK) . ' ' . escapeshellarg($OTHER_REMARKS) . ' ' . escapeshellarg($STUDENT_ASSESSMENT));
+$result = shell_exec('python main.py ' . escapeshellarg($PRACTICE_PLACE) . ' ' . escapeshellarg($PRACTICE_PLACE_ADDRESS) . ' ' . escapeshellarg($STUDENT_COURSE) . ' ' . escapeshellarg($STUDENT_GROUP) . ' ' . escapeshellarg($STUDENT_FULLNAME_IMEN) . ' ' . escapeshellarg($PRACTICE_KIND_IMEN) . ' ' . escapeshellarg($ORGANIZATION_CHIEF_FULLNAME) . ' ' . escapeshellarg($ORGANIZATION_CHIEF_POSITION) . ' ' . escapeshellarg($USU_CHIEF_FULLNAME) . ' ' . escapeshellarg($USU_CHIEF_POSITION) . ' ' . escapeshellarg($COMPANY_CHIEF_POSITION) . ' ' . escapeshellarg($INSTITUTE) . ' ' . escapeshellarg($PRACTICE_DEADLINES) . ' ' . escapeshellarg($WORK_YEAR) . ' ' . escapeshellarg($PREPARATION_DIRECTION) . ' ' .escapeshellarg($STUDENT_QUALITIES) . ' ' . escapeshellarg($PROBLEM_SOLVING_SPEED) . ' ' . escapeshellarg($WORK_AMOUNT) . ' ' . escapeshellarg($REMARKS1) . ' ' . escapeshellarg($STUDENT_ASSESSMENT));
 
 ?>
 
