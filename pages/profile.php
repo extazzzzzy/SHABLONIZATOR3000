@@ -49,7 +49,11 @@ $PREPARATION_DIRECTION = $connectMySQL->query("SELECT `PREPARATION_DIRECTION` FR
             border-radius: 8px;
             padding: 20px;
             width: 300px;
+            height: 700px;
+            overflow-y: auto;
+            scrollbar-width: none;
         }
+
         form {
             display: flex;
             flex-direction: column;
@@ -133,16 +137,18 @@ $PREPARATION_DIRECTION = $connectMySQL->query("SELECT `PREPARATION_DIRECTION` FR
             cursor: pointer;
             vertical-align: middle;
             margin-left: 5px;
+            color: #0a4d8c;
         }
         .tooltip {
             position: absolute;
-            background-color: #fff;
-            border: 1px solid #ccc;
+            background-color: rgb(51, 136, 85);
+            border: 1px solid rgb(51, 136, 85);
             padding: 10px;
             border-radius: 5px;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 0 5px rgb(51, 136, 85);
             display: none;
             z-index: 999;
+            color: white;
         }
         .icon:hover + .tooltip {
             display: block;
