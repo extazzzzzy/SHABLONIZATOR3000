@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="976abf02-ba36-4c50-a031-5e18a62c783a" name="Changes" comment="">
+<<<<<<< Updated upstream
       <change afterPath="$PROJECT_DIR$/python/tables.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/1" beforeDir="false" afterPath="$PROJECT_DIR$/python/fullname_variations.py" afterDir="false" />
@@ -15,6 +16,13 @@
       <change beforePath="$PROJECT_DIR$/python/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/python/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/diary_template.docx" beforeDir="false" afterPath="$PROJECT_DIR$/templates/diary_template.docx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/template.docx" beforeDir="false" />
+=======
+      <change afterPath="$PROJECT_DIR$/php/fill_org_chief_data.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/php/fill_student_data.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/php/fill_usu_chief_data.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/python/.idea/.name" beforeDir="false" afterPath="$PROJECT_DIR$/python/.idea/.name" afterDir="false" />
+>>>>>>> Stashed changes
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,7 +56,8 @@
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/MAMP/htdocs/SHABLONIZATOR3000/templates&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/MAMP/htdocs/PHP_lab2&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -89,8 +98,13 @@
       <workItem from="1714411066050" duration="523000" />
       <workItem from="1714458644811" duration="1478000" />
       <workItem from="1714463783916" duration="1135000" />
+<<<<<<< Updated upstream
       <workItem from="1714467136803" duration="4315000" />
       <workItem from="1714477091908" duration="1101000" />
+=======
+      <workItem from="1714469211257" duration="502000" />
+      <workItem from="1714469877820" duration="8561000" />
+>>>>>>> Stashed changes
     </task>
     <servers />
   </component>
