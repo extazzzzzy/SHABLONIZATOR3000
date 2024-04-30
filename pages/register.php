@@ -92,17 +92,5 @@
     </form>
     <a href="auth.php">Уже есть аккаунт</a>
 </div>
-
-<script>
-    let phone_number = document.getElementById('ph_num');
-
-    phone_number.addEventListener('keydown', (e) => {
-        if(['0','1','2','3','4', '5', '6', '7', '8', '9', 'Backspace', 'ControlLeft', 'Delete'].indexOf(e.key) !== -1){
-
-        } else {
-            e.preventDefault();
-        }
-    });
-</script>
 </body>
 </html>
