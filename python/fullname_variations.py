@@ -1,0 +1,32 @@
+import sys
+import pymorphy2
+import json
+
+morph = pymorphy2.MorphAnalyzer()
+
+STUDENT_FULLNAME_ROD = sys.argv[1]
+STUDENT_FULLNAME_DAT = sys.argv[1]
+
+# перевод имени студента в родительный падеж
+STUDENT_FULLNAME_ROD_SPLIT = STUDENT_FULLNAME_ROD.split()
+STUDENT_FULLNAME_ROD_ARR = []
+for i in STUDENT_FULLNAME_ROD_SPLIT:
+    STUDENT_FULLNAME_ROD_PARSE = morph.parse(i)[0]
+    STUDENT_FULLNAME_ROD_WORD = STUDENT_FULLNAME_ROD_PARSE.inflect({'gent'}).word.capitalize()
+    STUDENT_FULLNAME_ROD_ARR.append(STUDENT_FULLNAME_ROD_WORD)
+STUDENT_FULLNAME_ROD = ' '.join(STUDENT_FULLNAME_ROD_ARR)
+
+# перевод имени студента в дательный падеж
+STUDENT_FULLNAME_DAT_SPLIT = STUDENT_FULLNAME_DAT.split()
+STUDENT_FULLNAME_DAT_ARR = []
+for i in STUDENT_FULLNAME_DAT_SPLIT:
+    STUDENT_FULLNAME_DAT_PARSE = morph.parse(i)[0]
+    STUDENT_FULLNAME_DAT_WORD = STUDENT_FULLNAME_DAT_PARSE.inflect({'datv'}).word.capitalize()
+    STUDENT_FULLNAME_DAT_ARR.append(STUDENT_FULLNAME_DAT_WORD)
+STUDENT_FULLNAME_DAT = ' '.join(STUDENT_FULLNAME_DAT_ARR)
+
+output = {
+    "STUDENT_FULLNAME_ROD": STUDENT_FULLNAME_ROD,
+    "STUDENT_FULLNAME_DAT": STUDENT_FULLNAME_DAT
+}
+print(json.dumps(output))

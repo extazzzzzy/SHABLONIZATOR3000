@@ -80,7 +80,7 @@
         <img src="../images/SHABLON.png">
     </div>
     <h1>Регистрация</h1>
-    <form action="../php/registration.php" method="post">
+    <form action="../python/registration.php" method="post">
         <input type="text" minlength="15" id="FULLNAME" name="FULLNAME" placeholder="Введите ФИО" required>
         <input type="text" id="LOGIN" name="LOGIN" placeholder="Введите логин" required>
         <input type="password" maxlength="30" id="PASSWORD" name="PASSWORD" placeholder="Введите пароль" required>

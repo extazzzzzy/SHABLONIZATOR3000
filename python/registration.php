@@ -40,12 +40,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $INSTITUTE = $_POST['INSTITUTE'];
     $PREPARATION_DIRECTION = $_POST['PREPARATION_DIRECTION'];
 
-    $statement = $mysql->prepare("INSERT INTO user (FULLNAME, LOGIN, PASSWORD, STUDENT_COURSE, STUDENT_GROUP, INSTITUTE, PREPARATION_DIRECTION) VALUES (?, ?, ?, ?, ?, ?, ?)");
+    $result = shell_exec('python fullname_variations.py ' . escapeshellarg($FULLNAME));
+    $output = json_decode($result, true);
+    $STUDENT_FULLNAME_ROD = $output["STUDENT_FULLNAME_ROD"];
+    $STUDENT_FULLNAME_DAT = $output["STUDENT_FULLNAME_DAT"];
+
+
+    $statement = $mysql->prepare("INSERT INTO user (FULLNAME, FULLNAME_ROD, FULLNAME_DAT, LOGIN, PASSWORD, STUDENT_COURSE, STUDENT_GROUP, INSTITUTE, PREPARATION_DIRECTION) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
     if (!$statement) {
         die("Ошибка подготовки запроса: " . $mysql->error);
     }
 
-    $statement->bind_param("sssisss", $FULLNAME, $LOGIN, $PASSWORD, $STUDENT_COURSE, $STUDENT_GROUP, $INSTITUTE, $PREPARATION_DIRECTION);
+    $statement->bind_param("sssssisss", $FULLNAME, $STUDENT_FULLNAME_ROD, $STUDENT_FULLNAME_DAT, $LOGIN, $PASSWORD, $STUDENT_COURSE, $STUDENT_GROUP, $INSTITUTE, $PREPARATION_DIRECTION);
     if (!$statement->execute()) {
         die("Ошибка выполнения запроса: " . $statement->error);
     }

@@ -1,9 +1,14 @@
 from docxtpl import DocxTemplate
 import sys
 import pymorphy2
+import csv
+from docx import Document
+from docx.shared import Pt
+from docx.enum.text import WD_ALIGN_PARAGRAPH
+import os
 
 morph = pymorphy2.MorphAnalyzer()
-
+# ПОЛУЧЕНИЕ ВСЕХ ДАННЫХ ИЗ PHP
 PRACTICE_PLACE = sys.argv[1]
 
 # перевод места практики в предложный падеж
@@ -85,9 +90,67 @@ WORK_AMOUNT = sys.argv[17]
 REMARKS = sys.argv[18]
 STUDENT_ASSESSMENT = sys.argv[19]
 
-doc = DocxTemplate("../templates/diary_template.docx")
+# внедрение .csv таблицы в документ
+with open('tables.csv', newline='', encoding='utf-8') as csvfile:
+    reader = csv.reader(csvfile)
+    next(reader)
+
+    doc = Document("../templates/diary_template.docx")
+
+    for style in doc.styles:
+        if style.type == 1:
+            style.font.name = 'Times New Roman'
+
+    table = doc.add_table(rows=1, cols=3)
+    table.style = 'Table Grid'
+
+
+    hdr_cells = table.rows[0].cells
+    hdr_cells[0].text = 'Выполненные виды работ в рамках задач (мероприятий), входящих в задание студента на практику'
+    hdr_cells[1].text = ''
+    hdr_cells[2].text = 'Подпись руководителя практики от организации'
+    hdr_cells[0].merge(hdr_cells[1])
+    hdr_cells[0].paragraphs[0].runs[0].bold = True
+    hdr_cells[2].paragraphs[0].runs[0].bold = True
+
+    new_row = table.add_row().cells
+    new_row[0].text = 'Дата'
+    new_row[1].text = 'Наименование работы'
+    new_row[2].text = ''
+
+    new_row[0].paragraphs[0].runs[0].bold = True
+    new_row[1].paragraphs[0].runs[0].bold = True
+    new_row[2].paragraphs[0].runs[0].bold = True
+
+    for row in reader:
+        row_cells = table.add_row().cells
+        row_cells[0].text = date_without_time = row[2][:-9]
+        row_cells[1].text = row[1]
+        row_cells[2].text = ''
+
+
+for paragraph in doc.paragraphs:
+        if "ТУТ ДОЛЖНА БЫТЬ ТАБЛИЦА" in paragraph.text:
+            parent = paragraph._element.getparent()
+            index = parent.index(paragraph._element)
+            parent.insert(index, table._tbl)
+
+            parent.remove(paragraph._element)
+            break
+
+for paragraph in doc.paragraphs:
+    for run in paragraph.runs:
+        run.font.name = 'Times New Roman'
+        run.font.size = Pt(11)
+for row in table.rows:
+    for cell in row.cells:
+        for paragraph in cell.paragraphs:
+            paragraph.alignment = WD_ALIGN_PARAGRAPH.CENTER
+doc.save("temp.docx")
+doc1 = DocxTemplate("temp.docx")
 context = {"PRACTICE_PLACE": PRACTICE_PLACE, "PRACTICE_PLACE_PRED": PRACTICE_PLACE_PRED, "PRACTICE_PLACE_ADDRESS":
     PRACTICE_PLACE_ADDRESS, "STUDENT_COURSE": STUDENT_COURSE, "STUDENT_GROUP": STUDENT_GROUP, "STUDENT_FULLNAME_ROD":
     STUDENT_FULLNAME_ROD, "STUDENT_FULLNAME_IMEN": STUDENT_FULLNAME_IMEN, "STUDENT_FULLNAME_DAT": STUDENT_FULLNAME_DAT, "PRACTICE_KIND_IMEN": PRACTICE_KIND_IMEN, "PRACTICE_KIND_DAT": PRACTICE_KIND_DAT, "PRACTICE_KIND_VIN": PRACTICE_KIND_VIN, "ORGANIZATION_CHIEF_FULLNAME": ORGANIZATION_CHIEF_FULLNAME, "ORGANIZATION_CHIEF_POSITION": ORGANIZATION_CHIEF_POSITION, "USU_CHIEF_FULLNAME": USU_CHIEF_FULLNAME, "USU_CHIEF_POSITION": USU_CHIEF_POSITION, "INSTITUTE": INSTITUTE, "PRACTICE_DEADLINES": PRACTICE_DEADLINES, "WORK_YEAR": WORK_YEAR, "PREPARATION_DIRECTION": PREPARATION_DIRECTION, "STUDENT_QUALITIES": STUDENT_QUALITIES, "PROBLEM_SOLVING_SPEED": PROBLEM_SOLVING_SPEED, "WORK_AMOUNT": WORK_AMOUNT, "REMARKS": REMARKS, "STUDENT_ASSESSMENT": STUDENT_ASSESSMENT}
-doc.render(context)
-doc.save("../documents/ready_document.docx")
+doc1.render(context)
+doc1.save("../documents/ready_document.docx")
+os.remove("temp.docx")
