@@ -8,8 +8,14 @@
       <change afterPath="$PROJECT_DIR$/python/practice_kind_variations.py" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/python/practice_place_variations.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+<<<<<<< Updated upstream
       <change beforePath="$PROJECT_DIR$/documents/ready_document.docx" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/python/.idea/.name" beforeDir="false" afterPath="$PROJECT_DIR$/python/.idea/.name" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/php/fill_org_chief_data.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/fill_org_chief_data.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/php/fill_student_data.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/fill_student_data.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/php/fill_usu_chief_data.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/fill_usu_chief_data.php" afterDir="false" />
+>>>>>>> Stashed changes
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,19 +45,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/MAMP/htdocs/SHABLONIZATOR3000/templates&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/MAMP/htdocs/SHABLONIZATOR3000/templates",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\MAMP\htdocs\SHABLONIZATOR3000\templates" />
@@ -86,9 +93,14 @@
       <workItem from="1714463783916" duration="1135000" />
       <workItem from="1714467136803" duration="4315000" />
       <workItem from="1714477091908" duration="1101000" />
+<<<<<<< Updated upstream
       <workItem from="1714489197452" duration="3480000" />
       <workItem from="1714495740777" duration="3000" />
       <workItem from="1714496927805" duration="1272000" />
+=======
+      <workItem from="1714489197452" duration="2878000" />
+      <workItem from="1714492417556" duration="5392000" />
+>>>>>>> Stashed changes
     </task>
     <servers />
   </component>
