@@ -40,7 +40,7 @@
         $comments = $row['COMMENT'];
     ?>
     <tr>
-    <td><?php echo $doc_numb; ?></td>
+    <td><?php echo $doc_numb; ?><input type='text' hidden value='<? echo $doc_numbS?>'></td>
     <td><?php echo $doc_name; ?></td>
     <td><?php echo $student; ?></td>
     <td><?php echo $usu_chief; ?></td>
@@ -138,6 +138,7 @@
         <div class="container">
         <nav>
             <a href='pick_template.php'>Создать документ</a>
+            <a href='profile.php'>Профиль</a>
             <a href='../php/logout.php'>Выход из аккаунта</a>
         </nav>
         </div>
