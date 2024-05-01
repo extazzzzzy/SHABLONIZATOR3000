@@ -47,4 +47,7 @@ else
 
 $connectMySQL->query("UPDATE `diary_document` SET `STATUS` = '3', `SRC` = '" . "../documents/" . $target_file . "' WHERE `id` = '$diary_document_id'");
 
+// создание первого документа через питон
+$result = shell_exec('python student_create_document.py ' . escapeshellarg($dateTime) . ' ' .  escapeshellarg($PRACTICE_KIND_IMEN) . ' ' . escapeshellarg($PRACTICE_KIND_DAT) . ' ' . escapeshellarg($PRACTICE_KIND_VIN) . ' ' . escapeshellarg($STUDENT_COURSE) . ' ' . escapeshellarg($STUDENT_GROUP) . ' ' . escapeshellarg($STUDENT_FULLNAME_IMEN) . ' ' . escapeshellarg($STUDENT_FULLNAME_ROD) . ' ' . escapeshellarg($STUDENT_FULLNAME_DAT) . ' ' . escapeshellarg($INSTITUTE) . ' ' . escapeshellarg($PREPARATION_DIRECTION) . ' ' . escapeshellarg($USU_CHIEF_FULLNAME) . ' ' . escapeshellarg($USU_CHIEF_POSITION));
+
 ?>
