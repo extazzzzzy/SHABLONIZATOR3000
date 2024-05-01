@@ -5,7 +5,7 @@ $_SESSION['id'] = 2;
     header("Location: ../pages/profile.php");
     die;
 }*/
-$diary_document_id = 31;//$_POST['student_group'];
+$diary_document_id = 40;//$_POST['student_group'];
 
 $practice_place = $_POST['practice_place'];
 $practice_place_address = $_POST['practice_place_address'];

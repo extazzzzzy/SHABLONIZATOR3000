@@ -5,7 +5,7 @@ session_start();
     die;
 }*/
 
-$diary_document_id = 33;//$_POST['student_group'];
+$diary_document_id = 37;//$_POST['student_group'];
 $student_group = $_POST['student_group'];
 $practice_kind = $_POST['practice_kind'];
 

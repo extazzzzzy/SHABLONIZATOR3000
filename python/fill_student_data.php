@@ -6,7 +6,7 @@ header("Location: ../pages/profile.php");
 die;
 }*/
 
-$diary_document_id = 31;//$_POST['student_group'];
+$diary_document_id = 40;//$_POST['student_group'];
 
 $connectMySQL = new mysqli('localhost', 'root', 'root', 'shablonizator3000');
 $diary_record = $connectMySQL->query("SELECT * FROM `diary_document` WHERE `id` = '$diary_document_id'")->fetch_assoc();
