@@ -23,7 +23,6 @@ USU_CHIEF_POSITION = sys.argv[13]
 FULL_PATH_TO_TABLES_CSV = NAME_FILE + ".csv"
 FULL_PATH_TO_TEMP_DOCUMENT = NAME_FILE + ".docx"
 FULL_PATH_TO_MAIN_DOCUMENT = "../documents/" + FULL_PATH_TO_TEMP_DOCUMENT
-
 # Вставка таблицы в документ
 with open(FULL_PATH_TO_TABLES_CSV, newline='', encoding='utf-8') as csvfile:
     reader = csv.reader(csvfile)
@@ -89,3 +88,4 @@ context = {"PRACTICE_KIND_IMEN": PRACTICE_KIND_IMEN, "PRACTICE_KIND_DAT": PRACTI
 doc1.render(context)
 doc1.save(FULL_PATH_TO_MAIN_DOCUMENT)
 os.remove(FULL_PATH_TO_TEMP_DOCUMENT)
+os.remove(FULL_PATH_TO_TABLES_CSV)

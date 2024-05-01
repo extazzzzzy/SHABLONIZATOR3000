@@ -6,9 +6,7 @@ $_SESSION['id'] = 2;
     die;
 }*/
 
-$diary_document_id = 22;//$_POST['student_group'];
-$currentTimeMillis = round(microtime(true) * 1000);
-$dateTime = date("Y-m-d H:i:s") . "." . sprintf("%03d", $currentTimeMillis % 1000);;
+$diary_document_id = 23;//$_POST['student_group'];
 
 $connectMySQL = new mysqli('localhost', 'root', 'root', 'shablonizator3000');
 $diary_record = $connectMySQL->query("SELECT * FROM `diary_document` WHERE `id` = '$diary_document_id'")->fetch_assoc();
@@ -33,21 +31,20 @@ $USU_CHIEF_FULLNAME = $usu_chief_record['FULLNAME'];
 $USU_CHIEF_POSITION = $usu_chief_record['POSITION'];
 
 
-$target_file = $dateTime . ".csv";
-$fileType = strtolower(pathinfo($_FILES["fileToUpload"]["name"],PATHINFO_EXTENSION));
+
+$id = uniqid('diary_', true);
+$target_file = $id . ".csv";
+
+$fileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
 if($fileType == "csv")
 {
     move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file);
 }
-else
-{
-    echo "Выберите файл с расширением csv!";
-}
 
 $connectMySQL->query("UPDATE `diary_document` SET `STATUS` = '3', `SRC` = '" . "../documents/" . $target_file . "' WHERE `id` = '$diary_document_id'");
 
 // создание первого документа через питон
-$result = shell_exec('python student_create_document.py ' . escapeshellarg($dateTime) . ' ' .  escapeshellarg($PRACTICE_KIND_IMEN) . ' ' . escapeshellarg($PRACTICE_KIND_DAT) . ' ' . escapeshellarg($PRACTICE_KIND_VIN) . ' ' . escapeshellarg($STUDENT_COURSE) . ' ' . escapeshellarg($STUDENT_GROUP) . ' ' . escapeshellarg($STUDENT_FULLNAME_IMEN) . ' ' . escapeshellarg($STUDENT_FULLNAME_ROD) . ' ' . escapeshellarg($STUDENT_FULLNAME_DAT) . ' ' . escapeshellarg($INSTITUTE) . ' ' . escapeshellarg($PREPARATION_DIRECTION) . ' ' . escapeshellarg($USU_CHIEF_FULLNAME) . ' ' . escapeshellarg($USU_CHIEF_POSITION));
+$result = shell_exec('python student_create_document.py ' . escapeshellarg($id) . ' ' .  escapeshellarg($PRACTICE_KIND_IMEN) . ' ' . escapeshellarg($PRACTICE_KIND_DAT) . ' ' . escapeshellarg($PRACTICE_KIND_VIN) . ' ' . escapeshellarg($STUDENT_COURSE) . ' ' . escapeshellarg($STUDENT_GROUP) . ' ' . escapeshellarg($STUDENT_FULLNAME_IMEN) . ' ' . escapeshellarg($STUDENT_FULLNAME_ROD) . ' ' . escapeshellarg($STUDENT_FULLNAME_DAT) . ' ' . escapeshellarg($INSTITUTE) . ' ' . escapeshellarg($PREPARATION_DIRECTION) . ' ' . escapeshellarg($USU_CHIEF_FULLNAME) . ' ' . escapeshellarg($USU_CHIEF_POSITION));
 
 ?>
