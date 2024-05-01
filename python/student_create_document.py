@@ -59,8 +59,8 @@ with open(FULL_PATH_TO_TABLES_CSV, newline='', encoding='utf-8') as csvfile:
 
     for row in reader:
         row_cells = table.add_row().cells
-        row_cells[0].text = date_without_time = row[2][:-9]
-        row_cells[1].text = row[1]
+        row_cells[0].text = date_without_time = row[2][:-9].capitalize()
+        row_cells[1].text = row[1].capitalize()
         row_cells[2].text = ''
 
 
@@ -83,13 +83,20 @@ for row in table.rows:
             paragraph.alignment = WD_ALIGN_PARAGRAPH.CENTER
 doc.save(FULL_PATH_TO_TEMP_DOCUMENT)
 
+tasks = []
+with open('tables.csv', newline='', encoding='utf-8') as csvfile:
+    reader = csv.reader(csvfile)
+    next(reader)
+    for row in reader:
+        tasks.append(row[1].capitalize())
+
 doc1 = DocxTemplate(FULL_PATH_TO_TEMP_DOCUMENT)
 context = {"PRACTICE_KIND_IMEN": PRACTICE_KIND_IMEN, "PRACTICE_KIND_DAT": PRACTICE_KIND_DAT, "PRACTICE_KIND_VIN":
     PRACTICE_KIND_VIN, "STUDENT_COURSE": STUDENT_COURSE, "STUDENT_GROUP": STUDENT_GROUP, "STUDENT_FULLNAME_IMEN":
     STUDENT_FULLNAME_IMEN, "STUDENT_FULLNAME_ROD": STUDENT_FULLNAME_ROD,
            "STUDENT_FULLNAME_DAT": STUDENT_FULLNAME_DAT, "INSTITUTE": INSTITUTE, "PREPARATION_DIRECTION": PREPARATION_DIRECTION,
            "USU_CHIEF_FULLNAME": USU_CHIEF_FULLNAME, "USU_CHIEF_POSITION": USU_CHIEF_POSITION, "ORGANIZATION_CHIEF_FULLNAME": ORGANIZATION_CHIEF_FULLNAME,
-           "ORGANIZATION_CHIEF_POSITION": ORGANIZATION_CHIEF_POSITION,
+           "ORGANIZATION_CHIEF_POSITION": ORGANIZATION_CHIEF_POSITION, "TASKS": tasks,
 
            "PRACTICE_PLACE": "{{PRACTICE_PLACE}}", "WORK_YEAR": "{{WORK_YEAR}}", "PRACTICE_DEADLINES": "{{PRACTICE_DEADLINES}}",
            "PRACTICE_PLACE_ADDRESS": "{{PRACTICE_PLACE_ADDRESS}}",
