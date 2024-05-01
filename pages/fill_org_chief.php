@@ -1,5 +1,6 @@
 <?php
 session_start();
+//ЭТОТ ФАЙЛ НУЖЕН ТОЛЬКО ДЛЯ ТЕСТА, ПОСЛЕ ПЕРЕНОСА В FILL.PHP ЭТОТ МОЖНО УДАЛИТЬ
 ?>
 
 
@@ -48,7 +49,7 @@ session_start();
         form {
             display: flex;
         }
-        .documents, .chefs {
+        .templates, .chiefs {
             color: #ffffff;
             width: calc(100% - 20px);
             padding: 10px;
@@ -102,7 +103,7 @@ session_start();
         button:hover {
             background-color: #6A5ACD;
         }
-        .document_list, .chef_list {
+        .template_list, .usu_chief_list {
             width:300px;
             height:100px;
             overflow-x:hidden;

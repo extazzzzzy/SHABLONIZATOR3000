@@ -1,51 +1,15 @@
 <?php
-    session_start();
-    $connectMySQL = new mysqli('localhost', 'root', 'root', 'shablonizator3000');
+session_start();
+//ЭТОТ ФАЙЛ НУЖЕН ТОЛЬКО ДЛЯ ТЕСТА, ПОСЛЕ ПЕРЕНОСА В FILL.PHP ЭТОТ МОЖНО УДАЛИТЬ
 
-    /*if (!isset($_SESSION['ID'])) {
-    header("Location: auth.php");
-    die();
-    }*/
+$connectMySQL = new mysqli('localhost', 'root', 'root', 'shablonizator3000');
 
-    function generate_document_list($connectMySQL) {
-        ob_start(); // начало буферизации вывода
+/*if (!isset($_SESSION['ID'])) {
+header("Location: auth.php");
+die();
+}*/
+
 ?>
-<form action="../php/create_new_record.php" method="post">
-    <h3>Выберите шаблон для документа:</h3>
-    <div class="template_list">
-        <select name = "template_name">
-        <?php //тут выводится список шаблонов документа на отправку
-            $template_list = $connectMySQL->query("SELECT * FROM `template`");
-            while ($row = $template_list->fetch_assoc()) {
-                $doc_name = $row['NAME'];
-        ?>
-            <option class='templates' value="<?php echo $doc_name; ?>"><?php echo $doc_name; ?></div>
-        <?php
-            }
-        ?>
-        </select>
-    </div>
-    <h3>Выберите руководителей ЮГУ, которым хотите отправить документ:</h3>
-    <div class="usu_chief_list">
-        <?php //здесь список всех ЮГУшек, которым его можно отправить
-            $usu_chief_list = $connectMySQL->query("SELECT * FROM `user` WHERE `ROLE` = 'usu_chief'");
-            while ($row = $usu_chief_list->fetch_assoc()) {
-                $usu_chief = $row['FULLNAME'];
-        ?>
-            <div class='chiefs'><input type='checkbox' name="usu_chiefs[]" value="<?php echo $usu_chief; ?>"><?php echo $usu_chief; ?></div>
-        <?php
-            }
-        ?>
-    </div>
-    <input type="submit" name="submit" value="Отправить документы">
-    <?php
-        $output = ob_get_contents(); // сохраняем буфер
-        ob_end_clean(); // очищаем буфер
-        return $output; // возвращаем содержимое буфера
-    }
-    ?>
-</form>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -169,21 +133,30 @@
     </style>
 </head>
 <body>
-    <header>
-        <div class="container">
+<header>
+    <div class="container">
         <nav>
             <div><a href='documents.php'>Вернуться к списку документов</a></div>
             <div><a href='../php/logout.php'>Выход из аккаунта</a></div>
         </nav>
-        <?php echo generate_document_list($connectMySQL);?>
-        </div>
-    </header>
-    <script>
-        function pick_all()
-        { //Хотел написать скрипт для кнопки, чтобы можно было выбрать сразу всех руков или снять галочки со всех
-            document.getElementById('pick_all').innerHTML = "Убрать со всех";
-            return 1;
-        }
-    </script>
+        <form action="../python/fill_student_data.php" method="post" enctype="multipart/form-data">
+            <h3>Выберите руководителя от организации:</h3>
+            <div class="org_chiefs_list">
+                <select name="org_chief_fullname">
+                    <?php
+                    $org_chief_list = $connectMySQL->query("SELECT FULLNAME FROM `user` WHERE `ROLE` = 'org_chief'");
+                    while ($row = $org_chief_list->fetch_assoc())
+                    {
+                        $usu_chief_fullname = $row['FULLNAME'];
+                        echo "<option>" . $usu_chief_fullname . "</option>";
+                    }
+                    ?>
+                </select>
+            </div>
+            <input type="file" name="fileToUpload" id="fileToUpload">
+            <input type="submit" name="submit" value="Отправить данные">
+        </form>
+    </div>
+</header>
 </body>
 </html>

@@ -1,15 +1,23 @@
 <?php
-    $connectMySQL = new mysqli('localhost', 'root', 'root', 'shablonizator3000');
+session_start();
+$_SESSION['id'] = 2;
+/*if ($_SESSION['role'] != "admin") {
+    header("Location: ../pages/profile.php");
+    die;
+}*/
 
-    $template_id = 1;//$_POST["temp_id"];
+$connectMySQL = new mysqli('localhost', 'root', 'root', 'shablonizator3000');
 
-    $count = $connectMySQL->query("SELECT COUNT(*) FROM `user`");
-    $count_usu_chief = $count -> fetch_row();
-    $chief_count = $count_usu_chief[0];
+$template_name = $_POST['template_name'];
+$template_id = $connectMySQL->query("SELECT * FROM `template` WHERE `name` = '$template_name'")->fetch_assoc()['ID'];
 
-    $chief_list = $connectMySQL->query("SELECT ID FROM `user` WHERE `ROLE` = 'usu_chief'");
-    while ($row = $chief_list->fetch_assoc()) {
-        $chief_id = $row['ID'];
-        $connectMySQL->query("INSERT INTO `diary_document` (`TEMPLATE_ID`, `USU_CHIEF_ID`) VALUES ('$template_id', '$chief_id')");
-    }
+foreach ($_POST['usu_chiefs'] as $usu_chief_fullname)
+{
+
+    $usu_chief_id = $connectMySQL->query("SELECT id FROM `user` WHERE `fullname` = '$usu_chief_fullname'")->fetch_assoc()['id'];
+
+    $connectMySQL->query("INSERT INTO `diary_document` (`TEMPLATE_ID`, `USU_CHIEF_ID`) VALUES ('$template_id', '$usu_chief_id')");
+}
+
 ?>
+

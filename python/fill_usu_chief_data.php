@@ -1,14 +1,13 @@
 <?php
 session_start();
-$_SESSION['id'] = 1;
 /*if ($_SESSION['role'] != "usu_chief") {
     header("Location: ../pages/profile.php");
     die;
 }*/
 
-$diary_document_id = 1;//$_POST['student_group'];
-$student_group = 1521;//$_POST['student_group'];
-$practice_kind = "Учебная";//$_POST['$practice_kind'];
+$diary_document_id = 33;//$_POST['student_group'];
+$student_group = $_POST['student_group'];
+$practice_kind = $_POST['practice_kind'];
 
 $result = shell_exec('python practice_kind_variations.py ' . escapeshellarg($practice_kind));
 $output = json_decode($result, true);
@@ -19,7 +18,6 @@ $connectMySQL = new mysqli('localhost', 'root', 'root', 'shablonizator3000');
 
 $diary_record = $connectMySQL->query("SELECT * FROM `diary_document` WHERE `id` = '$diary_document_id'")->fetch_assoc();
 $connectMySQL->query("DELETE FROM `diary_document` WHERE `id` = '$diary_document_id'");
-
 $students_result = $connectMySQL->query("SELECT id FROM `user` WHERE `role` = 'student' AND `STUDENT_GROUP` = '$student_group'");
 while ($row = $students_result->fetch_assoc())
 {

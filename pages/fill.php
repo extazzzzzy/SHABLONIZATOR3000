@@ -113,7 +113,7 @@ if ($_SESSION['ROLE'] == 'usu_chief') {
             <img src="../images/fill1.png">
         </div>
     </div>
-    <form action="../python/fill_usu_chief_data.php">
+    <form action="../python/fill_usu_chief_data.php" method="post">
         <input type="text" id="student_group" name="student_group" placeholder="Введите номер группы">
         <input type="text" id="practice_kind" name="practice_kind" placeholder="Введите вид практики">
         <button class="nav-button" type="submit">Отправить</button>
