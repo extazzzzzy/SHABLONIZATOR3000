@@ -18,6 +18,7 @@ session_start();
         {
             $data = $result->fetch_assoc();
             $_SESSION['ID'] = $data['ID'];
+            $_SESSION['ROLE'] = $data['ROLE'];
             header("Location: ../pages/profile.php");
         }
         else
