@@ -84,7 +84,7 @@ for row in table.rows:
 doc.save(FULL_PATH_TO_TEMP_DOCUMENT)
 
 tasks = []
-with open('tables.csv', newline='', encoding='utf-8') as csvfile:
+with open(FULL_PATH_TO_TABLES_CSV, newline='', encoding='utf-8') as csvfile:
     reader = csv.reader(csvfile)
     next(reader)
     for row in reader:
