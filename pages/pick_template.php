@@ -13,15 +13,17 @@
 <form action="../php/create_documents.php" method="post">
     <h3>Выберите шаблон для документа:</h3>
     <div class="document_list">
+        <select>
         <?php //тут выводится список документов на отправку
             $doc_list = $connectMySQL->query("SELECT * FROM `template`");
             while ($row = $doc_list->fetch_assoc()) {
                 $doc_name = $row['NAME'];
         ?>
-            <div class='documents'><input type='checkbox' name='<?php echo $doc_name; ?>'><?php echo $doc_name; ?></div>
+            <option class='documents' value="<?php echo $doc_name; ?>"><?php echo $doc_name; ?></div>
         <?php
             }
         ?>
+        </select>
     </div>
     <h3>Выберите руководителей ЮГУ, которым хотите отправить документ:</h3>
     <div class="chef_list">
@@ -31,6 +33,18 @@
                 $usu_chief = $row['FULLNAME'];
         ?>
             <div class='chefs'><input type='checkbox' name='<?php echo $usu_chief; ?>' ><?php echo $usu_chief; ?></div>
+        <?php
+            }
+        ?>
+    </div>
+    <h3>Выберите руководителей организации, которым хотите отправить документ:</h3>
+    <div class="chef_list">
+        <?php //здесь список всех ЮГУшек, которым его можно отправить
+            $org_chief_list = $connectMySQL->query("SELECT * FROM `user` WHERE `ROLE` = 'org_chief'");
+            while ($row = $org_chief_list->fetch_assoc()) {
+                $org_chief = $row['FULLNAME'];
+        ?>
+            <div class='chefs'><input type='checkbox' name='<?php echo $org_chief; ?>' ><?php echo $org_chief; ?></div>
         <?php
             }
         ?>
@@ -143,7 +157,7 @@
         button:hover {
             background-color: #6A5ACD;
         }
-        .document_list, .chef_list {
+        .chef_list {
             width:300px;
             height:100px;
             overflow-x:hidden;
@@ -151,6 +165,18 @@
         }
         ::-webkit-scrollbar {
             display: none;
+        }
+        select {
+            background-color: #0a4d8c;
+            border-style: none;
+            border-radius: 5px;
+            height: 40px;
+            width: 300px;
+            color: white;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            font-size: medium;
         }
     </style>
 </head>
