@@ -10,7 +10,7 @@ if (!isset($_SESSION['ID'])) {
 function view_status($doc_status_id) {
     switch ($doc_status_id) {
         case 1:
-            echo "Ожидает назначения руководителя организации";
+            echo "Ожидает назначения руководителя организации администратором";
             break;
         case 2:
             echo "Ожидает получения данных от руководителя ЮГУ";
@@ -33,7 +33,7 @@ function view_status($doc_status_id) {
 function check_link($doc_src) {
     if ($doc_src != '')
     {
-        echo '<a href=' .  $doc_src . ' download>Скачать</a>';
+        echo "<a id='btn' href=" .  $doc_src . " download>Скачать</a>";
     }
     else
         echo '';
@@ -221,6 +221,15 @@ function generate_document_table($connectMySQL) {
 
         button:hover {
             background-color: rgba(120, 172, 227, 0.72);
+        }
+
+        #btn {
+            display: inline-block;
+            background-color: rgb(51, 136, 85);
+            color: #fff;
+            padding: 8px;
+            text-decoration: none;
+            border-radius: 5px;
         }
     </style>
 </head>
