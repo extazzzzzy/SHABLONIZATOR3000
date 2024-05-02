@@ -30,6 +30,15 @@ function view_status($doc_status_id) {
         }
 }
 
+function check_link($doc_src) {
+    if ($doc_src != '')
+    {
+        echo '<a href=' .  $doc_src . ' download>Скачать</a>';
+    }
+    else
+        echo '';
+}
+
 function generate_document_table($connectMySQL) {
     ob_start(); // начало буферизации вывода
     ?>
@@ -73,7 +82,7 @@ function generate_document_table($connectMySQL) {
             {
             $doc_status_id = $row['STATUS'];
             
-            if (isset($row['SRC'])) {
+            if (isset($row['SRC']) && $doc_status_id > 3) {
                 $doc_src = $row['SRC'];
             }
             else
@@ -102,7 +111,7 @@ function generate_document_table($connectMySQL) {
                 <td><?php echo $practice_place; ?></td>
                 <td><?php echo $timestamp; ?></td>
                 <td><?php echo $comment; ?></td>
-                <td><a href='<?php echo $doc_src; ?>' download>Скачать</a></td>
+                <td><?php check_link($doc_src) ?></td>
                 <td><button>Принять</button><button>Отклонить</button></td>
             <tr>
                 <?php
