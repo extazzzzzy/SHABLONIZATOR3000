@@ -7,6 +7,29 @@ if (!isset($_SESSION['ID'])) {
     die();
 }
 
+function view_status($doc_status_id) {
+    switch ($doc_status_id) {
+        case 1:
+            echo "Ожидает назначения руководителя организации";
+            break;
+        case 2:
+            echo "Ожидает получения данных от руководителя ЮГУ";
+            break;
+        case 3:
+            echo "Ожидает заполнения данных о практике от руководителя организации/ожидает заполнение данных студентом";
+            break;
+        case 4:
+            echo "Ожидает получения характеристики студента от руководителя организации";
+            break;
+        case 5:
+            echo "Ожидает подтверждения всех участников";
+            break;
+        case 6:
+            echo "Ожидает подтверждения администратора";
+            break;
+        }
+}
+
 function generate_document_table($connectMySQL) {
     ob_start(); // начало буферизации вывода
     ?>
@@ -16,12 +39,14 @@ function generate_document_table($connectMySQL) {
             <tr>
                 <th>№ документа</th>
                 <th>Название документа</th>
+                <th>Статус</th>
                 <th>ФИО студента</th>
                 <th>ФИО руководителя от ЮГУ</th>
                 <th>ФИО руководителя от предприятия</th>
                 <th>Место проведения </th>
                 <th>Дата обращения</th>
                 <th>Комментарий</th>
+                <th>Скачать документ</th>
                 <th>Принять документ</th>
             <tr>
             </thead>
@@ -46,6 +71,14 @@ function generate_document_table($connectMySQL) {
 
             while ($row = $doc_list->fetch_assoc())
             {
+            $doc_status_id = $row['STATUS'];
+            
+            if (isset($row['SRC'])) {
+                $doc_src = $row['SRC'];
+            }
+            else
+                $doc_src = '';
+                
             $doc_id = $row['ID'];
             $template_name = $connectMySQL->query("SELECT `NAME` FROM `template` WHERE `ID` = ". $row['TEMPLATE_ID'])->fetch_assoc()['NAME'];
 
@@ -54,7 +87,7 @@ function generate_document_table($connectMySQL) {
             $usu_chief_fullname = isset($row['USU_CHIEF_ID']) ? $connectMySQL->query("SELECT `FULLNAME` FROM `user`WHERE `ID` = ".
                 $row['USU_CHIEF_ID'])->fetch_assoc()['FULLNAME'] : "";
             $org_chief_fullname = isset($row['ORGANIZATION_CHIEF_ID']) ? $connectMySQL->query("SELECT `FULLNAME` FROM `user`
-WHERE `ID` = ". $row['ORGANIZATION_CHIEF_ID'])->fetch_assoc()['FULLNAME'] : "";
+                WHERE `ID` = ". $row['ORGANIZATION_CHIEF_ID'])->fetch_assoc()['FULLNAME'] : "";
             $practice_place = isset($row['PRACTICE_PLACE']) ? $row['PRACTICE_PLACE'] : "";
             $timestamp = $row['TIMESTAMP'];
             $comment = isset($row['COMMENT']) ? $row['COMMENT'] : "";
@@ -62,12 +95,14 @@ WHERE `ID` = ". $row['ORGANIZATION_CHIEF_ID'])->fetch_assoc()['FULLNAME'] : "";
             <tr>
                 <td><a href="fill.php?ID=<?php echo $doc_id;?>"><?php echo $doc_id;?></a></td>
                 <td><?php echo $template_name; ?></td>
+                <td><?php view_status($doc_status_id); ?></td>
                 <td><?php echo $student_fullname; ?></td>
                 <td><?php echo $usu_chief_fullname; ?></td>
                 <td><?php echo $org_chief_fullname; ?></td>
                 <td><?php echo $practice_place; ?></td>
                 <td><?php echo $timestamp; ?></td>
                 <td><?php echo $comment; ?></td>
+                <td><a href='<?php echo $doc_src; ?>' download>Скачать</a></td>
                 <td><button>Принять</button><button>Отклонить</button></td>
             <tr>
                 <?php
