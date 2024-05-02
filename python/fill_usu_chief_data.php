@@ -15,7 +15,6 @@ $result = shell_exec('python practice_kind_variations.py ' . escapeshellarg($pra
 $output = json_decode($result, true);
 $practice_kind_dat = $output["PRACTICE_KIND_DAT"];
 $practice_kind_vin = $output["PRACTICE_KIND_VIN"];
-
 $students_result = $connectMySQL->query("SELECT id FROM `user` WHERE `role` = 'student' AND `STUDENT_GROUP` = '$student_group'");
 if ($students_result)
 {
@@ -23,8 +22,8 @@ if ($students_result)
     $connectMySQL->query("DELETE FROM `diary_document` WHERE `id` = '$diary_document_id'");
     while ($row = $students_result->fetch_assoc())
     {
-        $connectMySQL->query("INSERT INTO `diary_document` (`TEMPLATE_ID`, `STUDENT_GROUP`, `PRACTICE_KIND`, `PRACTICE_KIND_DAT`, `PRACTICE_KIND_VIN`, `STUDENT_ID`, `USU_CHIEF_ID`, `STATUS`, `TIMESTAMP`) VALUES (" .
-            $diary_record['TEMPLATE_ID'] . ", '$student_group', '$practice_kind', '$practice_kind_dat', '$practice_kind_vin', " . $row['id'] . ", " . $diary_record['USU_CHIEF_ID'] . ", '2', CURRENT_TIMESTAMP)");
+        $connectMySQL->query("INSERT INTO `diary_document` (`TEMPLATE_ID`, `STUDENT_GROUP`, `PRACTICE_KIND`, `PRACTICE_KIND_DAT`, `PRACTICE_KIND_VIN`, `STUDENT_ID`, `USU_CHIEF_ID`, `STATUS`, `WEEK_NUMBER`, `TIMESTAMP`) VALUES (" .
+            $diary_record['TEMPLATE_ID'] . ", '$student_group', '$practice_kind', '$practice_kind_dat', '$practice_kind_vin', " . $row['id'] . ", " . $diary_record['USU_CHIEF_ID'] . ", '2'," . $diary_record['WEEK_NUMBER'] . ",CURRENT_TIMESTAMP)");
     }
     header("Location: ../pages/documents.php");
 }

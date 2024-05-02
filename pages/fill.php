@@ -123,15 +123,17 @@ if ($_SESSION['ROLE'] == 'usu_chief') {
     <form action="../python/fill_usu_chief_data.php" method="post">
         <input type="text" id="student_group" name="student_group" placeholder="Введите номер группы">
         <input type="text" id="practice_kind" name="practice_kind" placeholder="Введите вид практики">
+        <input type="hidden" name="document_id" value = <?php echo $_GET['ID'] ?>>
         <button class="nav-button" type="submit">Отправить</button>
     </form>
     <?php
 } elseif ($_SESSION['ROLE'] == 'student') {
     ?>
-    <form action="../python/fill_student_data.php" method="post" enctype="multipart/form-data">
+    <form action="../python/fill_student_data.php?ID=" . <?php echo $_GET['ID'] ?> method="post" enctype="multipart/form-data">
         <h2>Select CSV file to upload:</h2>
         <br>
         <input type="file" name="fileToUpload" id="fileToUpload">
+        <input type="hidden" name="document_id" value = <?php echo $_GET['ID'] ?>
         <br>
         <input type="submit" value="Загрузить CSV файл" name="submit">
     </form>
@@ -185,7 +187,7 @@ if ($_SESSION['ROLE'] == 'usu_chief') {
     </script>
     <?php
 } elseif ($_SESSION['ROLE'] == 'org_chief'){
-    header("Location: fill_org_chief.php");
+    header("Location: fill_org_chief.php?ID=" . $_GET['ID']);
 }
 ?>
 </body>
