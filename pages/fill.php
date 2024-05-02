@@ -148,7 +148,8 @@ if ($_SESSION['ROLE'] == 'usu_chief') {
         }
         ?>
     </select>
-    <form id="taskForm" action="">
+
+    <form id="taskForm" method="post" action="">
 
     </form>
     <button id="addPairButton">Добавить новую задачу</button>
