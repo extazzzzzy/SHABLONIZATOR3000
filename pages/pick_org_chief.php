@@ -13,17 +13,21 @@ ob_start(); // начало буферизации вывода
 <form action="../php/create_org_chief.php" method="post">
     <h2>Выберите руководителя от организации:</h2>
     <div class="container4">
+        <select name="org_chief">
         <?php
         $org_chief_list = $connectMySQL->query("SELECT * FROM `user` WHERE `ROLE` = 'org_chief'");
         while ($row = $org_chief_list->fetch_assoc()) {
             $org_chief = $row['FULLNAME'];
             ?>
-            <div class='chefs'><input type='checkbox' name="org_chiefs[]" value="<?php echo $org_chief; ?>"><?php echo $org_chief; ?></div>
+            <div class='chefs'><option value="<?php echo $org_chief ?>"><?php echo $org_chief; ?></div>
             <?php
         }
         ?>
+        </select>
     </div>
+    <br>
     <input type="submit" name="submit" value="Отправить документы">
+    <input type="hidden" name="document_id" value=<?php echo $_GET['ID'] ?>>
     <?php
     $output = ob_get_contents(); // сохраняем буфер
     ob_end_clean(); // очищаем буфер

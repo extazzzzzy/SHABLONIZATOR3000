@@ -8,6 +8,12 @@ if ($_SESSION['ROLE'] != "student")
 $diary_document_id = $_POST['document_id'];
 $connectMySQL = new mysqli('localhost', 'root', 'root', 'shablonizator3000');
 
+if ($connectMySQL->query("SELECT STATUS FROM `diary_document` WHERE `ID` = " . $diary_document_id)->fetch_assoc()['STATUS'] != '3')
+{
+    header("Location: ../pages/profile.php");
+    die();
+}
+
 $diary_record = $connectMySQL->query("SELECT * FROM `diary_document` WHERE `id` = '$diary_document_id'")->fetch_assoc();
 
 $PRACTICE_KIND_IMEN = $diary_record['PRACTICE_KIND'];
@@ -29,9 +35,6 @@ $usu_chief_record = $connectMySQL->query("SELECT * FROM `user` WHERE `id` = " . 
 $USU_CHIEF_FULLNAME = $usu_chief_record['FULLNAME'];
 $USU_CHIEF_POSITION = $usu_chief_record['POSITION'];
 
-$ORGANIZATION_CHIEF_FULLNAME = $_POST['org_chief_fullname'];
-$organization_chief_record = $connectMySQL->query("SELECT id, position FROM `user` WHERE `fullname` = '$ORGANIZATION_CHIEF_FULLNAME' AND `role` = 'org_chief'")->fetch_assoc();
-
 $id = uniqid('diary_', true);
 $target_file = $id . ".csv";
 
@@ -42,7 +45,7 @@ if($fileType == "csv")
     move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file);
 }
 
-$connectMySQL->query("UPDATE `diary_document` SET `STATUS` = '3', `SRC` = '" . "../documents/" . $id . ".docx' WHERE `id` = '$diary_document_id'");
+$connectMySQL->query("UPDATE `diary_document` SET `STATUS` = '4', `SRC` = '" . "../documents/" . $id . ".docx' WHERE `id` = '$diary_document_id'");
 
 
 $result = shell_exec('python student_create_document.py ' . escapeshellarg($id) . ' ' . escapeshellarg($PRACTICE_KIND_IMEN) . ' ' . escapeshellarg($PRACTICE_KIND_DAT) . ' ' . escapeshellarg($PRACTICE_KIND_VIN) . ' ' . escapeshellarg($STUDENT_COURSE) . ' ' . escapeshellarg($STUDENT_GROUP) . ' ' . escapeshellarg($STUDENT_FULLNAME_IMEN) . ' ' . escapeshellarg($STUDENT_FULLNAME_ROD) . ' ' . escapeshellarg($STUDENT_FULLNAME_DAT) . ' ' . escapeshellarg($INSTITUTE) . ' ' . escapeshellarg($PREPARATION_DIRECTION) . ' ' . escapeshellarg($USU_CHIEF_FULLNAME) . ' ' . escapeshellarg($USU_CHIEF_POSITION));

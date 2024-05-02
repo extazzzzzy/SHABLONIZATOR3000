@@ -1,6 +1,7 @@
 <?php
 session_start();
 $connectMySQL = new mysqli('localhost', 'root', 'root', 'shablonizator3000');
+$diary_document_id = $_GET['ID'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -114,6 +115,13 @@ $connectMySQL = new mysqli('localhost', 'root', 'root', 'shablonizator3000');
 </div>
 <?php
 if ($_SESSION['ROLE'] == 'usu_chief') {
+        if ($connectMySQL->query("SELECT STATUS FROM `diary_document` WHERE `ID` = " . $diary_document_id)->fetch_assoc()['STATUS'] != '2')
+        {
+            header("Location: documents.php");
+            die();
+        }
+
+
     ?>
     <div class="container">
         <div class="logo">
@@ -127,27 +135,23 @@ if ($_SESSION['ROLE'] == 'usu_chief') {
         <button class="nav-button" type="submit">Отправить</button>
     </form>
     <?php
-} elseif ($_SESSION['ROLE'] == 'student') {
+} elseif ($_SESSION['ROLE'] == 'student')
+    {
+        if ($connectMySQL->query("SELECT STATUS FROM `diary_document` WHERE `ID` = " . $diary_document_id)->fetch_assoc()['STATUS'] != '3')
+        {
+            header("Location: documents.php");
+            die();
+        }
     ?>
     <form action="../python/fill_student_data.php?ID=" . <?php echo $_GET['ID'] ?> method="post" enctype="multipart/form-data">
         <h2>Select CSV file to upload:</h2>
         <br>
         <input type="file" name="fileToUpload" id="fileToUpload">
-        <input type="hidden" name="document_id" value = <?php echo $_GET['ID'] ?>
+        <input type="hidden" name="document_id" value = <?php echo $_GET['ID'] ?>>
         <br>
         <input type="submit" value="Загрузить CSV файл" name="submit">
     </form>
     <br>
-    <select name="org_chief_fullname">
-        <?php
-        $org_chief_list = $connectMySQL->query("SELECT FULLNAME FROM `user` WHERE `ROLE` = 'org_chief'");
-        while ($row = $org_chief_list->fetch_assoc())
-        {
-            $usu_chief_fullname = $row['FULLNAME'];
-            echo "<option>" . $usu_chief_fullname . "</option>";
-        }
-        ?>
-    </select>
 
     <form id="taskForm" method="post" action="">
 
@@ -189,6 +193,10 @@ if ($_SESSION['ROLE'] == 'usu_chief') {
     <?php
 } elseif ($_SESSION['ROLE'] == 'org_chief'){
     header("Location: fill_org_chief.php?ID=" . $_GET['ID']);
+}
+else
+{
+    header("Location: pick_org_chief.php?ID=" . $_GET['ID']);
 }
 ?>
 </body>

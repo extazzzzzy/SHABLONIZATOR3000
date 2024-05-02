@@ -1,20 +1,18 @@
 <?php
 session_start();
-$_SESSION['id'] = 2;
-/*if ($_SESSION['role'] != "admin") {
+if ($_SESSION['ROLE'] != "admin") {
     header("Location: ../pages/profile.php");
     die;
-}*/
-echo $_GET['ID'];
+}
+
 $connectMySQL = new mysqli('localhost', 'root', 'root', 'shablonizator3000');
 
-foreach ($_POST['org_chiefs'] as $org_chief_fullname)
-{
+$org_chief_fullname = $_POST['org_chief'];
+$org_chief_id = $connectMySQL->query("SELECT * FROM `user` WHERE `FULLNAME` = '$org_chief_fullname'")->fetch_assoc()['ID'];
 
-    $org_chief_id = $connectMySQL->query("SELECT id FROM `user` WHERE `fullname` = '$org_chief_fullname'")->fetch_assoc()['id'];
+$document_id = $_POST['document_id'];
+$connectMySQL->query("UPDATE `diary_document` SET `ORGANIZATION_CHIEF_ID` = '$org_chief_id', `STATUS` = '2' WHERE `id` = '$document_id'");
 
-    $connectMySQL->query("UPDATE `diary_document` SET `ORGANIZATION_CHIEF_ID` = '$org_chief_id' WHERE `id` = " . $_GET['ID']);
-}
 header("Location: ../pages/documents.php");
 ?>
 

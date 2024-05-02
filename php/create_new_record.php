@@ -10,7 +10,13 @@ $connectMySQL = new mysqli('localhost', 'root', 'root', 'shablonizator3000');
 $template_name = $_POST['template_name'];
 $WEEK_NUMBER = $_POST['WEEK_NUMBER'];
 $template_id = $connectMySQL->query("SELECT * FROM `template` WHERE `name` = '$template_name'")->fetch_assoc()['ID'];
+echo $_POST['usu_chiefs'] . 1;
 
+if (!isset($_POST['usu_chiefs']))
+{
+    header("Location: ../pages/pick_template.php");
+    die();
+}
 foreach ($_POST['usu_chiefs'] as $usu_chief_fullname)
 {
 

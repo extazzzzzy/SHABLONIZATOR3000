@@ -1,5 +1,18 @@
 <?php
 session_start();
+if ($_SESSION['ROLE'] != "org_chief")
+{
+    header("Location: ../pages/profile.php");
+    die;
+}
+$diary_document_id = $_GET['ID'];
+$connectMySQL = new mysqli('localhost', 'root', 'root', 'shablonizator3000');
+
+if ($connectMySQL->query("SELECT STATUS FROM `diary_document` WHERE `ID` = " . $diary_document_id)->fetch_assoc()['STATUS'] != '4')
+{
+    header("Location: ../pages/documents.php");
+    die();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -149,28 +162,16 @@ session_start();
 <div class="container1">
     <form action="../python/fill_org_chief_data.php" method="post" enctype="multipart/form-data">
         <div class="container">
-            <input type="text" id="practice_place" name="practice_place" placeholder="Место практики" required>
-        </div>
-        <div class="container">
-            <input type="text" id="practice_place_address" name="practice_place_address" placeholder="Адрес места практики" required>
-        </div>
-        <div class="container">
-            <input type="text" id="work_year" name="work_year" placeholder="Год работы" required>
-        </div>
-        <div class="container">
-            <input type="text" id="practice_deadlines" name="practice_deadlines" placeholder="Сроки практики" required>
-        </div>
-        <div class="container">
             <h2>В ходе выполнения практики продемонстрировал следующие качества:</h2>
-            <div class='chefs'><input type='checkbox' name='qualities[]' id='checkbox1'><label for='checkbox1'></label>пунктуальность</div>
-            <div class='chefs'><input type='checkbox' name='qualities[]' id='checkbox2'><label for='checkbox2'></label>ответственность</div>
-            <div class='chefs'><input type='checkbox' name='qualities[]' id='checkbox3'><label for='checkbox3'></label>целеустремлённость</div>
-            <div class='chefs'><input type='checkbox' name='qualities[]' id='checkbox4'><label for='checkbox4'></label>заинтересованность</div>
-            <div class='chefs'><input type='checkbox' name='qualities[]' id='checkbox5'><label for='checkbox5'></label>трудолюбие</div>
-            <div class='chefs'><input type='checkbox' name='qualities[]' id='checkbox6'><label for='checkbox6'></label>отзывчивость</div>
-            <div class='chefs'><input type='checkbox' name='qualities[]' id='checkbox7'><label for='checkbox7'></label>эрудированность</div>
-            <div class='chefs'><input type='checkbox' name='qualities[]' id='checkbox8'><label for='checkbox8'></label>вежливость</div>
-            <div class='chefs'><input type='checkbox' name='qualities[]' id='checkbox9'><label for='checkbox9'></label>тактичность</div>
+            <div class='chefs'><input type='checkbox' name='qualities[]' id='checkbox1' value="пунктуальность"><label for='checkbox1'></label>пунктуальность</div>
+            <div class='chefs'><input type='checkbox' name='qualities[]' id='checkbox2' value="ответственность"><label for='checkbox2'></label>ответственность</div>
+            <div class='chefs'><input type='checkbox' name='qualities[]' id='checkbox3' value="целеустремлённость"><label for='checkbox3'></label>целеустремлённость</div>
+            <div class='chefs'><input type='checkbox' name='qualities[]' id='checkbox4' value="заинтересованность"><label for='checkbox4'></label>заинтересованность</div>
+            <div class='chefs'><input type='checkbox' name='qualities[]' id='checkbox5' value="трудолюбие"><label for='checkbox5'></label>трудолюбие</div>
+            <div class='chefs'><input type='checkbox' name='qualities[]' id='checkbox6' value="отзывчивость"><label for='checkbox6'></label>отзывчивость</div>
+            <div class='chefs'><input type='checkbox' name='qualities[]' id='checkbox7' value="эрудированность"><label for='checkbox7'></label>эрудированность</div>
+            <div class='chefs'><input type='checkbox' name='qualities[]' id='checkbox8' value="вежливость"><label for='checkbox8'></label>вежливость</div>
+            <div class='chefs'><input type='checkbox' name='qualities[]' id='checkbox9' value="тактичность"><label for='checkbox9'></label>тактичность</div>
         </div>
 
         <div class="container">
@@ -217,8 +218,8 @@ session_start();
         <div class="container">
             <input type="submit" value="Запустить документ" name="submit">
         </div>
-</div>
-</form>
+        <input type="hidden" name="document_id" value=<?php echo $_GET['ID'] ?>>
+    </form>
 </div>
 </body>
 </html>
