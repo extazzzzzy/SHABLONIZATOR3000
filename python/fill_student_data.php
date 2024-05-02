@@ -38,6 +38,10 @@ $USU_CHIEF_POSITION = $usu_chief_record['POSITION'];
 $id = uniqid('diary_', true);
 $target_file = $id . ".csv";
 
+$org_chief_record = $connectMySQL->query("SELECT * FROM `user` WHERE `id` = " . $diary_record['ORGANIZATION_CHIEF_ID'])->fetch_assoc();
+$ORGANIZATION_CHIEF_FULLNAME = $org_chief_record['FULLNAME'];
+$ORGANIZATION_CHIEF_POSITION = $org_chief_record['POSITION'];
+
 $fileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
 if($fileType == "csv")
@@ -48,7 +52,7 @@ if($fileType == "csv")
 $connectMySQL->query("UPDATE `diary_document` SET `STATUS` = '4', `SRC` = '" . "../documents/" . $id . ".docx' WHERE `id` = '$diary_document_id'");
 
 
-$result = shell_exec('python student_create_document.py ' . escapeshellarg($id) . ' ' . escapeshellarg($PRACTICE_KIND_IMEN) . ' ' . escapeshellarg($PRACTICE_KIND_DAT) . ' ' . escapeshellarg($PRACTICE_KIND_VIN) . ' ' . escapeshellarg($STUDENT_COURSE) . ' ' . escapeshellarg($STUDENT_GROUP) . ' ' . escapeshellarg($STUDENT_FULLNAME_IMEN) . ' ' . escapeshellarg($STUDENT_FULLNAME_ROD) . ' ' . escapeshellarg($STUDENT_FULLNAME_DAT) . ' ' . escapeshellarg($INSTITUTE) . ' ' . escapeshellarg($PREPARATION_DIRECTION) . ' ' . escapeshellarg($USU_CHIEF_FULLNAME) . ' ' . escapeshellarg($USU_CHIEF_POSITION));
+$result = shell_exec('python student_create_document.py ' . escapeshellarg($id) . ' ' . escapeshellarg($PRACTICE_KIND_IMEN) . ' ' . escapeshellarg($PRACTICE_KIND_DAT) . ' ' . escapeshellarg($PRACTICE_KIND_VIN) . ' ' . escapeshellarg($STUDENT_COURSE) . ' ' . escapeshellarg($STUDENT_GROUP) . ' ' . escapeshellarg($STUDENT_FULLNAME_IMEN) . ' ' . escapeshellarg($STUDENT_FULLNAME_ROD) . ' ' . escapeshellarg($STUDENT_FULLNAME_DAT) . ' ' . escapeshellarg($INSTITUTE) . ' ' . escapeshellarg($PREPARATION_DIRECTION) . ' ' . escapeshellarg($USU_CHIEF_FULLNAME) . ' ' . escapeshellarg($USU_CHIEF_POSITION) . ' ' . escapeshellarg($ORGANIZATION_CHIEF_FULLNAME) . ' ' . escapeshellarg($ORGANIZATION_CHIEF_POSITION));
 
 header("Location: ../pages/documents.php");
 ?>

@@ -5,6 +5,7 @@ if ($_SESSION['ROLE'] != "org_chief")
     header("Location: ../pages/profile.php");
     die();
 }
+$diary_document_id = $_POST['document_id']; //
 
 $connectMySQL = new mysqli('localhost', 'root', 'root', 'shablonizator3000');
 
@@ -19,6 +20,8 @@ foreach ($students_id as $student_id)
     $connectMySQL->query("UPDATE `diary_document` SET `PRACTICE_PLACE` = '$practice_place', `PRACTICE_PLACE_ADDRESS` = '$practice_place_address', `WORK_YEAR` = '$work_year', `PRACTICE_DEADLINES` = '$practice_deadlines' WHERE `STUDENT_ID` = '$student_id' AND `ORGANIZATION_CHIEF_ID` = " . $_SESSION['ID']);
 }
 
-//$result = shell_exec('python org_chief_update_document.py ' . escapeshellarg($src) . ' ' .  escapeshellarg($practice_place) . ' ' . escapeshellarg($practice_place_address) . ' ' . escapeshellarg($work_year) . ' ' . escapeshellarg($practice_deadlines) . ' ' . escapeshellarg($student_qualities) . ' ' . escapeshellarg($problem_solving_speed) . ' ' . escapeshellarg($work_amount) . ' ' . escapeshellarg($remarks) . ' ' . escapeshellarg($student_assessment));
+$src = $connectMySQL->query("SELECT SRC FROM `diary_document` WHERE `id` = '$diary_document_id'")->fetch_assoc()['SRC']; //
+
+$result = shell_exec('python practice_update_document.py ' . escapeshellarg($src) . ' ' .  escapeshellarg($practice_place) . ' ' . escapeshellarg($practice_place_address) . ' ' . escapeshellarg($work_year) . ' ' . escapeshellarg($practice_deadlines));
 header("Location: ../pages/documents.php");
 ?>
