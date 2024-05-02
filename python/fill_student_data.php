@@ -8,7 +8,8 @@ if ($_SESSION['ROLE'] != "student")
 $diary_document_id = $_POST['document_id'];
 $connectMySQL = new mysqli('localhost', 'root', 'root', 'shablonizator3000');
 
-if ($connectMySQL->query("SELECT STATUS FROM `diary_document` WHERE `ID` = " . $diary_document_id)->fetch_assoc()['STATUS'] != '3')
+$diary_record = $connectMySQL->query("SELECT STATUS FROM `diary_document` WHERE `ID` = " . $diary_document_id)->fetch_assoc();
+if ($diary_record['STATUS'] != '3')
 {
     header("Location: ../pages/profile.php");
     die();

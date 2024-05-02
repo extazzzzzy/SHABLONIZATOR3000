@@ -137,7 +137,9 @@ if ($_SESSION['ROLE'] == 'usu_chief') {
     <?php
 } elseif ($_SESSION['ROLE'] == 'student')
     {
-        if ($connectMySQL->query("SELECT STATUS FROM `diary_document` WHERE `ID` = " . $diary_document_id)->fetch_assoc()['STATUS'] != '3')
+        $diary_document_record = $connectMySQL->query("SELECT STATUS, PRACTICE_PLACE FROM `diary_document` WHERE `ID` = " . $diary_document_id)->fetch_assoc();
+
+        if ($diary_document_record['STATUS'] != '3' | !isset($diary_document_record['PRACTICE_PLACE']))
         {
             header("Location: documents.php");
             die();
