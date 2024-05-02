@@ -13,7 +13,7 @@ if (!isset($_SESSION['ID'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Создание практики</title>
+    <title>Информация о документе</title>
     <style>
         body {
             font-family: Bahnschrift, sans-serif;
@@ -37,16 +37,12 @@ if (!isset($_SESSION['ID'])) {
             border-radius: 8px;
             padding: 20px;
             width: 300px;
+            text-align: center;
         }
         h1 {
             color: #0a4d8c;
             text-align: center;
             margin-bottom: 10px;
-        }
-        .logo {
-            text-align: center;
-            margin-bottom: 20px;
-            color: #0a4d8c;
         }
         form {
             display: flex;
@@ -100,14 +96,43 @@ if (!isset($_SESSION['ID'])) {
         {
             display: none;
         }
+        nav {
+            margin-bottom: 10px;
+        }
+        nav a {
+            margin-top: 10px;
+            background-color: rgb(51, 136, 85);
+            color: #ffffff;
+            padding: 10px 40px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            border-radius: 5px;
+        }
+        nav a:hover {
+            background-color: rgba(120, 172, 227, 0.72);
+            text-decoration: underline;
+        }
+        .students {
+            color: #ffffff;
+            width: calc(100% - 30px);
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #0a4d8c;
+            border-color: #0a4d8c;
+            border-radius: 5px;
+            border-style: solid;
+            outline: none;
+            font-size: 16px;
+        }
     </style>
 </head>
 <body>
 <div class="container">
-    <div class="logo">
-        <img src="../images/SHABLON.png">
-    </div>
-    <h1>Создание практики</h1>
+        <nav>
+            <div><a href='documents.php'>Вернуться к списку документов</a></div>
+            <div><a href='../php/logout.php'>Выход из аккаунта</a></div>
+        </nav>
+    <h3>Информация о документе</h3>
     <form action="../python/fill_practice_data.php" method="post">
         <input required type="text" name = "practice_place" placeholder="Место практики">
         <input required type="text" name = "practice_place_address" placeholder="Адрес места практики">

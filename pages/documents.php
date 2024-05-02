@@ -237,8 +237,7 @@ function generate_document_table($connectMySQL) {
 <header>
     <div class="container">
         <nav>
-            <a
-                    href='pick_template.php'>Создать документ</a>
+            <a href='pick_template.php'>Создать документ</a>
             <a href='profile.php'>Профиль</a>
             <a href='../php/logout.php'>Выход из аккаунта</a>
             <?php
