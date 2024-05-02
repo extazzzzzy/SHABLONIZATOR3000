@@ -149,6 +149,18 @@ session_start();
 <div class="container1">
     <form action="../python/fill_org_chief_data.php" method="post" enctype="multipart/form-data">
         <div class="container">
+            <input type="text" id="practice_place" name="practice_place" placeholder="Место практики" required>
+        </div>
+        <div class="container">
+            <input type="text" id="practice_place_address" name="practice_place_address" placeholder="Адрес места практики" required>
+        </div>
+        <div class="container">
+            <input type="text" id="work_year" name="work_year" placeholder="Год работы" required>
+        </div>
+        <div class="container">
+            <input type="text" id="practice_deadlines" name="practice_deadlines" placeholder="Сроки практики" required>
+        </div>
+        <div class="container">
             <h2>В ходе выполнения практики продемонстрировал следующие качества:</h2>
             <div class='chefs'><input type='checkbox' name='qualities[]' id='checkbox1'><label for='checkbox1'></label>пунктуальность</div>
             <div class='chefs'><input type='checkbox' name='qualities[]' id='checkbox2'><label for='checkbox2'></label>ответственность</div>

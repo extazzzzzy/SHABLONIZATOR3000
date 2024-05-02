@@ -2,44 +2,27 @@
 session_start();
 $connectMySQL = new mysqli('localhost', 'root', 'root', 'shablonizator3000');
 
-if (!isset($_SESSION['ID'])) {
-    header("Location: auth.php");
-    die();
+if ($_SESSION['ROLE'] != "admin")
+{
+    header("Location: ../pages/profile.php");
+    die;
 }
-
 function generate_document_list($connectMySQL) {
 ob_start(); // начало буферизации вывода
 ?>
-<form action="../php/create_new_record.php" method="post">
-    <h2>Выберите шаблон для документа:</h2>
-        <select name = "template_name">
-            <?php //тут выводится список шаблонов документа на отправку
-            $template_list = $connectMySQL->query("SELECT * FROM `template`");
-            while ($row = $template_list->fetch_assoc()) {
-            $doc_name = $row['NAME'];
-            ?>
-                <option class='templates' value="<?php echo $doc_name; ?>"><?php echo $doc_name; ?></option>
-    <?php
-    }
-    ?>
-    </select>
-    <h2>Выберите руководителей ЮГУ, которым хотите отправить документ:</h2>
+<form action="../php/create_org_chief.php" method="post">
+    <h2>Выберите руководителя от организации:</h2>
     <div class="container4">
-        <?php //здесь список всех ЮГУшек, которым его можно отправить
-        $usu_chief_list = $connectMySQL->query("SELECT * FROM `user` WHERE `ROLE` = 'usu_chief'");
-        while ($row = $usu_chief_list->fetch_assoc()) {
-            $usu_chief = $row['FULLNAME'];
+        <?php
+        $org_chief_list = $connectMySQL->query("SELECT * FROM `user` WHERE `ROLE` = 'org_chief'");
+        while ($row = $org_chief_list->fetch_assoc()) {
+            $org_chief = $row['FULLNAME'];
             ?>
-            <div class='chefs'><input type='checkbox' name="usu_chiefs[]" value="<?php echo $usu_chief; ?>"><?php echo $usu_chief; ?></div>
+            <div class='chefs'><input type='checkbox' name="org_chiefs[]" value="<?php echo $org_chief; ?>"><?php echo $org_chief; ?></div>
             <?php
         }
         ?>
     </div>
-    <br>
-    <div class="container4">
-            <input type="text" id="WEEK_NUMBER" name="WEEK_NUMBER" placeholder="Введите номер недели" required>
-    </div>
-    <br>
     <input type="submit" name="submit" value="Отправить документы">
     <?php
     $output = ob_get_contents(); // сохраняем буфер
