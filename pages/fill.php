@@ -107,6 +107,32 @@ $diary_document_id = $_GET['ID'];
         .documents-link:hover {
             background-color: #78ace3;
         }
+        .tooltip {
+            position: relative;
+            max-width: 400px;
+            margin-left: calc(50% - 220px);
+            background-color: rgb(51, 136, 85);
+            border: 1px solid rgb(51, 136, 85);
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgb(51, 136, 85);
+            display: none;
+            z-index: 999;
+            color: white;
+        }
+        .icon:hover + .tooltip {
+            display: block;
+        }
+        .icon {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-size: contain;
+            cursor: pointer;
+            vertical-align: middle;
+            margin-left: 5px;
+            color: #0a4d8c;
+        }
     </style>
 </head>
 <body>
@@ -146,24 +172,48 @@ if ($_SESSION['ROLE'] == 'usu_chief') {
         }
     ?>
     <form action="../python/fill_student_data.php?ID=" . <?php echo $_GET['ID'] ?> method="post" enctype="multipart/form-data">
-        <h2>Select CSV file to upload:</h2>
-        <br>
+        <div id="taskForm">
+
+        </div>
+        <button id="addPairButton" type="button">Добавить новую задачу</button>
+        <button id="removePairButton" type="button">Удалить последнюю задачу</button>
+        <h2>Выберите .csv файл для загрузки задач</h2>
         <input type="file" name="fileToUpload" id="fileToUpload">
         <input type="hidden" name="document_id" value = <?php echo $_GET['ID'] ?>>
         <br>
-        <input type="submit" value="Загрузить CSV файл" name="submit">
+        <input type="submit" value="Отправить" name="submit">
+        <br>
+
+
+        <ion-icon class="icon" name="help-circle-outline"></ion-icon>
+        <div class="tooltip" style="font-size: 14px">
+            Добавьте задачи вручную или загрузите .csv таблицу
+        </div>
     </form>
     <br>
 
-    <form id="taskForm" method="post" action="">
 
-    </form>
-    <button id="addPairButton">Добавить новую задачу</button>
-    <div id="submitButtonContainer"></div>
     <script>
-        const taskForm = document.getElementById('taskForm');
-        const addPairButton = document.getElementById('addPairButton');
-        const submitButtonContainer = document.getElementById('submitButtonContainer');
+        function checkFormState() {
+            const tasks = document.querySelectorAll('.input-pair');
+            const fileInput = document.getElementById('fileToUpload');
+            const addButton = document.getElementById('addPairButton');
+            const removeButton = document.getElementById('removePairButton');
+
+            if (tasks.length > 0) {
+                fileInput.disabled = true;
+                removeButton.disabled = false;
+            } else {
+                fileInput.disabled = false;
+                removeButton.disabled = true;
+            }
+
+            if (fileInput.value !== '') {
+                addButton.disabled = true;
+            } else {
+                addButton.disabled = false;
+            }
+        }
 
         addPairButton.addEventListener('click', function() {
             const pairDiv = document.createElement('div');
@@ -173,23 +223,32 @@ if ($_SESSION['ROLE'] == 'usu_chief') {
             input1.type = 'text';
             input1.name = 'taskName[]';
             input1.placeholder = 'Название задачи';
+            input1.required = true;
 
             const input2 = document.createElement('input');
             input2.type = 'text';
             input2.name = 'taskDescription[]';
             input2.placeholder = 'Дата';
+            input2.required = true;
 
             pairDiv.appendChild(input1);
             pairDiv.appendChild(input2);
 
             taskForm.appendChild(pairDiv);
+            checkFormState();
+        });
 
-            if (!submitButtonContainer.querySelector('button[type="submit"]')) {
-                const submitButton = document.createElement('button');
-                submitButton.type = 'submit';
-                submitButton.textContent = 'Отправить';
-                submitButtonContainer.appendChild(submitButton);
+        removePairButton.addEventListener('click', function() {
+            const pairs = document.querySelectorAll('.input-pair');
+            const lastPair = pairs[pairs.length - 1];
+            if (lastPair) {
+                taskForm.removeChild(lastPair);
             }
+            checkFormState();
+        });
+
+        fileToUpload.addEventListener('change', function() {
+            checkFormState();
         });
     </script>
     <?php
@@ -201,5 +260,9 @@ else
     header("Location: pick_org_chief.php?ID=" . $_GET['ID']);
 }
 ?>
+
+
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>
 </html>
