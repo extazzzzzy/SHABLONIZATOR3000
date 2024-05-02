@@ -21,6 +21,11 @@ $PRACTICE_KIND_IMEN = $diary_record['PRACTICE_KIND'];
 $PRACTICE_KIND_DAT = $diary_record['PRACTICE_KIND_DAT'];
 $PRACTICE_KIND_VIN = $diary_record['PRACTICE_KIND_VIN'];
 
+$PRACTICE_PLACE = $diary_record['PRACTICE_PLACE'];
+$PRACTICE_PLACE_ADDRESS = $diary_record['PRACTICE_PLACE_ADDRESS'];
+$WORK_YEAR = $diary_record['WORK_YEAR'];
+$PRACTICE_DEADLINES = $diary_record['PRACTICE_DEADLINES'];
+
 $student_record = $connectMySQL->query("SELECT * FROM `user` WHERE `id` = " . $diary_record['STUDENT_ID'])->fetch_assoc();
 
 $STUDENT_COURSE = $student_record['STUDENT_COURSE'];
@@ -53,7 +58,7 @@ if($fileType == "csv")
 $connectMySQL->query("UPDATE `diary_document` SET `STATUS` = '4', `SRC` = '" . "../documents/" . $id . ".docx' WHERE `id` = '$diary_document_id'");
 
 
-$result = shell_exec('python student_create_document.py ' . escapeshellarg($id) . ' ' . escapeshellarg($PRACTICE_KIND_IMEN) . ' ' . escapeshellarg($PRACTICE_KIND_DAT) . ' ' . escapeshellarg($PRACTICE_KIND_VIN) . ' ' . escapeshellarg($STUDENT_COURSE) . ' ' . escapeshellarg($STUDENT_GROUP) . ' ' . escapeshellarg($STUDENT_FULLNAME_IMEN) . ' ' . escapeshellarg($STUDENT_FULLNAME_ROD) . ' ' . escapeshellarg($STUDENT_FULLNAME_DAT) . ' ' . escapeshellarg($INSTITUTE) . ' ' . escapeshellarg($PREPARATION_DIRECTION) . ' ' . escapeshellarg($USU_CHIEF_FULLNAME) . ' ' . escapeshellarg($USU_CHIEF_POSITION) . ' ' . escapeshellarg($ORGANIZATION_CHIEF_FULLNAME) . ' ' . escapeshellarg($ORGANIZATION_CHIEF_POSITION));
+$result = shell_exec('python student_create_document.py ' . escapeshellarg($id) . ' ' . escapeshellarg($PRACTICE_KIND_IMEN) . ' ' . escapeshellarg($PRACTICE_KIND_DAT) . ' ' . escapeshellarg($PRACTICE_KIND_VIN) . ' ' . escapeshellarg($STUDENT_COURSE) . ' ' . escapeshellarg($STUDENT_GROUP) . ' ' . escapeshellarg($STUDENT_FULLNAME_IMEN) . ' ' . escapeshellarg($STUDENT_FULLNAME_ROD) . ' ' . escapeshellarg($STUDENT_FULLNAME_DAT) . ' ' . escapeshellarg($INSTITUTE) . ' ' . escapeshellarg($PREPARATION_DIRECTION) . ' ' . escapeshellarg($USU_CHIEF_FULLNAME) . ' ' . escapeshellarg($USU_CHIEF_POSITION) . ' ' . escapeshellarg($ORGANIZATION_CHIEF_FULLNAME) . ' ' . escapeshellarg($ORGANIZATION_CHIEF_POSITION) . ' ' . escapeshellarg($PRACTICE_PLACE) . ' ' . escapeshellarg($PRACTICE_PLACE_ADDRESS) . ' ' . escapeshellarg($WORK_YEAR) . ' ' . escapeshellarg($PRACTICE_DEADLINES));
 
 header("Location: ../pages/documents.php");
 ?>
