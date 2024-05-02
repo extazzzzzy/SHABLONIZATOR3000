@@ -1,10 +1,10 @@
 <?php
 session_start();
-$_SESSION['id'] = 2;
-/*if ($_SESSION['role'] != "admin") {
+if ($_SESSION['ROLE'] != "admin")
+{
     header("Location: ../pages/profile.php");
     die;
-}*/
+}
 
 $connectMySQL = new mysqli('localhost', 'root', 'root', 'shablonizator3000');
 
@@ -18,6 +18,6 @@ foreach ($_POST['usu_chiefs'] as $usu_chief_fullname)
 
     $connectMySQL->query("INSERT INTO `diary_document` (`TEMPLATE_ID`, `USU_CHIEF_ID`) VALUES ('$template_id', '$usu_chief_id')");
 }
-
+header("Location: ../pages/documents.php");
 ?>
 

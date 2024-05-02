@@ -1,6 +1,32 @@
 <?php
 session_start();
 $connectMySQL = new mysqli('localhost', 'root', 'root', 'shablonizator3000');
+$document_record = $connectMySQL->query("SELECT student_id, usu_chief_id, organization_chief_id, status FROM `diary_document` WHERE `id` = " . $_GET['ID'])->fetch_assoc();
+if ($_SESSION['ROLE'] == "usu_chief")
+{
+    if ($_SESSION['ID'] != $document_record['usu_chief_id'] | $document_record['status'] != '1')
+    {
+        header("Location: ../pages/documents.php");
+        die;
+    }
+}
+elseif ($_SESSION['ROLE'] == "student")
+{
+    if ($_SESSION['ID'] != $document_record['student_id'] | $document_record['status'] != '2')
+    {
+        header("Location: ../pages/documents.php");
+        die;
+    }
+}
+elseif ($_SESSION['ROLE'] == "org_chief")
+{
+    if ($_SESSION['ID'] != $document_record['organization_chief_id'] | $document_record['status'] != '3')
+    {
+        header("Location: ../pages/documents.php");
+        die;
+    }
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -99,6 +125,27 @@ $connectMySQL = new mysqli('localhost', 'root', 'root', 'shablonizator3000');
         .documents-link:hover {
             background-color: #78ace3;
         }
+
+        .org_chief_fill {
+            background-color: #78ace3;
+            padding: 20px;
+            width: 300px;
+            height: 300px;
+            overflow: auto;
+        }
+
+        select {
+            background-color: #0a4d8c;
+            border-style: none;
+            border-radius: 5px;
+            height: 40px;
+            width: 300px;
+            color: white;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            font-size: medium;
+        }
     </style>
 </head>
 <body>
@@ -114,8 +161,9 @@ if ($_SESSION['ROLE'] == 'usu_chief') {
         </div>
     </div>
     <form action="../python/fill_usu_chief_data.php" method="post">
-        <input type="text" id="student_group" name="student_group" placeholder="Введите номер группы">
-        <input type="text" id="practice_kind" name="practice_kind" placeholder="Введите вид практики">
+        <input required type="text" id="student_group" name="student_group" placeholder="Введите номер группы">
+        <input required type="text" id="practice_kind" name="practice_kind" placeholder="Введите вид практики">
+        <input type="hidden" name="document_id" value="<?php echo $_GET['ID'];?>">
         <button class="nav-button" type="submit">Отправить</button>
     </form>
     <?php
@@ -123,10 +171,23 @@ if ($_SESSION['ROLE'] == 'usu_chief') {
     ?>
     <form action="../python/fill_student_data.php" method="post" enctype="multipart/form-data">
         Select CSV file to upload:
-        <input type="file" name="fileToUpload" id="fileToUpload">
+        <input required type="file" name="fileToUpload" id="fileToUpload">
+        <br>
         <input type="submit" value="Загрузить CSV файл" name="submit">
+        <input type="hidden" name="document_id" value="<?php echo $_GET['ID'];?>">
+        <br>
+        <select name="org_chief_fullname">
+            <?php
+            $org_chief_list = $connectMySQL->query("SELECT FULLNAME FROM `user` WHERE `ROLE` = 'org_chief'");
+            while ($row = $org_chief_list->fetch_assoc())
+            {
+                $usu_chief_fullname = $row['FULLNAME'];
+                echo "<option>" . $usu_chief_fullname . "</option>";
+            }
+            ?>
+        </select>
     </form>
-    <form id="taskForm" action="">
+    <form id="taskForm" action="" method="post">
 
     </form>
     <button id="addPairButton">Добавить новую задачу</button>
@@ -164,9 +225,11 @@ if ($_SESSION['ROLE'] == 'usu_chief') {
         });
     </script>
     <?php
-} elseif ($_SESSION['ROLE'] == 'org_chief'){
+}
+elseif ($_SESSION['ROLE'] == 'org_chief'){
+    header("Location: fill_org_chief.php?ID=" . $_GET['ID']);
+    //<input type="hidden" name="document_id" value="<?php echo $_GET['ID'];
     ?>
-
 <?php
 }
 ?>

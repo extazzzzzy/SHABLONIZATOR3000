@@ -1,14 +1,13 @@
 <?php
 session_start();
-$_SESSION['id'] = 2;
-/*if ($_SESSION['role'] != "student") {
-header("Location: ../pages/profile.php");
-die;
-}*/
-
-$diary_document_id = 40;//$_POST['student_group'];
-
+if ($_SESSION['ROLE'] != "student")
+{
+    header("Location: ../pages/profile.php");
+    die;
+}
+$diary_document_id = $_POST['document_id'];
 $connectMySQL = new mysqli('localhost', 'root', 'root', 'shablonizator3000');
+
 $diary_record = $connectMySQL->query("SELECT * FROM `diary_document` WHERE `id` = '$diary_document_id'")->fetch_assoc();
 
 $PRACTICE_KIND_IMEN = $diary_record['PRACTICE_KIND'];
@@ -50,4 +49,5 @@ $connectMySQL->query("UPDATE `diary_document` SET `STATUS` = '3', `SRC` = '" . "
 
 $result = shell_exec('python student_create_document.py ' . escapeshellarg($id) . ' ' . escapeshellarg($PRACTICE_KIND_IMEN) . ' ' . escapeshellarg($PRACTICE_KIND_DAT) . ' ' . escapeshellarg($PRACTICE_KIND_VIN) . ' ' . escapeshellarg($STUDENT_COURSE) . ' ' . escapeshellarg($STUDENT_GROUP) . ' ' . escapeshellarg($STUDENT_FULLNAME_IMEN) . ' ' . escapeshellarg($STUDENT_FULLNAME_ROD) . ' ' . escapeshellarg($STUDENT_FULLNAME_DAT) . ' ' . escapeshellarg($INSTITUTE) . ' ' . escapeshellarg($PREPARATION_DIRECTION) . ' ' . escapeshellarg($USU_CHIEF_FULLNAME) . ' ' . escapeshellarg($USU_CHIEF_POSITION) . ' ' . escapeshellarg($ORGANIZATION_CHIEF_FULLNAME) . ' ' . escapeshellarg($ORGANIZATION_CHIEF_POSITION));
 
+header("Location: ../pages/documents.php");
 ?>

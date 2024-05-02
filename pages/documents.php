@@ -1,66 +1,86 @@
 <?php
-    session_start();
-    $connectMySQL = new mysqli('localhost', 'root', 'root', 'shablonizator3000');
+session_start();
+$connectMySQL = new mysqli('localhost', 'root', 'root', 'shablonizator3000');
 
-    if (!isset($_SESSION['ID'])) {
+if (!isset($_SESSION['ID'])) {
     header("Location: auth.php");
     die();
-    }
-
-    function generate_document_table($connectMySQL) {
-    ob_start(); // начало буферизации вывода
-?>
-<div class="table_orders">
-<table>
-    <thead>
-        <tr>
-        <th>№ документа</th>
-        <th>Название документа</th>
-        <th>ФИО студента</th>
-        <th>ФИО руководителя от ЮГУ</th>
-        <th>ФИО руководителя от предприятия</th>
-        <th>Место проведения </th>
-        <th>Дата обращения</th>
-        <th>Комментарий</th>
-        <th>Принять документ</th>
-        <tr>
-    </thead>
-    <tbody>
-    <?php
-        $doc_list = $connectMySQL->query("SELECT * FROM `diary_document`");
-        while ($row = $doc_list->fetch_assoc()) {
-        $doc_numb = $row['ID'];
-        $doc_name = $row['NAME'];
-        $student = $connectMySQL->query("SELECT `FULLNAME` FROM `user` WHERE `ID` = ". $row['STUDENT_ID'])->fetch_assoc()['FULLNAME'];
-        $usu_chief = $connectMySQL->query("SELECT `FULLNAME` FROM `user`
-        WHERE `ID` = ". $row['USU_CHIEF_ID'])->fetch_assoc()['FULLNAME'];
-        $org_chief = $connectMySQL->query("SELECT `FULLNAME` FROM `user` WHERE `ID` = ". $row['ORGANISATION_CHIEF_ID'])->fetch_assoc()['FULLNAME'];
-        $practice_place = $row['PRACTICE_PLACE'];
-        $timestamp = $row['TIMESTAMP'];
-        $comments = $row['COMMENT'];
-    ?>
-    <tr>
-    <td><?php echo $doc_numb; ?><input type='text' hidden value='<? echo $doc_numb; ?>'></td>
-    <td><?php echo $doc_name; ?></td>
-    <td><?php echo $student; ?></td>
-    <td><?php echo $usu_chief; ?></td>
-    <td><?php echo $org_chief; ?></td>
-    <td><?php echo $practice_place; ?></td>
-    <td><?php echo $timestamp; ?></td>
-    <td><?php echo $comments; ?></td>
-    <td><button>Принять</button><button>Отклонить</button></td>
-    <tr>
-<?php
 }
-?>
-    </tbody>
-</table>
-</div>
-<?php
+
+function generate_document_table($connectMySQL) {
+    ob_start(); // начало буферизации вывода
+    ?>
+    <div class="table_orders">
+        <table>
+            <thead>
+            <tr>
+                <th>№ документа</th>
+                <th>Название документа</th>
+                <th>ФИО студента</th>
+                <th>ФИО руководителя от ЮГУ</th>
+                <th>ФИО руководителя от предприятия</th>
+                <th>Место проведения </th>
+                <th>Дата обращения</th>
+                <th>Комментарий</th>
+                <th>Принять документ</th>
+            <tr>
+            </thead>
+            <tbody>
+            <?php
+            if ($_SESSION['ROLE'] == "student")
+            {
+                $doc_list = $connectMySQL->query("SELECT * FROM `diary_document` WHERE `STUDENT_ID` = ". $_SESSION['ID']);
+            }
+            elseif ($_SESSION['ROLE'] == "usu_chief")
+            {
+                $doc_list = $connectMySQL->query("SELECT * FROM `diary_document` WHERE `USU_CHIEF_ID` = ". $_SESSION['ID']);
+            }
+            elseif ($_SESSION['ROLE'] == "org_chief")
+            {
+                $doc_list = $connectMySQL->query("SELECT * FROM `diary_document` WHERE `ORGANIZATION_CHIEF_ID` = ". $_SESSION['ID']);
+            }
+            else
+            {
+                $doc_list = $connectMySQL->query("SELECT * FROM `diary_document`");
+            }
+
+            while ($row = $doc_list->fetch_assoc())
+            {
+            $doc_id = $row['ID'];
+            $template_name = $connectMySQL->query("SELECT `NAME` FROM `template` WHERE `ID` = ". $row['TEMPLATE_ID'])->fetch_assoc()['NAME'];
+
+            $student_fullname = isset($row['STUDENT_ID']) ? $connectMySQL->query("SELECT `FULLNAME` FROM `user` WHERE `ID` = ".
+                $row['STUDENT_ID'])->fetch_assoc()['FULLNAME'] : "";
+            $usu_chief_fullname = isset($row['USU_CHIEF_ID']) ? $connectMySQL->query("SELECT `FULLNAME` FROM `user`WHERE `ID` = ".
+                $row['USU_CHIEF_ID'])->fetch_assoc()['FULLNAME'] : "";
+            $org_chief_fullname = isset($row['ORGANIZATION_CHIEF_ID']) ? $connectMySQL->query("SELECT `FULLNAME` FROM `user`
+WHERE `ID` = ". $row['ORGANIZATION_CHIEF_ID'])->fetch_assoc()['FULLNAME'] : "";
+            $practice_place = isset($row['PRACTICE_PLACE']) ? $row['PRACTICE_PLACE'] : "";
+            $timestamp = $row['TIMESTAMP'];
+            $comment = isset($row['COMMENT']) ? $row['COMMENT'] : "";
+            ?>
+            <tr>
+                <td><a href="fill.php?ID=<?php echo $doc_id;?>"><?php echo $doc_id;?></a></td>
+                <td><?php echo $template_name; ?></td>
+                <td><?php echo $student_fullname; ?></td>
+                <td><?php echo $usu_chief_fullname; ?></td>
+                <td><?php echo $org_chief_fullname; ?></td>
+                <td><?php echo $practice_place; ?></td>
+                <td><?php echo $timestamp; ?></td>
+                <td><?php echo $comment; ?></td>
+                <td><button>Принять</button><button>Отклонить</button></td>
+            <tr>
+                <?php
+                }
+                ?>
+            </tbody>
+        </table>
+    </div>
+    <?php
     $output = ob_get_contents(); // сохраняем буфер
     ob_end_clean(); // очищаем буфер
     return $output; // возвращаем содержимое буфера
-    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -72,29 +92,80 @@
     <style>
         body {
             font-family: Bahnschrift, sans-serif;
-            background-color: rgba(120, 172, 227, 0.72);
+            background-color: rgb(120, 172, 227, 0.72);
             margin: 0;
             padding: 0;
-            display: flex;
-            /*justify-content: center;
-            align-items: center;*/
+            justify-content: center;
+            align-items: center;
             height: 100vh;
         }
-        h1 {
-            color: #0a4d8c;
-            text-align: center;
-            margin-bottom: 10px;
+
+        .container {
+            border-radius: 8px;
+            padding: 20px;
+            overflow-y: auto;
+            scrollbar-width: none;
+            display: flex;
+            justify-content: center;
+            justify-items: center;
         }
-        /*a {
+
+        nav {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+
+        nav a {
+            margin-top: 30px;
+            background-color: rgb(51, 136, 85);
+            color: #ffffff;
+            padding: 10px 40px;
             text-decoration: none;
-            color: #004d8c;
-            display: block;
+            transition: background-color 0.3s ease;
         }
-        a:hover {
+
+        nav a:hover {
+            background-color: rgba(120, 172, 227, 0.72);
             text-decoration: underline;
-        }*/
-        button {
+        }
+
+        .table_orders {
+            margin-top: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            border: 2px solid rgba(120, 172, 227, 0.72);
+            text-align: center;
+            padding: 8px;
+        }
+
+        th {
             background-color: #0a4d8c;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #0a4d8c;
+            color: #0a4d8c;
+        }
+
+        tr:hover {
+            background-color: #0a4d8c;
+            color: white;
+        }
+        tr:hover a{
+            color: white;
+        }
+
+        button {
+            background-color: rgb(51, 136, 85);
             border-style: none;
             border-radius: 5px;
             height: 40px;
@@ -103,46 +174,29 @@
             margin-top: 10px;
             font-size: medium;
         }
+
         button:hover {
-            background-color: #78ace3;
+            background-color: rgba(120, 172, 227, 0.72);
         }
-        table {
-            border-collapse: collapse;
-            width: 110%;
-            margin-bottom: 20px;
-            margin-top: 50px;
-            margin-left: -170px;
-        }
-
-        th, td {
-            border: 2px solid #1E90FF;
-            text-align: center;
-            padding: 8px;
-        }
-
-        th {
-            background-color: #7FFFD4;
-        }
-
-        tr:nth-child(even) {
-            background-color: #00FFFF;
-        }
-
-        tr:hover {
-            background-color: #00FFFF;
-        }   
     </style>
 </head>
 <body>
-    <header>
-        <div class="container">
+<header>
+    <div class="container">
         <nav>
-            <a href='pick_template.php'>Создать документ</a>
+            <a
+                    href='pick_template.php'>Создать документ</a>
             <a href='profile.php'>Профиль</a>
             <a href='../php/logout.php'>Выход из аккаунта</a>
+            <?php
+            if ($_SESSION['ROLE'] == "org_chief")
+            {
+                echo "<a href='create_practice.php'>Создать практику</a>";
+            }
+            ?>
         </nav>
-        </div>
-    </header>
-    <?php echo generate_document_table($connectMySQL); ?>
+    </div>
+</header>
+<?php echo generate_document_table($connectMySQL); ?>
 </body>
 </html>

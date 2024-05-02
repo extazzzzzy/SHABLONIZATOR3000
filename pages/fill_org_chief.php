@@ -1,12 +1,9 @@
 <?php
 session_start();
-//ЭТОТ ФАЙЛ НУЖЕН ТОЛЬКО ДЛЯ ТЕСТА, ПОСЛЕ ПЕРЕНОСА В FILL.PHP ЭТОТ МОЖНО УДАЛИТЬ
 ?>
-
-
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,36 +17,51 @@ session_start();
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            flex-direction: column;
         }
-        img {
-            max-width: 300px;
-            text-align: center;
-        }
-        h3 {
-            color: #0a4d8c;
+        .chefs {
+            color: #ffffff;
+            width: calc(100% - 40px);
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #0a4d8c;
+            border-color: #0a4d8c;
+            border-radius: 5px;
+            border-style: solid;
+            outline: none;
+            font-size: 16px;
         }
         .container {
             background-color: #78ace3;
-            padding: 20px;
-            width: 300px;
-            height: 300px;
-            overflow: auto;
-        }
-        h1 {
-            color: #0a4d8c;
+            width: 400px;
             text-align: center;
-            margin-bottom: 10px;
+            padding: 10px;
         }
-        .logo {
+        .container1 {
+            width: 500px;
+            height: 600px;
+            overflow-x: auto;
+            scrollbar-width: none;
             text-align: center;
-            margin-bottom: 20px;
-            color: #0a4d8c;
+            justify-content: center;
         }
+        .container2 {
+            width: calc(100% - 20px);
+            height: 200px;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 20px;
+        }
+
         form {
             display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: calc(100% - 20px);
         }
-        .templates, .chiefs {
+        input[type="text"], input[type="password"], select {
             color: #ffffff;
             width: calc(100% - 20px);
             padding: 10px;
@@ -67,7 +79,6 @@ session_start();
         input[type="submit"] {
             width: 100%;
             padding: 10px;
-            margin-top: 10px;
             background-color: #0a4d8c;
             color: #ffffff;
             border: none;
@@ -89,116 +100,113 @@ session_start();
         a:hover {
             text-decoration: underline;
         }
-        button {
-            background-color: #0a4d8c;
-            border-style: none;
-            border-radius: 5px;
-            height: 40px;
-            color: white;
-            transition: background-color 0.3s ease;
-            margin-top: 10px;
+        nav {
             margin-bottom: 10px;
+        }
+        nav a {
+            margin-top: 10px;
+            background-color: rgb(51, 136, 85);
+            color: #ffffff;
+            padding: 10px 40px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            border-radius: 5px;
+        }
+        nav a:hover {
+            background-color: rgba(120, 172, 227, 0.72);
+            text-decoration: underline;
+        }
+        h1 {
+            color: #0a4d8c;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        h2 {
+            color: #0a4d8c;
+            text-align: center;
+            font-size: large;
+        }
+        label {
+            color: #0a4d8c;
             font-size: medium;
+            font-weight: bold;
+            margin-bottom: 10px;
         }
-        button:hover {
-            background-color: #6A5ACD;
-        }
-        .template_list, .usu_chief_list {
-            width:300px;
-            height:100px;
-            overflow-x:hidden;
-            border:solid 1px #78ace3;
-        }
-        ::-webkit-scrollbar {
-            display: none;
+        img {
+            max-width: 300px;
+            text-align: center;
         }
     </style>
 </head>
+
 <body>
-<header>
-    <div class="container">
-        <nav>
-            <div><a href='documents.php'>Вернуться к списку документов</a></div>
-            <div><a href='../php/logout.php'>Выход из аккаунта</a></div>
-        </nav>
-    </div>
-</header>
+<div class="container2">
+    <nav>
+        <a href='documents.php'>Вернуться к списку документов</a>
+        <a href='../php/logout.php'>Выход из аккаунта</a>
+    </nav>
+</div>
+<div class="container1">
+    <form action="../python/fill_org_chief_data.php" method="post" enctype="multipart/form-data">
+        <div class="container">
+            <h2>В ходе выполнения практики продемонстрировал следующие качества:</h2>
+            <div class='chefs'><input type='checkbox' name='qualities[]' id='checkbox1'><label for='checkbox1'></label>пунктуальность</div>
+            <div class='chefs'><input type='checkbox' name='qualities[]' id='checkbox2'><label for='checkbox2'></label>ответственность</div>
+            <div class='chefs'><input type='checkbox' name='qualities[]' id='checkbox3'><label for='checkbox3'></label>целеустремлённость</div>
+            <div class='chefs'><input type='checkbox' name='qualities[]' id='checkbox4'><label for='checkbox4'></label>заинтересованность</div>
+            <div class='chefs'><input type='checkbox' name='qualities[]' id='checkbox5'><label for='checkbox5'></label>трудолюбие</div>
+            <div class='chefs'><input type='checkbox' name='qualities[]' id='checkbox6'><label for='checkbox6'></label>отзывчивость</div>
+            <div class='chefs'><input type='checkbox' name='qualities[]' id='checkbox7'><label for='checkbox7'></label>эрудированность</div>
+            <div class='chefs'><input type='checkbox' name='qualities[]' id='checkbox8'><label for='checkbox8'></label>вежливость</div>
+            <div class='chefs'><input type='checkbox' name='qualities[]' id='checkbox9'><label for='checkbox9'></label>тактичность</div>
+        </div>
 
-<form action="../python/fill_org_chief_data.php" method="post" enctype="multipart/form-data">
-    <div>
-        Место практики
-        <input type="text" name = "practice_place">
-    </div>
-    <div>
-        Адрес места практики
-        <input type="text" name = "practice_place_address">
-    </div>
-    <div>
-        Год работы
-        <input type="text" name = "work_year">
-    </div>
-    <div>
-        Сроки практики
-        <input type="text" name = "practice_deadlines">
-    </div>
-    <div class="container">
-        <p>В ходе выполнения практики продемонстрировал следующие качества:</p>
-        <div class='documents'><input type='checkbox' name='qualities[]' value='пунктуальность'>пунктуальность</div>
-        <div class='documents'><input type='checkbox' name='qualities[]' value='ответственность'>ответственность</div>
-        <div class='documents'><input type='checkbox' name='qualities[]' value='целеустремлённость'>целеустремлённость</div>
-        <div class='documents'><input type='checkbox' name='qualities[]' value='заинтересованность'>заинтересованность</div>
-        <div class='documents'><input type='checkbox' name='qualities[]' value='трудолюбие'>трудолюбие</div>
-        <div class='documents'><input type='checkbox' name='qualities[]' value='отзывчивость'>отзывчивость</div>
-        <div class='documents'><input type='checkbox' name='qualities[]' value='эрудированность'>эрудированность</div>
-        <div class='documents'><input type='checkbox' name='qualities[]' value='вежливость'>вежливость</div>
-        <div class='documents'><input type='checkbox' name='qualities[]' value='тактичность'>тактичность</div>
-    </div>
+        <div class="container">
+            <label for="problem_solving_speed">С возникающими при работе проблемами справлялся:</label>
+            <select id="problem_solving_speed" name="problem_solving_speed">
+                <option>оперативно</option>
+                <option>легко</option>
+                <option>с трудом</option>
+                <option>быстро</option>
+                <option>с небольшими затруднениями</option>
+                <option>своевременно</option>
+            </select>
+        </div>
 
-    <div class="container">
-        <p>С возникающими при работе проблемами справлялся:</p>
-        <select name = "problem_solving_speed">
-            <option>оперативно</option>
-            <option>легко</option>
-            <option>с трудом</option>
-            <option>быстро</option>
-            <option>с небольшими затруднениями</option>
-            <option>своевременно</option>
-        </select>
-    </div>
+        <div class="container">
+            <label for="work_amount">Индивидуальное задание, предусмотренное программой практики, выполнено:</label>
+            <select id="work_amount" name="work_amount">
+                <option>частично</option>
+                <option>в полном объеме</option>
+                <option>успешно</option>
+                <option>безупречно</option>
+                <option>удовлетворительно</option>
+                <option>в минимальном объёме</option>
+                <option>неудовлетворительно</option>
+                <option>безнадёжно</option>
+                <option>плачевно</option>
+                <option>жалко</option>
+            </select>
+        </div>
 
-    <div class="container">
-        <p>Индивидуальное задание, предусмотренное программой практики, выполнено:</p>
-        <select name = "work_amount">
-            <option>частично</option>
-            <option>в полном объеме</option>
-            <option>успешно</option>
-            <option>безупречно</option>
-            <option>удовлетворительно</option>
-            <option>в минимальном объёме</option>
-            <option>неудовлетворительно</option>
-            <option>безнадёжно</option>
-            <option>плачевно</option>
-            <option>жалко</option>
-        </select>
-    </div>
+        <div class="container">
+            <input type="text" id="remarks" placeholder="Замечания" name="remarks">
+        </div>
 
-    <div class="container">
-        <p>Замечания</p>
-        <input type="text" name="remarks">
-    </div>
-
-
-    <div class="container">
-        <p>Работа студента оценивается на:</p>
-        <select name="assessment">
-            <option name='assessment_1'>отлично</option>
-            <option name='assessment_2'>хорошо</option>
-            <option name='assessment_3'>удовлетворительно</option>
-            <option name='assessment_4'>неудовлетворительно</option>
-        </select>
-    </div>
-    <input type="submit" value="ЗАПУСК!!!" name="submit">
+        <div class="container">
+            <label for="assessment">Работа студента оценивается на:</label>
+            <select id="assessment" name="assessment">
+                <option name='assessment_1'>отлично</option>
+                <option name='assessment_2'>хорошо</option>
+                <option name='assessment_3'>удовлетворительно</option>
+                <option name='assessment_4'>неудовлетворительно</option>
+            </select>
+        </div>
+        <div class="container">
+            <input type="submit" value="Запустить документ" name="submit">
+        </div>
+</div>
 </form>
-
+</div>
 </body>
 </html>
