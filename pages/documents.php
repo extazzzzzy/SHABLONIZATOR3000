@@ -39,6 +39,19 @@ function check_link($doc_src) {
         echo '';
 }
 
+function check_status($doc_status_id, $doc_id, $connectMySQL) {
+    $user_id = $_SESSION['ID'];
+    $accept_record = $connectMySQL->query("SELECT AGREEMENT FROM `user_to_document_to_agreement` 
+                                        WHERE `USER_ID` = " . $user_id . " AND `DOCUMENT_ID` = '$doc_id'")->fetch_assoc()['AGREEMENT'];
+    if ($doc_status_id == 5 && !isset($accept_record))
+    {
+        echo "<button id='accept_btn' onclick='accept_or_reject(1, " . $doc_id . ")'>Принять</button>
+                <button id='reject_btn' onclick='accept_or_reject(0, " . $doc_id . ")'>Отклонить</button>";
+    }
+    else
+        echo '';
+}
+
 function generate_document_table($connectMySQL) {
     ob_start(); // начало буферизации вывода
     ?>
@@ -111,8 +124,8 @@ function generate_document_table($connectMySQL) {
                 <td><?php echo $practice_place; ?></td>
                 <td><?php echo $timestamp; ?></td>
                 <td><?php echo $comment; ?></td>
-                <td><?php check_link($doc_src) ?></td>
-                <td><button>Принять</button><button>Отклонить</button></td>
+                <td><?php check_link($doc_src); ?></td>
+                <td><?php check_status($doc_status_id, $doc_id, $connectMySQL); ?></td>
             <tr>
                 <?php
                 }
@@ -231,6 +244,9 @@ function generate_document_table($connectMySQL) {
             text-decoration: none;
             border-radius: 5px;
         }
+        #btn:hover {
+            background-color: rgba(120, 172, 227, 0.72);
+        }
     </style>
 </head>
 <body>
@@ -250,5 +266,24 @@ function generate_document_table($connectMySQL) {
     </div>
 </header>
 <?php echo generate_document_table($connectMySQL); ?>
+<script>
+    function accept_or_reject(check, document_id) {
+        var formData = new FormData();
+            formData.append('doc_id', document_id);
+            formData.append('answer', check);
+
+        var xhr = new XMLHttpRequest();
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    location.reload();
+                };
+            }
+            xhr.open('POST', '../php/confirm_clients.php', true);
+            xhr.send(formData);
+        
+        document.getElementById('accept_btn').remove();
+        document.getElementById('reject_btn').remove();
+    }
+</script>
 </body>
 </html>
