@@ -6,10 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="976abf02-ba36-4c50-a031-5e18a62c783a" name="Changes" comment="Просто две кнопочки в ...">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/documents/diary_66353c3b4aa105.17342450.docx" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/documents.php" beforeDir="false" afterPath="$PROJECT_DIR$/pages/documents.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/python/create_report_document.py" beforeDir="false" afterPath="$PROJECT_DIR$/python/create_report_document.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/python/fill_practice_data.php" beforeDir="false" afterPath="$PROJECT_DIR$/python/fill_practice_data.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,7 +102,7 @@
       <workItem from="1714762974069" duration="6950000" />
       <workItem from="1714770248271" duration="180000" />
       <workItem from="1714770895396" duration="65000" />
-      <workItem from="1714772275099" duration="1817000" />
+      <workItem from="1714772275099" duration="3800000" />
     </task>
     <task id="LOCAL-00001" summary="fill с ролями и инпутами всякими">
       <option name="closed" value="true" />

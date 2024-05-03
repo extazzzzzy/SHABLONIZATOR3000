@@ -130,9 +130,15 @@ function generate_document_table($connectMySQL) {
                 $practice_place = isset($row['PRACTICE_PLACE']) ? $row['PRACTICE_PLACE'] : "";
                 $timestamp = $row['TIMESTAMP'];
                 $comment = isset($row['COMMENT']) ? $row['COMMENT'] : "";
-
-                //$isagree = $connectMySQL->query("SELECT * FROM `user_to_document_to_agreement` WHERE `ID` = ". $doc_id ." AND `USER_ID` = '".$_SESSION["ID"]."'");
-
+                $isagree = $connectMySQL->query("SELECT * FROM `user_to_document_to_agreement` WHERE `DOCUMENT_ID` = " . $doc_id . " AND `USER_ID` = '" . $_SESSION["ID"] . "'");
+                if ($isagree->num_rows <= 0)
+                {
+                    $isagree = False;
+                }
+                else
+                {
+                    $isagree = True;
+                }
             ?>
             <?php
             if ($_SESSION['ROLE'] == 'admin') { ?>
@@ -185,7 +191,7 @@ function generate_document_table($connectMySQL) {
                 } ?>
 
                 <?php if ($_SESSION['ROLE'] == 'usu_chief') { ?>
-                <?php if ($doc_status_id == '2' || $doc_status_id == '5') { ?>
+                <?php if ($doc_status_id == '2') { ?>
                 <tr>
                     <td style="background-color: #D4AC0D"><a href="fill.php?ID=<?php echo $doc_id;?>"><?php echo $doc_id;?></a></td>
                     <td style="background-color: #D4AC0D"><?php echo $template_name . ' (' . $week_number . ' неделя)'; ?></td>
@@ -200,7 +206,22 @@ function generate_document_table($connectMySQL) {
                     <td style="background-color: #D4AC0D"><?php check_status($doc_status_id, $doc_id, $connectMySQL); delete_and_clear_btn($doc_status_id, $doc_id);?></td>
                 <tr>
             <?php } ?>
-                <?php if ($doc_status_id != '2' && $doc_status_id != '5' && $doc_status_id != '7') { ?>
+            <?php if ($doc_status_id == '5' && $isagree == False) { ?>
+            <tr>
+                <td style="background-color: #D4AC0D"><a href="fill.php?ID=<?php echo $doc_id;?>"><?php echo $doc_id;?></a></td>
+                <td style="background-color: #D4AC0D"><?php echo $template_name . ' (' . $week_number . ' неделя)'; ?></td>
+                <td style="background-color: #D4AC0D"><?php view_status($doc_status_id); ?></td>
+                <td style="background-color: #D4AC0D"><?php if ($row['TEMPLATE_ID'] == '1') {echo $student_fullname;} ?></td>
+                <td style="background-color: #D4AC0D"><?php echo $usu_chief_fullname; ?></td>
+                <td style="background-color: #D4AC0D"><?php echo $org_chief_fullname; ?></td>
+                <td style="background-color: #D4AC0D"><?php echo $practice_place; ?></td>
+                <td style="background-color: #D4AC0D"><?php echo $timestamp; ?></td>
+                <td style="background-color: #D4AC0D"><?php echo $comment; ?></td>
+                <td style="background-color: #D4AC0D"><?php check_link($doc_src); ?></td>
+                <td style="background-color: #D4AC0D"><?php check_status($doc_status_id, $doc_id, $connectMySQL); delete_and_clear_btn($doc_status_id, $doc_id);?></td>
+            <tr>
+                <?php } ?>
+                <?php if ($doc_status_id == '5' && $isagree == True) { ?>
                 <tr>
                     <td><a href="fill.php?ID=<?php echo $doc_id;?>"><?php echo $doc_id;?></a></td>
                     <td><?php echo $template_name . ' (' . $week_number . ' неделя)'; ?></td>
@@ -215,11 +236,26 @@ function generate_document_table($connectMySQL) {
                     <td><?php check_status($doc_status_id, $doc_id, $connectMySQL); delete_and_clear_btn($doc_status_id, $doc_id);?></td>
                 <tr>
             <?php } ?>
+            <?php if ($doc_status_id != '2' && $doc_status_id != '7' && $doc_status_id != '5') { ?>
+            <tr>
+                <td><a href="fill.php?ID=<?php echo $doc_id;?>"><?php echo $doc_id;?></a></td>
+                <td><?php echo $template_name . ' (' . $week_number . ' неделя)'; ?></td>
+                <td><?php view_status($doc_status_id); ?></td>
+                <td><?php if ($row['TEMPLATE_ID'] == '1') {echo $student_fullname;} ?></td>
+                <td><?php echo $usu_chief_fullname; ?></td>
+                <td><?php echo $org_chief_fullname; ?></td>
+                <td><?php echo $practice_place; ?></td>
+                <td><?php echo $timestamp; ?></td>
+                <td><?php echo $comment; ?></td>
+                <td><?php check_link($doc_src); ?></td>
+                <td><?php check_status($doc_status_id, $doc_id, $connectMySQL); delete_and_clear_btn($doc_status_id, $doc_id);?></td>
+            <tr>
+                <?php } ?>
                 <?php
             } ?>
 
             <?php if ($_SESSION['ROLE'] == 'org_chief') { ?>
-            <?php if (($doc_status_id == '3' && $practice_place == '') || $doc_status_id == '5' || $doc_status_id == '4') { ?>
+            <?php if (($doc_status_id == '3' && $practice_place == '') || $doc_status_id == '4') { ?>
                 <tr>
                     <td style="background-color: #D4AC0D"><a href="fill.php?ID=<?php echo $doc_id;?>"><?php echo $doc_id;?></a></td>
                     <td style="background-color: #D4AC0D"><?php echo $template_name . ' (' . $week_number . ' неделя)'; ?></td>
@@ -234,7 +270,22 @@ function generate_document_table($connectMySQL) {
                     <td style="background-color: #D4AC0D"><?php check_status($doc_status_id, $doc_id, $connectMySQL); delete_and_clear_btn($doc_status_id, $doc_id);?></td>
                 <tr>
                 <?php } ?>
-                <?php if ($doc_status_id == '3' && $practice_place != '' && $doc_status_id != '4' && $doc_status_id != '7' && $doc_status_id != '5') { ?>
+                <?php if ($doc_status_id == '5' && $isagree == False) { ?>
+            <tr>
+                <td style="background-color: #D4AC0D"><a href="fill.php?ID=<?php echo $doc_id;?>"><?php echo $doc_id;?></a></td>
+                <td style="background-color: #D4AC0D"><?php echo $template_name . ' (' . $week_number . ' неделя)'; ?></td>
+                <td style="background-color: #D4AC0D"><?php view_status($doc_status_id); ?></td>
+                <td style="background-color: #D4AC0D"><?php if ($row['TEMPLATE_ID'] == '1') {echo $student_fullname;} ?></td>
+                <td style="background-color: #D4AC0D"><?php echo $usu_chief_fullname; ?></td>
+                <td style="background-color: #D4AC0D"><?php echo $org_chief_fullname; ?></td>
+                <td style="background-color: #D4AC0D"><?php echo $practice_place; ?></td>
+                <td style="background-color: #D4AC0D"><?php echo $timestamp; ?></td>
+                <td style="background-color: #D4AC0D"><?php echo $comment; ?></td>
+                <td style="background-color: #D4AC0D"><?php check_link($doc_src); ?></td>
+                <td style="background-color: #D4AC0D"><?php check_status($doc_status_id, $doc_id, $connectMySQL); delete_and_clear_btn($doc_status_id, $doc_id);?></td>
+            <tr>
+                <?php } ?>
+                <?php if ($doc_status_id == '5' && $isagree == True) { ?>
                     <tr>
                         <td><a href="fill.php?ID=<?php echo $doc_id;?>"><?php echo $doc_id;?></a></td>
                         <td><?php echo $template_name . ' (' . $week_number . ' неделя)'; ?></td>
@@ -249,11 +300,26 @@ function generate_document_table($connectMySQL) {
                         <td><?php check_status($doc_status_id, $doc_id, $connectMySQL); delete_and_clear_btn($doc_status_id, $doc_id);?></td>
                     <tr>
                 <?php } ?>
+                <?php if ($doc_status_id == '3' && $practice_place != '' && $doc_status_id != '4' && $doc_status_id != '7') { ?>
+            <tr>
+                <td><a href="fill.php?ID=<?php echo $doc_id;?>"><?php echo $doc_id;?></a></td>
+                <td><?php echo $template_name . ' (' . $week_number . ' неделя)'; ?></td>
+                <td><?php view_status($doc_status_id); ?></td>
+                <td><?php if ($row['TEMPLATE_ID'] == '1') {echo $student_fullname;} ?></td>
+                <td><?php echo $usu_chief_fullname; ?></td>
+                <td><?php echo $org_chief_fullname; ?></td>
+                <td><?php echo $practice_place; ?></td>
+                <td><?php echo $timestamp; ?></td>
+                <td><?php echo $comment; ?></td>
+                <td><?php check_link($doc_src); ?></td>
+                <td><?php check_status($doc_status_id, $doc_id, $connectMySQL); delete_and_clear_btn($doc_status_id, $doc_id);?></td>
+            <tr>
+                <?php } ?>
                 <?php
                 } ?>
 
                 <?php if ($_SESSION['ROLE'] == 'student') { ?>
-                <?php if ($doc_status_id == '3' ||  $doc_status_id == '5') { ?>
+                <?php if ($doc_status_id == '3') { ?>
                     <tr>
                         <td style="background-color: #D4AC0D"><a href="fill.php?ID=<?php echo $doc_id;?>"><?php echo $doc_id;?></a></td>
                         <td style="background-color: #D4AC0D"><?php echo $template_name . ' (' . $week_number . ' неделя)'; ?></td>
@@ -268,7 +334,22 @@ function generate_document_table($connectMySQL) {
                         <td style="background-color: #D4AC0D"><?php check_status($doc_status_id, $doc_id, $connectMySQL); delete_and_clear_btn($doc_status_id, $doc_id);?></td>
                     <tr>
                 <?php } ?>
-                <?php if ($doc_status_id != '3' && $doc_status_id != '5' && $doc_status_id != '7') { ?>
+                <?php if ($doc_status_id == '5' && $isagree == False) { ?>
+            <tr>
+                <td style="background-color: #D4AC0D"><a href="fill.php?ID=<?php echo $doc_id;?>"><?php echo $doc_id;?></a></td>
+                <td style="background-color: #D4AC0D"><?php echo $template_name . ' (' . $week_number . ' неделя)'; ?></td>
+                <td style="background-color: #D4AC0D"><?php view_status($doc_status_id); ?></td>
+                <td style="background-color: #D4AC0D"><?php if ($row['TEMPLATE_ID'] == '1') {echo $student_fullname;} ?></td>
+                <td style="background-color: #D4AC0D"><?php echo $usu_chief_fullname; ?></td>
+                <td style="background-color: #D4AC0D"><?php echo $org_chief_fullname; ?></td>
+                <td style="background-color: #D4AC0D"><?php echo $practice_place; ?></td>
+                <td style="background-color: #D4AC0D"><?php echo $timestamp; ?></td>
+                <td style="background-color: #D4AC0D"><?php echo $comment; ?></td>
+                <td style="background-color: #D4AC0D"><?php check_link($doc_src); ?></td>
+                <td style="background-color: #D4AC0D"><?php check_status($doc_status_id, $doc_id, $connectMySQL); delete_and_clear_btn($doc_status_id, $doc_id);?></td>
+            <tr>
+                <?php } ?>
+                <?php if ($doc_status_id == '5' && $isagree == True) { ?>
                     <tr>
                         <td><a href="fill.php?ID=<?php echo $doc_id;?>"><?php echo $doc_id;?></a></td>
                         <td><?php echo $template_name . ' (' . $week_number . ' неделя)'; ?></td>
@@ -282,6 +363,21 @@ function generate_document_table($connectMySQL) {
                         <td><?php check_link($doc_src); ?></td>
                         <td><?php check_status($doc_status_id, $doc_id, $connectMySQL); delete_and_clear_btn($doc_status_id, $doc_id);?></td>
                     <tr>
+                <?php } ?>
+                <?php if ($doc_status_id != '3' && $doc_status_id != '7' && $doc_status_id != '5') { ?>
+            <tr>
+                <td><a href="fill.php?ID=<?php echo $doc_id;?>"><?php echo $doc_id;?></a></td>
+                <td><?php echo $template_name . ' (' . $week_number . ' неделя)'; ?></td>
+                <td><?php view_status($doc_status_id); ?></td>
+                <td><?php if ($row['TEMPLATE_ID'] == '1') {echo $student_fullname;} ?></td>
+                <td><?php echo $usu_chief_fullname; ?></td>
+                <td><?php echo $org_chief_fullname; ?></td>
+                <td><?php echo $practice_place; ?></td>
+                <td><?php echo $timestamp; ?></td>
+                <td><?php echo $comment; ?></td>
+                <td><?php check_link($doc_src); ?></td>
+                <td><?php check_status($doc_status_id, $doc_id, $connectMySQL); delete_and_clear_btn($doc_status_id, $doc_id);?></td>
+            <tr>
                 <?php } ?>
                 <?php
                 } ?>
