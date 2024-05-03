@@ -142,7 +142,7 @@
         <form action="../php/confirm_clients.php" method="post">
             <?php echo "<input type='hidden' name='doc_id' value=" . $doc_id . "></input>" ?>
             <?php echo "<input type='hidden' name='answer' value=0></input>" ?>
-            <textarea placeholder="Напишите причину отказа..." name='comment'></textarea>
+            <textarea placeholder="Напишите причину отказа..." name='comment' required></textarea>
             <br>
             <button type="submit">Отправить</button>
         </form>

@@ -9,6 +9,9 @@ if (!isset($_SESSION['ID'])) {
 
 function view_status($doc_status_id) {
     switch ($doc_status_id) {
+        case -1:
+            echo "Отклонён одним из участников";
+            break;
         case 1:
             echo "Ожидает назначения руководителя организации администратором";
             break;
@@ -26,6 +29,9 @@ function view_status($doc_status_id) {
             break;
         case 6:
             echo "Ожидает подтверждения администратора";
+            break;
+        case 7:
+            echo "Документ готов к печати";
             break;
         }
 }
