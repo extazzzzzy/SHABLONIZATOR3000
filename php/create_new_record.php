@@ -21,7 +21,6 @@ foreach ($_POST['usu_chiefs'] as $usu_chief_fullname)
 {
 
     $usu_chief_id = $connectMySQL->query("SELECT id FROM `user` WHERE `fullname` = '$usu_chief_fullname'")->fetch_assoc()['id'];
-
     $connectMySQL->query("INSERT INTO `diary_document` (`TEMPLATE_ID`, `USU_CHIEF_ID`, `WEEK_NUMBER`) VALUES ('$template_id', '$usu_chief_id', '$WEEK_NUMBER')");
 }
 header("Location: ../pages/documents.php");

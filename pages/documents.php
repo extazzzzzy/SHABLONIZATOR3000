@@ -104,45 +104,45 @@ function generate_document_table($connectMySQL) {
 
             while ($row = $doc_list->fetch_assoc())
             {
-            $doc_status_id = $row['STATUS'];
-            
-            if (isset($row['SRC']) && $doc_status_id > 3) {
-                $doc_src = $row['SRC'];
-            }
-            else
-                $doc_src = '';
-                
-            $doc_id = $row['ID'];
-            $template_name = $connectMySQL->query("SELECT `NAME` FROM `template` WHERE `ID` = ". $row['TEMPLATE_ID'])->fetch_assoc()['NAME'];
+                $doc_status_id = $row['STATUS'];
 
-            $week_number = $connectMySQL->query("SELECT `WEEK_NUMBER` FROM `diary_document` WHERE `ID` = ". $doc_id)->fetch_assoc()['WEEK_NUMBER'];
-
-            $student_fullname = isset($row['STUDENT_ID']) ? $connectMySQL->query("SELECT `FULLNAME` FROM `user` WHERE `ID` = ".
-                $row['STUDENT_ID'])->fetch_assoc()['FULLNAME'] : "";
-            $usu_chief_fullname = isset($row['USU_CHIEF_ID']) ? $connectMySQL->query("SELECT `FULLNAME` FROM `user`WHERE `ID` = ".
-                $row['USU_CHIEF_ID'])->fetch_assoc()['FULLNAME'] : "";
-            $org_chief_fullname = isset($row['ORGANIZATION_CHIEF_ID']) ? $connectMySQL->query("SELECT `FULLNAME` FROM `user`
-                WHERE `ID` = ". $row['ORGANIZATION_CHIEF_ID'])->fetch_assoc()['FULLNAME'] : "";
-            $practice_place = isset($row['PRACTICE_PLACE']) ? $row['PRACTICE_PLACE'] : "";
-            $timestamp = $row['TIMESTAMP'];
-            $comment = isset($row['COMMENT']) ? $row['COMMENT'] : "";
-            ?>
-            <tr>
-                <td><a href="fill.php?ID=<?php echo $doc_id;?>"><?php echo $doc_id;?></a></td>
-                <td><?php echo $template_name . ' (' . $week_number . ' неделя)'; ?></td>
-                <td><?php view_status($doc_status_id); ?></td>
-                <td><?php echo $student_fullname; ?></td>
-                <td><?php echo $usu_chief_fullname; ?></td>
-                <td><?php echo $org_chief_fullname; ?></td>
-                <td><?php echo $practice_place; ?></td>
-                <td><?php echo $timestamp; ?></td>
-                <td><?php echo $comment; ?></td>
-                <td><?php check_link($doc_src); ?></td>
-                <td><?php check_status($doc_status_id, $doc_id, $connectMySQL); delete_btn($doc_id);?></td>
-            <tr>
-                <?php
+                if (isset($row['SRC']) && $doc_status_id > 3) {
+                    $doc_src = $row['SRC'];
                 }
+                else
+                    $doc_src = '';
+
+                $doc_id = $row['ID'];
+                $template_name = $connectMySQL->query("SELECT `NAME` FROM `template` WHERE `ID` = ". $row['TEMPLATE_ID'])->fetch_assoc()['NAME'];
+
+                $week_number = $connectMySQL->query("SELECT `WEEK_NUMBER` FROM `diary_document` WHERE `ID` = ". $doc_id)->fetch_assoc()['WEEK_NUMBER'];
+
+                $student_fullname = isset($row['STUDENT_ID']) ? $connectMySQL->query("SELECT `FULLNAME` FROM `user` WHERE `ID` = ".
+                    $row['STUDENT_ID'])->fetch_assoc()['FULLNAME'] : "";
+                $usu_chief_fullname = isset($row['USU_CHIEF_ID']) ? $connectMySQL->query("SELECT `FULLNAME` FROM `user`WHERE `ID` = ".
+                    $row['USU_CHIEF_ID'])->fetch_assoc()['FULLNAME'] : "";
+                $org_chief_fullname = isset($row['ORGANIZATION_CHIEF_ID']) ? $connectMySQL->query("SELECT `FULLNAME` FROM `user`
+                    WHERE `ID` = ". $row['ORGANIZATION_CHIEF_ID'])->fetch_assoc()['FULLNAME'] : "";
+                $practice_place = isset($row['PRACTICE_PLACE']) ? $row['PRACTICE_PLACE'] : "";
+                $timestamp = $row['TIMESTAMP'];
+                $comment = isset($row['COMMENT']) ? $row['COMMENT'] : "";
                 ?>
+                <tr>
+                    <td><a href="fill.php?ID=<?php echo $doc_id;?>"><?php echo $doc_id;?></a></td>
+                    <td><?php echo $template_name . ' (' . $week_number . ' неделя)'; ?></td>
+                    <td><?php view_status($doc_status_id); ?></td>
+                    <td><?php if ($row['TEMPLATE_ID'] == '1') {echo $student_fullname;} ?></td>
+                    <td><?php echo $usu_chief_fullname; ?></td>
+                    <td><?php echo $org_chief_fullname; ?></td>
+                    <td><?php echo $practice_place; ?></td>
+                    <td><?php echo $timestamp; ?></td>
+                    <td><?php echo $comment; ?></td>
+                    <td><?php check_link($doc_src); ?></td>
+                    <td><?php check_status($doc_status_id, $doc_id, $connectMySQL); delete_btn($doc_id);?></td>
+                <tr>
+            <?php
+            }
+            ?>
             </tbody>
         </table>
     </div>

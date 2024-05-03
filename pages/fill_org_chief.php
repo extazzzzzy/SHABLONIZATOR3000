@@ -159,12 +159,22 @@ if ($connectMySQL->query("SELECT STATUS FROM `diary_document` WHERE `ID` = " . $
         <a href='../php/logout.php'>Выход из аккаунта</a>
     </nav>
 </div>
+<?php
+if ($_SESSION['ROLE'] == 'org_chief')
+{
+    if ($connectMySQL->query("SELECT STATUS FROM `diary_document` WHERE `ID` = " . $diary_document_id)->fetch_assoc()['STATUS'] != '4') {
+        header("Location: documents.php");
+        die();
+    }
+if ($connectMySQL->query("SELECT TEMPLATE_ID FROM `diary_document` WHERE `ID` = " . $diary_document_id)->fetch_assoc()['TEMPLATE_ID'] == '1'){
+?>
 <div class="container1">
     <form action="../python/fill_org_chief_data.php" method="post" enctype="multipart/form-data">
         <div class="container">
             <h2>В ходе выполнения практики продемонстрировал следующие качества:</h2>
             <div class='chefs'><input type='checkbox' name='qualities[]' id='checkbox1' value="пунктуальность"><label for='checkbox1'></label>пунктуальность</div>
-            <div class='chefs'><input type='checkbox' name='qualities[]' id='checkbox2' value="ответственность"><label for='checkbox2'></label>ответственность</div>
+            <div class='chefs'><input type='checkbox' name='qualities[]' id='checkbox2'
+                                      value="ответственность"><label for='checkbox2'></label>ответственность</div>
             <div class='chefs'><input type='checkbox' name='qualities[]' id='checkbox3' value="целеустремлённость"><label for='checkbox3'></label>целеустремлённость</div>
             <div class='chefs'><input type='checkbox' name='qualities[]' id='checkbox4' value="заинтересованность"><label for='checkbox4'></label>заинтересованность</div>
             <div class='chefs'><input type='checkbox' name='qualities[]' id='checkbox5' value="трудолюбие"><label for='checkbox5'></label>трудолюбие</div>
@@ -218,8 +228,51 @@ if ($connectMySQL->query("SELECT STATUS FROM `diary_document` WHERE `ID` = " . $
         <div class="container">
             <input type="submit" value="Запустить документ" name="submit">
         </div>
-        <input type="hidden" name="document_id" value=<?php echo $_GET['ID'] ?>>
-    </form>
+        <input type="hidden" name="document_id" value=<?php echo $_GET['ID'] ?>
+</form>
 </div>
+<?php
+}
+elseif ($connectMySQL->query("SELECT TEMPLATE_ID FROM `diary_document` WHERE `ID` = " . $diary_document_id)->fetch_assoc()['TEMPLATE_ID'] == '2'){
+    ?>
+<div class="container1">
+        <form action="../python/fill_org_chief_data_report.php" method="post" enctype="multipart/form-data">
+            <div class="container">
+                <select id="PRACTICE_PLACE" name="PRACTICE_PLACE" onchange="toggleInput()">
+                    <option value="">Выберите место прохождения практики</option>
+                    <option value="Югорский государственный университет">Югорский государственный университет</option>
+                    <option value="Югорский научно-исследовательский институт информационных технологий">Югорский научно-исследовательский институт информационных технологий</option>
+                    <option value="other">Нет нужного варианта</option>
+                </select>
+                <input type="text" id="other_place" name="other_place" placeholder="Введите другое место практики" style="display: none;">
+            </div>
+
+            <div class="container">
+                <input type="text" name="PRACTICE_DEADLINES" id="PRACTICE_DEADLINES" placeholder="Сроки практики по календарному учебному графику">
+            </div>
+            <div class="container">
+                <input type="submit" value="Запустить документ" name="submit">
+            </div>
+            <input type="hidden" name="document_id" value=<?php echo $_GET['ID'] ?>>
+</form>
+</div>
+<?php
+}
+}
+?>
+<script>
+    function toggleInput() {
+        var selectElement = document.getElementById("PRACTICE_PLACE");
+        var otherPlaceInput = document.getElementById("other_place");
+
+        if (selectElement.value === "other") {
+            otherPlaceInput.style.display = "block";
+            otherPlaceInput.setAttribute("required", "true");
+        } else {
+            otherPlaceInput.style.display = "none";
+            otherPlaceInput.removeAttribute("required");
+        }
+    }
+</script>
 </body>
 </html>

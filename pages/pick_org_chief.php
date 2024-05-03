@@ -29,9 +29,9 @@ ob_start(); // начало буферизации вывода
     <input type="submit" name="submit" value="Отправить документы">
     <input type="hidden" name="document_id" value=<?php echo $_GET['ID'] ?>>
     <?php
-    $output = ob_get_contents(); // сохраняем буфер
-    ob_end_clean(); // очищаем буфер
-    return $output; // возвращаем содержимое буфера
+    $output = ob_get_contents();
+    ob_end_clean();
+    return $output;
     }
     ?>
 </form>

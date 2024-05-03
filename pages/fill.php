@@ -193,7 +193,7 @@ if ($_SESSION['ROLE'] == 'usu_chief') {
     </form>
         <?php
     }elseif ($connectMySQL->query("SELECT TEMPLATE_ID FROM `diary_document` WHERE `ID` = " . $diary_document_id)->fetch_assoc()['TEMPLATE_ID'] == '2'){?>
-        <form action="../fill_usu_chief_data_report.php">
+        <form action="../python/fill_usu_chief_data_report.php" method="post">
             <?php
             $statement = new mysqli("localhost", "root", "root", "shablonizator3000");
 
@@ -212,7 +212,7 @@ if ($_SESSION['ROLE'] == 'usu_chief') {
                 </div>
             </div>
             <?php
-            echo '<select id="student_group" name="student_group" required>';
+            echo '<select id="student_group" name="STUDENTS_GROUP" required>';
             echo '<option value="">Выберите группу</option>';
             while ($row = $result->fetch_assoc()) {
                 echo '<option value="' . $row["STUDENT_GROUP"] . '">' . $row["STUDENT_GROUP"] . '</option>';
@@ -225,7 +225,7 @@ if ($_SESSION['ROLE'] == 'usu_chief') {
             <br>
             <input type="text" name="REPORT_YEAR" placeholder="Год обучения" value="<?php echo date('Y'); ?>">
             <br>
-            <select id="practice_kind" name="practice_kind" required>
+            <select id="practice_kind" name="PRACTICE_KIND" required>
                 <option value="">Выберите вид практики</option>
                 <option value="Учебная">Учебная</option>
                 <option value="Производственная">Производственная</option>
@@ -240,13 +240,14 @@ if ($_SESSION['ROLE'] == 'usu_chief') {
             <br>
             <select id="CODE_AND_PREPARATION_DIRECTION" name="CODE_AND_PREPARATION_DIRECTION">
                 <option value="">Выберите код направления</option>
-                <option value="09.03.04">09.03.04 Программная инженерия</option>
-                <option value="09.03.01">09.03.01 Информатика и вычислительная техника</option>
+                <option value="09.03.04 Программная инженерия">09.03.04 Программная инженерия</option>
+                <option value="09.03.01 Информатика и вычислительная техника">09.03.01 Информатика и вычислительная техника</option>
             </select>
             <br>
             <select id="ORDER_NUMBER_AND_DATE" name="ORDER_NUMBER_AND_DATE">
                 <option value="">Выберите номер приказа</option>
-                <option value="2-221 от 6-го марта 2024г">2-221 от 6.03.2024</option>
+                <option value="2-221 от 6-го марта 2024г">2-221 от 06.03.2024</option>
+                <option value="2-222 от 6-го марта 2024г">2-222 от 06.03.2024</option>
             </select>
             <br>
             <input type="hidden" name="document_id" value = <?php echo $_GET['ID'] ?>>
