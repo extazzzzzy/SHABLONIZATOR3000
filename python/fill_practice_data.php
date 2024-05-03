@@ -9,23 +9,6 @@ $diary_document_id = $_POST['document_id']; //
 
 $connectMySQL = new mysqli('localhost', 'root', 'root', 'shablonizator3000');
 
-
-$words = ['отсутствуют'];
-$result = $connectMySQL->query("SELECT *  FROM `diary_document`");
-
-while ($row = $result->fetch_assoc())
-{
-    $random = $words[array_rand($words)];
-
-    $connectMySQL->query("UPDATE `diary_document` SET `STATUS` = '7' WHERE `ID` = " . $row['ID']);
-
-}
-
-
-die();
-
-
-
 $practice_place = $_POST['practice_place'];
 if ($practice_place == "other") {
     $practice_place = $_POST['other_place'];
