@@ -80,7 +80,7 @@ hdr_cells[1].paragraphs[0].runs[0].bold = True
 
 for name, description in zip(taskNames, taskDescriptions):
     row_cells = table.add_row().cells
-    row_cells[0].text = name
+    row_cells[0].text = name.capitalize()
     row_cells[1].text = description.capitalize()
 
 for row in table.rows:
