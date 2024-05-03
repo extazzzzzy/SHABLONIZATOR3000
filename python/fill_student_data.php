@@ -60,7 +60,6 @@ if($mainFileType == "csv")
     move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file);
     $connectMySQL->query("UPDATE `diary_document` SET `STATUS` = '4', `SRC` = '" . "../documents/" . $id . ".docx' WHERE `id` = '$diary_document_id'");
     $result = shell_exec('python student_create_document.py ' . escapeshellarg($id) . ' ' . escapeshellarg($PRACTICE_KIND_IMEN) . ' ' . escapeshellarg($PRACTICE_KIND_DAT) . ' ' . escapeshellarg($PRACTICE_KIND_VIN) . ' ' . escapeshellarg($STUDENT_COURSE) . ' ' . escapeshellarg($STUDENT_GROUP) . ' ' . escapeshellarg($STUDENT_FULLNAME_IMEN) . ' ' . escapeshellarg($STUDENT_FULLNAME_ROD) . ' ' . escapeshellarg($STUDENT_FULLNAME_DAT) . ' ' . escapeshellarg($INSTITUTE) . ' ' . escapeshellarg($PREPARATION_DIRECTION) . ' ' . escapeshellarg($USU_CHIEF_FULLNAME) . ' ' . escapeshellarg($USU_CHIEF_POSITION) . ' ' . escapeshellarg($ORGANIZATION_CHIEF_FULLNAME) . ' ' . escapeshellarg($ORGANIZATION_CHIEF_POSITION) . ' ' . escapeshellarg($PRACTICE_PLACE) . ' ' . escapeshellarg($PRACTICE_PLACE_ADDRESS) . ' ' . escapeshellarg($WORK_YEAR) . ' ' . escapeshellarg($PRACTICE_DEADLINES));
-
 }
 else if ($mainFileType == NULL && isset($taskNames) == false && isset($taskDescriptions) == false)
 {

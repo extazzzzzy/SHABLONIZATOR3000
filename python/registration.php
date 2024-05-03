@@ -25,7 +25,7 @@ if (!$check_statement->execute()) {
 $check_statement->store_result();
 
 if ($check_statement->num_rows > 0) {
-    echo "Пользователь с таким номером телефона уже существует.";
+    echo "Пользователь с таким логином уже существует.";
     exit;
 }
 
