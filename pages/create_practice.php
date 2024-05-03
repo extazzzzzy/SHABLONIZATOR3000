@@ -42,6 +42,9 @@ if($_SESSION['ROLE'] != 'org_chief')
             padding: 20px;
             width: 300px;
             text-align: center;
+            max-height: 700px;
+            overflow: auto;
+            scrollbar-width: none;
         }
         h1 {
             color: #0a4d8c;
@@ -76,6 +79,7 @@ if($_SESSION['ROLE'] != 'org_chief')
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            font-size: 16px;
         }
         input[type="submit"]:hover {
             background-color: rgba(120, 172, 227, 0.72);
@@ -139,6 +143,7 @@ if($_SESSION['ROLE'] != 'org_chief')
             margin-top: 10px;
             margin-bottom: 10px;
             font-size: medium;
+            text-align: center;
         }
     </style>
 </head>
@@ -161,6 +166,18 @@ if($_SESSION['ROLE'] != 'org_chief')
         <input required type="text" name="work_year" placeholder="Год работы" value="<?php echo date("Y"); ?>">
         <input required type="text" name = "practice_deadlines" placeholder="Сроки практики">
         <br>
+        <h3>Выберите номер группы</h3>
+        <div class="students_list">
+            <?php
+            $students_list = $connectMySQL->query("SELECT DISTINCT STUDENT_GROUP FROM user WHERE STUDENT_GROUP IS NOT NULL");
+            while ($row = $students_list->fetch_assoc()) {
+                $student_group = $row["STUDENT_GROUP"];
+                echo "<div class='students'><input type='checkbox' id='group_$student_group' name='student_group[]' value='$student_group'>";
+                echo "<label for='group_$student_group'>$student_group</label></div>";
+            }
+            ?>
+        </div>
+        <h3>Выберите студентов</h3>
         <div class="students_list">
             <?php
             $students_list = $connectMySQL->query("SELECT * FROM `user` WHERE `ROLE` = 'student'");
@@ -176,9 +193,7 @@ if($_SESSION['ROLE'] != 'org_chief')
             }
             ?>
         </div>
-
         <br>
-
         <input type="submit" name="submit" value="Отправить">
     </form>
 </div>
