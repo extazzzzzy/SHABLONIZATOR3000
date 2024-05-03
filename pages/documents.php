@@ -7,7 +7,7 @@ if (!isset($_SESSION['ID'])) {
     die();
 }
 
-function view_status($doc_status_id) {
+function view_status($doc_status_id, $practice_place) {
     switch ($doc_status_id) {
         case -1:
             echo "Отклонён одним из участников";
@@ -19,7 +19,14 @@ function view_status($doc_status_id) {
             echo "Ожидает получения данных от руководителя ЮГУ";
             break;
         case 3:
-            echo "Ожидает заполнения данных о практике от руководителя организации/ожидает заполнение данных студентом";
+            if ($practice_place == "")
+            {
+                echo "Ожидает заполнения данных о практике от руководителя организации";
+            }
+            else
+            {
+                echo "Ожидает заполнения данных студентом";
+            }
             break;
         case 4:
             echo "Ожидает получения данных от руководителя организации";
@@ -146,7 +153,7 @@ function generate_document_table($connectMySQL) {
                     <tr>
                         <td style="background-color: #D4AC0D"><a href="fill.php?ID=<?php echo $doc_id;?>"><?php echo $doc_id;?></a></td>
                         <td style="background-color: #D4AC0D"><?php echo $template_name . ' (' . $week_number . ' неделя)'; ?></td>
-                        <td style="background-color: #D4AC0D"><?php view_status($doc_status_id); ?></td>
+                        <td style="background-color: #D4AC0D"><?php view_status($doc_status_id, $practice_place); ?></td>
                         <td style="background-color: #D4AC0D"><?php if ($row['TEMPLATE_ID'] == '1') {echo $student_fullname;} ?></td>
                         <td style="background-color: #D4AC0D"><?php echo $usu_chief_fullname; ?></td>
                         <td style="background-color: #D4AC0D"><?php echo $org_chief_fullname; ?></td>
@@ -161,7 +168,7 @@ function generate_document_table($connectMySQL) {
                     <tr>
                         <td style="background-color: #C84336"><a href="fill.php?ID=<?php echo $doc_id;?>"><?php echo $doc_id;?></a></td>
                         <td style="background-color: #C84336"><?php echo $template_name . ' (' . $week_number . ' неделя)'; ?></td>
-                        <td style="background-color: #C84336"><?php view_status($doc_status_id); ?></td>
+                        <td style="background-color: #C84336"><?php view_status($doc_status_id, $practice_place); ?></td>
                         <td style="background-color: #C84336"><?php if ($row['TEMPLATE_ID'] == '1') {echo $student_fullname;} ?></td>
                         <td style="background-color: #C84336"><?php echo $usu_chief_fullname; ?></td>
                         <td style="background-color: #C84336"><?php echo $org_chief_fullname; ?></td>
@@ -176,7 +183,7 @@ function generate_document_table($connectMySQL) {
                     <tr>
                         <td><a href="fill.php?ID=<?php echo $doc_id;?>"><?php echo $doc_id;?></a></td>
                         <td><?php echo $template_name . ' (' . $week_number . ' неделя)'; ?></td>
-                        <td><?php view_status($doc_status_id); ?></td>
+                        <td><?php view_status($doc_status_id, $practice_place); ?></td>
                         <td><?php if ($row['TEMPLATE_ID'] == '1') {echo $student_fullname;} ?></td>
                         <td><?php echo $usu_chief_fullname; ?></td>
                         <td><?php echo $org_chief_fullname; ?></td>
@@ -195,7 +202,7 @@ function generate_document_table($connectMySQL) {
                 <tr>
                     <td style="background-color: #D4AC0D"><a href="fill.php?ID=<?php echo $doc_id;?>"><?php echo $doc_id;?></a></td>
                     <td style="background-color: #D4AC0D"><?php echo $template_name . ' (' . $week_number . ' неделя)'; ?></td>
-                    <td style="background-color: #D4AC0D"><?php view_status($doc_status_id); ?></td>
+                    <td style="background-color: #D4AC0D"><?php view_status($doc_status_id, $practice_place); ?></td>
                     <td style="background-color: #D4AC0D"><?php if ($row['TEMPLATE_ID'] == '1') {echo $student_fullname;} ?></td>
                     <td style="background-color: #D4AC0D"><?php echo $usu_chief_fullname; ?></td>
                     <td style="background-color: #D4AC0D"><?php echo $org_chief_fullname; ?></td>
@@ -210,7 +217,7 @@ function generate_document_table($connectMySQL) {
             <tr>
                 <td style="background-color: #D4AC0D"><a href="fill.php?ID=<?php echo $doc_id;?>"><?php echo $doc_id;?></a></td>
                 <td style="background-color: #D4AC0D"><?php echo $template_name . ' (' . $week_number . ' неделя)'; ?></td>
-                <td style="background-color: #D4AC0D"><?php view_status($doc_status_id); ?></td>
+                <td style="background-color: #D4AC0D"><?php view_status($doc_status_id, $practice_place); ?></td>
                 <td style="background-color: #D4AC0D"><?php if ($row['TEMPLATE_ID'] == '1') {echo $student_fullname;} ?></td>
                 <td style="background-color: #D4AC0D"><?php echo $usu_chief_fullname; ?></td>
                 <td style="background-color: #D4AC0D"><?php echo $org_chief_fullname; ?></td>
@@ -225,7 +232,7 @@ function generate_document_table($connectMySQL) {
                 <tr>
                     <td><a href="fill.php?ID=<?php echo $doc_id;?>"><?php echo $doc_id;?></a></td>
                     <td><?php echo $template_name . ' (' . $week_number . ' неделя)'; ?></td>
-                    <td><?php view_status($doc_status_id); ?></td>
+                    <td><?php view_status($doc_status_id, $practice_place); ?></td>
                     <td><?php if ($row['TEMPLATE_ID'] == '1') {echo $student_fullname;} ?></td>
                     <td><?php echo $usu_chief_fullname; ?></td>
                     <td><?php echo $org_chief_fullname; ?></td>
@@ -240,7 +247,7 @@ function generate_document_table($connectMySQL) {
             <tr>
                 <td><a href="fill.php?ID=<?php echo $doc_id;?>"><?php echo $doc_id;?></a></td>
                 <td><?php echo $template_name . ' (' . $week_number . ' неделя)'; ?></td>
-                <td><?php view_status($doc_status_id); ?></td>
+                <td><?php view_status($doc_status_id, $practice_place); ?></td>
                 <td><?php if ($row['TEMPLATE_ID'] == '1') {echo $student_fullname;} ?></td>
                 <td><?php echo $usu_chief_fullname; ?></td>
                 <td><?php echo $org_chief_fullname; ?></td>
@@ -259,7 +266,7 @@ function generate_document_table($connectMySQL) {
                 <tr>
                     <td style="background-color: #D4AC0D"><a href="fill.php?ID=<?php echo $doc_id;?>"><?php echo $doc_id;?></a></td>
                     <td style="background-color: #D4AC0D"><?php echo $template_name . ' (' . $week_number . ' неделя)'; ?></td>
-                    <td style="background-color: #D4AC0D"><?php view_status($doc_status_id); ?></td>
+                    <td style="background-color: #D4AC0D"><?php view_status($doc_status_id, $practice_place); ?></td>
                     <td style="background-color: #D4AC0D"><?php if ($row['TEMPLATE_ID'] == '1') {echo $student_fullname;} ?></td>
                     <td style="background-color: #D4AC0D"><?php echo $usu_chief_fullname; ?></td>
                     <td style="background-color: #D4AC0D"><?php echo $org_chief_fullname; ?></td>
@@ -274,7 +281,7 @@ function generate_document_table($connectMySQL) {
             <tr>
                 <td style="background-color: #D4AC0D"><a href="fill.php?ID=<?php echo $doc_id;?>"><?php echo $doc_id;?></a></td>
                 <td style="background-color: #D4AC0D"><?php echo $template_name . ' (' . $week_number . ' неделя)'; ?></td>
-                <td style="background-color: #D4AC0D"><?php view_status($doc_status_id); ?></td>
+                <td style="background-color: #D4AC0D"><?php view_status($doc_status_id, $practice_place); ?></td>
                 <td style="background-color: #D4AC0D"><?php if ($row['TEMPLATE_ID'] == '1') {echo $student_fullname;} ?></td>
                 <td style="background-color: #D4AC0D"><?php echo $usu_chief_fullname; ?></td>
                 <td style="background-color: #D4AC0D"><?php echo $org_chief_fullname; ?></td>
@@ -289,7 +296,7 @@ function generate_document_table($connectMySQL) {
                     <tr>
                         <td><a href="fill.php?ID=<?php echo $doc_id;?>"><?php echo $doc_id;?></a></td>
                         <td><?php echo $template_name . ' (' . $week_number . ' неделя)'; ?></td>
-                        <td><?php view_status($doc_status_id); ?></td>
+                        <td><?php view_status($doc_status_id, $practice_place); ?></td>
                         <td><?php if ($row['TEMPLATE_ID'] == '1') {echo $student_fullname;} ?></td>
                         <td><?php echo $usu_chief_fullname; ?></td>
                         <td><?php echo $org_chief_fullname; ?></td>
@@ -304,7 +311,7 @@ function generate_document_table($connectMySQL) {
             <tr>
                 <td><a href="fill.php?ID=<?php echo $doc_id;?>"><?php echo $doc_id;?></a></td>
                 <td><?php echo $template_name . ' (' . $week_number . ' неделя)'; ?></td>
-                <td><?php view_status($doc_status_id); ?></td>
+                <td><?php view_status($doc_status_id, $practice_place); ?></td>
                 <td><?php if ($row['TEMPLATE_ID'] == '1') {echo $student_fullname;} ?></td>
                 <td><?php echo $usu_chief_fullname; ?></td>
                 <td><?php echo $org_chief_fullname; ?></td>
@@ -323,7 +330,7 @@ function generate_document_table($connectMySQL) {
                     <tr>
                         <td style="background-color: #D4AC0D"><a href="fill.php?ID=<?php echo $doc_id;?>"><?php echo $doc_id;?></a></td>
                         <td style="background-color: #D4AC0D"><?php echo $template_name . ' (' . $week_number . ' неделя)'; ?></td>
-                        <td style="background-color: #D4AC0D"><?php view_status($doc_status_id); ?></td>
+                        <td style="background-color: #D4AC0D"><?php view_status($doc_status_id, $practice_place); ?></td>
                         <td style="background-color: #D4AC0D"><?php if ($row['TEMPLATE_ID'] == '1') {echo $student_fullname;} ?></td>
                         <td style="background-color: #D4AC0D"><?php echo $usu_chief_fullname; ?></td>
                         <td style="background-color: #D4AC0D"><?php echo $org_chief_fullname; ?></td>
@@ -338,7 +345,7 @@ function generate_document_table($connectMySQL) {
             <tr>
                 <td style="background-color: #D4AC0D"><a href="fill.php?ID=<?php echo $doc_id;?>"><?php echo $doc_id;?></a></td>
                 <td style="background-color: #D4AC0D"><?php echo $template_name . ' (' . $week_number . ' неделя)'; ?></td>
-                <td style="background-color: #D4AC0D"><?php view_status($doc_status_id); ?></td>
+                <td style="background-color: #D4AC0D"><?php view_status($doc_status_id, $practice_place); ?></td>
                 <td style="background-color: #D4AC0D"><?php if ($row['TEMPLATE_ID'] == '1') {echo $student_fullname;} ?></td>
                 <td style="background-color: #D4AC0D"><?php echo $usu_chief_fullname; ?></td>
                 <td style="background-color: #D4AC0D"><?php echo $org_chief_fullname; ?></td>
@@ -353,7 +360,7 @@ function generate_document_table($connectMySQL) {
                     <tr>
                         <td><a href="fill.php?ID=<?php echo $doc_id;?>"><?php echo $doc_id;?></a></td>
                         <td><?php echo $template_name . ' (' . $week_number . ' неделя)'; ?></td>
-                        <td><?php view_status($doc_status_id); ?></td>
+                        <td><?php view_status($doc_status_id, $practice_place); ?></td>
                         <td><?php if ($row['TEMPLATE_ID'] == '1') {echo $student_fullname;} ?></td>
                         <td><?php echo $usu_chief_fullname; ?></td>
                         <td><?php echo $org_chief_fullname; ?></td>
@@ -368,7 +375,7 @@ function generate_document_table($connectMySQL) {
             <tr>
                 <td><a href="fill.php?ID=<?php echo $doc_id;?>"><?php echo $doc_id;?></a></td>
                 <td><?php echo $template_name . ' (' . $week_number . ' неделя)'; ?></td>
-                <td><?php view_status($doc_status_id); ?></td>
+                <td><?php view_status($doc_status_id, $practice_place); ?></td>
                 <td><?php if ($row['TEMPLATE_ID'] == '1') {echo $student_fullname;} ?></td>
                 <td><?php echo $usu_chief_fullname; ?></td>
                 <td><?php echo $org_chief_fullname; ?></td>
@@ -386,7 +393,7 @@ function generate_document_table($connectMySQL) {
                     <tr>
                         <td style="background-color: #4CAF50"><a href="fill.php?ID=<?php echo $doc_id;?>"><?php echo $doc_id;?></a></td>
                         <td style="background-color: #4CAF50"><?php echo $template_name . ' (' . $week_number . ' неделя)'; ?></td>
-                        <td style="background-color: #4CAF50"><?php view_status($doc_status_id); ?></td>
+                        <td style="background-color: #4CAF50"><?php view_status($doc_status_id, $practice_place); ?></td>
                         <td style="background-color: #4CAF50"><?php if ($row['TEMPLATE_ID'] == '1') {echo $student_fullname;} ?></td>
                         <td style="background-color: #4CAF50"><?php echo $usu_chief_fullname; ?></td>
                         <td style="background-color: #4CAF50"><?php echo $org_chief_fullname; ?></td>
