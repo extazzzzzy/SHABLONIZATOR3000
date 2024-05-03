@@ -4,7 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="976abf02-ba36-4c50-a031-5e18a62c783a" name="Changes" comment="Просто две кнопочки в ..." />
+    <list default="true" id="976abf02-ba36-4c50-a031-5e18a62c783a" name="Changes" comment="Просто две кнопочки в ...">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/documents/diary_6634e5552c9328.68468918.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/documents/diary_6634e59417f6c1.30184262.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/fill_org_chief.php" beforeDir="false" afterPath="$PROJECT_DIR$/pages/fill_org_chief.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/php/delete_record.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/delete_record.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/python/.idea/.name" beforeDir="false" afterPath="$PROJECT_DIR$/python/.idea/.name" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/python/create_report_document.py" beforeDir="false" afterPath="$PROJECT_DIR$/python/create_report_document.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/python/fill_org_chief_data_report.php" beforeDir="false" afterPath="$PROJECT_DIR$/python/fill_org_chief_data_report.php" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -95,6 +104,7 @@
       <workItem from="1714729212885" duration="159000" />
       <workItem from="1714729377950" duration="483000" />
       <workItem from="1714730167978" duration="7668000" />
+      <workItem from="1714746086232" duration="6286000" />
     </task>
     <task id="LOCAL-00001" summary="fill с ролями и инпутами всякими">
       <option name="closed" value="true" />

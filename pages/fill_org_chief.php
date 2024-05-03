@@ -228,7 +228,7 @@ if ($connectMySQL->query("SELECT TEMPLATE_ID FROM `diary_document` WHERE `ID` = 
         <div class="container">
             <input type="submit" value="Запустить документ" name="submit">
         </div>
-        <input type="hidden" name="document_id" value=<?php echo $_GET['ID'] ?>
+        <input type="hidden" name="document_id" value=<?php echo $_GET['ID'] ?>>
 </form>
 </div>
 <?php
