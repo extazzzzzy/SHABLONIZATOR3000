@@ -4,18 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="976abf02-ba36-4c50-a031-5e18a62c783a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/python/practice_kind_variations.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/python/practice_place_variations.py" afterDir="false" />
+    <list default="true" id="976abf02-ba36-4c50-a031-5e18a62c783a" name="Changes" comment="Просто две кнопочки в ...">
+      <change afterPath="$PROJECT_DIR$/images/fill2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/fill3.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-<<<<<<< Updated upstream
-      <change beforePath="$PROJECT_DIR$/documents/ready_document.docx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/python/.idea/.name" beforeDir="false" afterPath="$PROJECT_DIR$/python/.idea/.name" afterDir="false" />
-=======
-      <change beforePath="$PROJECT_DIR$/php/fill_org_chief_data.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/fill_org_chief_data.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/php/fill_student_data.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/fill_student_data.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/php/fill_usu_chief_data.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/fill_usu_chief_data.php" afterDir="false" />
->>>>>>> Stashed changes
+      <change beforePath="$PROJECT_DIR$/pages/fill.php" beforeDir="false" afterPath="$PROJECT_DIR$/pages/fill.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,7 +17,6 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="ComposerSettings">
-    <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution />
   </component>
   <component name="FileTemplateManagerImpl">
@@ -34,12 +27,17 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="h-idwidwi &lt;hidwdiwi@gmail.com&gt;" />
+      </list>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="C:\MAMP\bin\php\php8.1.0\php.exe" />
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="C:\php\php.exe" />
   <component name="ProjectId" id="2flOkbOvCER2JTOXarn1VxGVXkf" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -49,18 +47,20 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "C:/MAMP/htdocs/SHABLONIZATOR3000/templates",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/OSPanel/domains/SHABLONIZATOR3000/images",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\OSPanel\domains\SHABLONIZATOR3000\images" />
       <recent name="C:\MAMP\htdocs\SHABLONIZATOR3000\templates" />
       <recent name="C:\MAMP\htdocs\SHABLONIZATOR3000\python" />
     </key>
@@ -93,18 +93,67 @@
       <workItem from="1714463783916" duration="1135000" />
       <workItem from="1714467136803" duration="4315000" />
       <workItem from="1714477091908" duration="1101000" />
-<<<<<<< Updated upstream
       <workItem from="1714489197452" duration="3480000" />
       <workItem from="1714495740777" duration="3000" />
       <workItem from="1714496927805" duration="1272000" />
-=======
-      <workItem from="1714489197452" duration="2878000" />
-      <workItem from="1714492417556" duration="5392000" />
->>>>>>> Stashed changes
+      <workItem from="1714594172814" duration="29307000" />
+      <workItem from="1714675642120" duration="6322000" />
+      <workItem from="1714729212885" duration="159000" />
+      <workItem from="1714729377950" duration="483000" />
+      <workItem from="1714730167978" duration="7668000" />
     </task>
+    <task id="LOCAL-00001" summary="fill с ролями и инпутами всякими">
+      <option name="closed" value="true" />
+      <created>1714564245460</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1714564245460</updated>
+    </task>
+    <task id="LOCAL-00002" summary="EXTRA GLOBAL ULTRA UPDATE SYSTEM ACTIVATED">
+      <option name="closed" value="true" />
+      <created>1714639605318</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1714639605319</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Просто две кнопочки...">
+      <option name="closed" value="true" />
+      <created>1714670451159</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1714670451159</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Добавление руководителя администратором">
+      <option name="closed" value="true" />
+      <created>1714728406452</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1714728406453</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Добавлено две цифры">
+      <option name="closed" value="true" />
+      <created>1714731872984</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1714731872984</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="fill с ролями и инпутами всякими" />
+    <MESSAGE value="EXTRA GLOBAL ULTRA UPDATE SYSTEM ACTIVATED" />
+    <MESSAGE value="Просто две кнопочки..." />
+    <MESSAGE value="Добавление руководителя администратором" />
+    <MESSAGE value="Добавлено две цифры" />
+    <option name="LAST_COMMIT_MESSAGE" value="Добавлено две цифры" />
   </component>
 </project>

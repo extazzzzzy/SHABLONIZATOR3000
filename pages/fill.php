@@ -28,7 +28,7 @@ $diary_document_id = $_GET['ID'];
         h2 {
             color: #0a4d8c;
             text-align: center;
-            font-size: large;
+            font-size: medium;
         }
         .container {
             display: flex;
@@ -46,7 +46,7 @@ $diary_document_id = $_GET['ID'];
         }
         input[type="text"] {
             color: #ffffff;
-            width: 40%;
+            width: 17%;
             padding: 10px;
             margin: 10px auto;
             background-color: #0a4d8c;
@@ -141,20 +141,17 @@ $diary_document_id = $_GET['ID'];
 </div>
 <?php
 if ($_SESSION['ROLE'] == 'usu_chief') {
-        if ($connectMySQL->query("SELECT STATUS FROM `diary_document` WHERE `ID` = " . $diary_document_id)->fetch_assoc()['STATUS'] != '2')
-        {
-            header("Location: documents.php");
+        if ($connectMySQL->query("SELECT STATUS FROM `diary_document` WHERE `ID` = " . $diary_document_id)->fetch_assoc()['STATUS'] != '2') {
+                header("Location: documents.php");
             die();
         }
 
 
     ?>
-    <div class="container">
-        <div class="logo">
-            <img src="../images/fill1.png">
-        </div>
-    </div>
-    <form action="../python/fill_usu_chief_data.php" method="post">
+    <?php
+    if ($connectMySQL->query("SELECT TEMPLATE_ID FROM `diary_document` WHERE `ID` = " . $diary_document_id)->fetch_assoc()['TEMPLATE_ID'] == '1'){
+        ?>
+        <form action="../python/fill_usu_chief_data.php" method="post">
         <?php
         $servername = "localhost";
         $username = "root";
@@ -170,7 +167,13 @@ if ($_SESSION['ROLE'] == 'usu_chief') {
         $sql = "SELECT DISTINCT STUDENT_GROUP FROM user WHERE STUDENT_GROUP IS NOT NULL";
 
         $result = $conn->query($sql);
-
+        ?>
+            <div class="container">
+                <div class="logo">
+                    <img src="../images/fill1.png">
+                </div>
+            </div>
+            <?php
         echo '<select id="student_group" name="student_group" required>';
         echo '<option value="">Выберите группу</option>';
         while ($row = $result->fetch_assoc()) {
@@ -188,8 +191,70 @@ if ($_SESSION['ROLE'] == 'usu_chief') {
         <input type="hidden" name="document_id" value = <?php echo $_GET['ID'] ?>>
         <button class="nav-button" type="submit">Отправить</button>
     </form>
+        <?php
+    }elseif ($connectMySQL->query("SELECT TEMPLATE_ID FROM `diary_document` WHERE `ID` = " . $diary_document_id)->fetch_assoc()['TEMPLATE_ID'] == '2'){?>
+        <form action="../fill_usu_chief_data_report.php">
+            <?php
+            $statement = new mysqli("localhost", "root", "root", "shablonizator3000");
+
+            if ($statement->connect_error) {
+                die("Connection failed: " . $statement->connect_error);
+            }
+
+            $sql1 = "SELECT DISTINCT STUDENT_GROUP FROM user WHERE STUDENT_GROUP IS NOT NULL";
+
+            $result = $statement->query($sql1);
+            ?>
+            <div class="container">
+                <div class="logo">
+                    <img src="../images/fill2.png">
+                    <img src="../images/fill3.png">
+                </div>
+            </div>
+            <?php
+            echo '<select id="student_group" name="student_group" required>';
+            echo '<option value="">Выберите группу</option>';
+            while ($row = $result->fetch_assoc()) {
+                echo '<option value="' . $row["STUDENT_GROUP"] . '">' . $row["STUDENT_GROUP"] . '</option>';
+            }
+            echo '</select>';
+            echo "<br>";
+            $statement->close();
+            ?>
+            <input type="text" name="YEAR" id="YEAR" placeholder="Год отчета" value="<?php echo date('Y') - 1;?> / <?php echo date('Y'); ?>">
+            <br>
+            <input type="text" name="REPORT_YEAR" placeholder="Год обучения" value="<?php echo date('Y'); ?>">
+            <br>
+            <select id="practice_kind" name="practice_kind" required>
+                <option value="">Выберите вид практики</option>
+                <option value="Учебная">Учебная</option>
+                <option value="Производственная">Производственная</option>
+            </select>
+            <br>
+            <select id="PRACTICE_TYPE" name="PRACTICE_TYPE">
+                <option value="">Выберите тип практики</option>
+                <option value="Ознакомительная">Ознакомительная</option>
+                <option value="Технологическая">Технологическая</option>
+                <option value="Преддипломная">Преддипломная</option>
+            </select>
+            <br>
+            <select id="CODE_AND_PREPARATION_DIRECTION" name="CODE_AND_PREPARATION_DIRECTION">
+                <option value="">Выберите код направления</option>
+                <option value="09.03.04">09.03.04 Программная инженерия</option>
+                <option value="09.03.01">09.03.01 Информатика и вычислительная техника</option>
+            </select>
+            <br>
+            <select id="ORDER_NUMBER_AND_DATE" name="ORDER_NUMBER_AND_DATE">
+                <option value="">Выберите номер приказа</option>
+                <option value="2-221 от 6-го марта 2024г">2-221 от 6.03.2024</option>
+            </select>
+            <br>
+            <input type="hidden" name="document_id" value = <?php echo $_GET['ID'] ?>>
+            <button class="nav-button" type="submit">Отправить</button>
+        </form>
     <?php
-} elseif ($_SESSION['ROLE'] == 'student')
+}
+}elseif ($_SESSION['ROLE'] == 'student')
     {
         $diary_document_record = $connectMySQL->query("SELECT STATUS, PRACTICE_PLACE FROM `diary_document` WHERE `ID` = " . $diary_document_id)->fetch_assoc();
 
