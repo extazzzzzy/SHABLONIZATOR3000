@@ -599,5 +599,8 @@ function generate_document_table($connectMySQL) {
             xhr.send(formData);
     }
 </script>
+
+
+
 </body>
 </html>
