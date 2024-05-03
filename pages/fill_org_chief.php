@@ -49,14 +49,20 @@ if ($connectMySQL->query("SELECT STATUS FROM `diary_document` WHERE `ID` = " . $
             width: 400px;
             text-align: center;
             padding: 10px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
         }
         .container1 {
-            width: 500px;
-            height: 600px;
+            width: 400px;
+            max-height: 500px;
             overflow-x: auto;
             scrollbar-width: none;
             text-align: center;
             justify-content: center;
+            display: flex;
         }
         .container2 {
             width: calc(100% - 20px);
@@ -64,8 +70,6 @@ if ($connectMySQL->query("SELECT STATUS FROM `diary_document` WHERE `ID` = " . $
             text-align: center;
             display: flex;
             justify-content: center;
-            align-items: center;
-            margin-right: 20px;
         }
 
         form {
@@ -76,7 +80,7 @@ if ($connectMySQL->query("SELECT STATUS FROM `diary_document` WHERE `ID` = " . $
         }
         input[type="text"], input[type="password"], select {
             color: #ffffff;
-            width: calc(100% - 20px);
+            width: 89%;
             padding: 10px;
             margin-bottom: 10px;
             background-color: #0a4d8c;
@@ -90,7 +94,7 @@ if ($connectMySQL->query("SELECT STATUS FROM `diary_document` WHERE `ID` = " . $
             color: #ffffff;
         }
         input[type="submit"], button {
-            width: 100%;
+            width: 95%;
             padding: 10px;
             background-color: #0a4d8c;
             color: #ffffff;
@@ -98,6 +102,7 @@ if ($connectMySQL->query("SELECT STATUS FROM `diary_document` WHERE `ID` = " . $
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            font-size: 15px;
         }
         input[type="submit"]:hover, button:hover {
             background-color: rgba(120, 172, 227, 0.72);
@@ -149,6 +154,19 @@ if ($connectMySQL->query("SELECT STATUS FROM `diary_document` WHERE `ID` = " . $
             max-width: 300px;
             text-align: center;
         }
+        select {
+            background-color: #0a4d8c;
+            border-style: none;
+            border-radius: 5px;
+            height: 40px;
+            width: calc(100% - 20px);
+            color: white;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            font-size: medium;
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -183,9 +201,7 @@ if ($connectMySQL->query("SELECT TEMPLATE_ID FROM `diary_document` WHERE `ID` = 
             <div class='chefs'><input type='checkbox' name='qualities[]' id='checkbox7' value="эрудированность"><label for='checkbox7'></label>эрудированность</div>
             <div class='chefs'><input type='checkbox' name='qualities[]' id='checkbox8' value="вежливость"><label for='checkbox8'></label>вежливость</div>
             <div class='chefs'><input type='checkbox' name='qualities[]' id='checkbox9' value="тактичность"><label for='checkbox9'></label>тактичность</div>
-        </div>
 
-        <div class="container">
             <label for="problem_solving_speed">С возникающими при работе проблемами справлялся:</label>
             <select id="problem_solving_speed" name="problem_solving_speed">
                 <option>оперативно</option>
@@ -195,9 +211,7 @@ if ($connectMySQL->query("SELECT TEMPLATE_ID FROM `diary_document` WHERE `ID` = 
                 <option>с небольшими затруднениями</option>
                 <option>своевременно</option>
             </select>
-        </div>
 
-        <div class="container">
             <label for="work_amount">Индивидуальное задание, предусмотренное программой практики, выполнено:</label>
             <select id="work_amount" name="work_amount">
                 <option>частично</option>
@@ -211,13 +225,9 @@ if ($connectMySQL->query("SELECT TEMPLATE_ID FROM `diary_document` WHERE `ID` = 
                 <option>плачевно</option>
                 <option>жалко</option>
             </select>
-        </div>
 
-        <div class="container">
             <input type="text" id="remarks" placeholder="Замечания(необязательно к заполнению)" name="remarks">
-        </div>
 
-        <div class="container">
             <label for="assessment">Работа студента оценивается на:</label>
             <select id="assessment" name="assessment">
                 <option name='assessment_1'>отлично</option>
@@ -225,11 +235,9 @@ if ($connectMySQL->query("SELECT TEMPLATE_ID FROM `diary_document` WHERE `ID` = 
                 <option name='assessment_3'>удовлетворительно</option>
                 <option name='assessment_4'>неудовлетворительно</option>
             </select>
-        </div>
-        <div class="container">
             <input type="submit" value="Запустить документ" name="submit">
-        </div>
         <input type="hidden" name="document_id" value=<?php echo $_GET['ID'] ?>>
+        </div>
 </form>
 </div>
 <?php
@@ -246,15 +254,11 @@ elseif ($connectMySQL->query("SELECT TEMPLATE_ID FROM `diary_document` WHERE `ID
                     <option value="other">Нет нужного варианта</option>
                 </select>
                 <input type="text" id="other_place" name="other_place" placeholder="Введите другое место практики" style="display: none;">
-            </div>
 
-            <div class="container">
                 <input type="text" name="PRACTICE_DEADLINES" id="PRACTICE_DEADLINES" placeholder="Сроки практики по календарному учебному графику">
-            </div>
-            <div class="container">
                 <input type="submit" value="Запустить документ" name="submit">
-            </div>
             <input type="hidden" name="document_id" value=<?php echo $_GET['ID'] ?>>
+            </div>
 </form>
 </div>
 <?php
