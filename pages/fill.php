@@ -154,39 +154,40 @@ $diary_document_id = $_GET['ID'];
 </div>
 <?php
 if ($_SESSION['ROLE'] == 'usu_chief') {
-    if ($connectMySQL->query("SELECT STATUS FROM `diary_document` WHERE `ID` = " . $diary_document_id)->fetch_assoc()['STATUS'] != '2') {
-        header("Location: documents.php");
-        die();
+if ($connectMySQL->query("SELECT STATUS FROM `diary_document` WHERE `ID` = " . $diary_document_id)->fetch_assoc()['STATUS'] != '2') {
+    header("Location: documents.php");
+    die();
+}
+
+
+?>
+<?php
+if ($connectMySQL->query("SELECT TEMPLATE_ID FROM `diary_document` WHERE `ID` = " . $diary_document_id)->fetch_assoc()['TEMPLATE_ID'] == '1'){
+?>
+<form action="../python/fill_usu_chief_data.php" method="post">
+    <?php
+    $servername = "localhost";
+    $username = "root";
+    $password = "root";
+    $dbname = "shablonizator3000";
+
+    $conn = new mysqli($servername, $username, $password, $dbname);
+
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
     }
 
+    $sql = "SELECT DISTINCT STUDENT_GROUP FROM user WHERE STUDENT_GROUP IS NOT NULL";
 
+    $result = $conn->query($sql);
     ?>
-    <?php
-if ($connectMySQL->query("SELECT TEMPLATE_ID FROM `diary_document` WHERE `ID` = " . $diary_document_id)->fetch_assoc()['TEMPLATE_ID'] == '1'){
-    ?>
-    <form action="../python/fill_usu_chief_data.php" method="post">
-        <?php
-        $servername = "localhost";
-        $username = "root";
-        $password = "root";
-        $dbname = "shablonizator3000";
-
-        $conn = new mysqli($servername, $username, $password, $dbname);
-
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
-
-        $sql = "SELECT DISTINCT STUDENT_GROUP FROM user WHERE STUDENT_GROUP IS NOT NULL";
-
-        $result = $conn->query($sql);
-        ?>
-        <div class="container">
-            <div class="logo">
-                <img src="../images/fill1.png">
-            </div>
+    <div
+            class="container">
+        <div class="logo">
+            <img src="../images/fill1.png">
         </div>
-        <div class="container1">
+    </div>
+    <div class="container1">
         <?php
         echo '<select id="student_group" name="student_group" required>';
         echo '<option value="">Выберите группу</option>';
@@ -203,12 +204,12 @@ if ($connectMySQL->query("SELECT TEMPLATE_ID FROM `diary_document` WHERE `ID` = 
             <option value="Производственная">Производственная</option>
         </select>
         <input type="hidden" name="document_id" value = <?php echo $_GET['ID'] ?>>
-        <button class="nav-button" type="submit">Отправить</button>
-        </div>>
-    </form>
-    <?php
+<button class="nav-button" type="submit">Отправить</button>
+</div»
+</form>
+<?php
 }elseif ($connectMySQL->query("SELECT TEMPLATE_ID FROM `diary_document` WHERE `ID` = " . $diary_document_id)->fetch_assoc()['TEMPLATE_ID'] == '2'){?>
-    <form action="../python/fill_usu_chief_data_report.php" method="post">
+<form action="../python/fill_usu_chief_data_report.php" method="post">
         <?php
         $statement = new mysqli("localhost", "root", "root", "shablonizator3000");
 
@@ -227,49 +228,49 @@ if ($connectMySQL->query("SELECT TEMPLATE_ID FROM `diary_document` WHERE `ID` = 
             </div>
         </div>
         <div class="container1">
-        <?php
-        echo '<select id="student_group" name="STUDENTS_GROUP" required>';
-        echo '<option value="">Выберите группу</option>';
-        while ($row = $result->fetch_assoc()) {
-            echo '<option value="' . $row["STUDENT_GROUP"] . '">' . $row["STUDENT_GROUP"] . '</option>';
-        }
-        echo '</select>';
-        echo "<br>";
-        $statement->close();
-        ?>
-        <input type="text" name="YEAR" id="YEAR" placeholder="Год отчета" value="<?php echo date('Y') - 1;?> / <?php echo date('Y'); ?>">
-        <br>
-        <input type="text" name="REPORT_YEAR" placeholder="Год обучения" value="<?php echo date('Y'); ?>">
-        <br>
-        <select id="practice_kind" name="PRACTICE_KIND" required>
-            <option value="">Выберите вид практики</option>
-            <option value="Учебная">Учебная</option>
-            <option value="Производственная">Производственная</option>
-        </select>
-        <br>
-        <select id="PRACTICE_TYPE" name="PRACTICE_TYPE">
-            <option value="">Выберите тип практики</option>
-            <option value="Ознакомительная">Ознакомительная</option>
-            <option value="Технологическая">Технологическая</option>
-            <option value="Преддипломная">Преддипломная</option>
-        </select>
-        <br>
-        <select id="CODE_AND_PREPARATION_DIRECTION" name="CODE_AND_PREPARATION_DIRECTION">
-            <option value="">Выберите код направления</option>
-            <option value="09.03.04 Программная инженерия">09.03.04 Программная инженерия</option>
-            <option value="09.03.01 Информатика и вычислительная техника">09.03.01 Информатика и вычислительная техника</option>
-        </select>
-        <br>
-        <select id="ORDER_NUMBER_AND_DATE" name="ORDER_NUMBER_AND_DATE">
-            <option value="">Выберите номер приказа</option>
-            <option value="2-221 от 6-го марта 2024г">2-221 от 06.03.2024</option>
-            <option value="2-222 от 6-го марта 2024г">2-222 от 06.03.2024</option>
-        </select>
-        <br>
-        <input type="hidden" name="document_id" value = <?php echo $_GET['ID'] ?>>
-        <button class="nav-button" type="submit">Отправить</button>
-        </div>
-    </form>
+            <?php
+            echo '<select id="student_group" name="STUDENTS_GROUP" required>';
+            echo '<option value="">Выберите группу</option>';
+            while ($row = $result->fetch_assoc()) {
+                echo '<option value="' . $row["STUDENT_GROUP"] . '">' . $row["STUDENT_GROUP"] . '</option>';
+            }
+            echo '</select>';
+            echo "<br>";
+            $statement->close();
+            ?>
+            <input type="text" name="YEAR" id="YEAR" placeholder="Год отчета" value="<?php echo date('Y') - 1;?> / <?php echo date('Y'); ?>">
+            <br>
+            <input type="text" name="REPORT_YEAR" placeholder="Год обучения" value="<?php echo date('Y'); ?>">
+            <br>
+            <select id="practice_kind" name="PRACTICE_KIND" required>
+                <option value="">Выберите вид практики</option>
+                <option value="Учебная">Учебная</option>
+                <option value="Производственная">Производственная</option>
+            </select>
+            <br>
+            <select id="PRACTICE_TYPE" name="PRACTICE_TYPE">
+                <option value="">Выберите тип практики</option>
+                <option value="Ознакомительная">Ознакомительная</option>
+                <option value="Технологическая">Технологическая</option>
+                <option value="Преддипломная">Преддипломная</option>
+            </select>
+            <br>
+            <select id="CODE_AND_PREPARATION_DIRECTION" name="CODE_AND_PREPARATION_DIRECTION">
+                <option value="">Выберите код направления</option>
+                <option value="09.03.04 Программная инженерия">09.03.04 Программная инженерия</option>
+                <option value="09.03.01 Информатика и вычислительная техника">09.03.01 Информатика и вычислительная техника</option>
+            </select>
+            <br>
+            <select id="ORDER_NUMBER_AND_DATE" name="ORDER_NUMBER_AND_DATE">
+                <option value="">Выберите номер приказа</option>
+                <option value="2-221 от 6-го марта 2024г">2-221 от 06.03.2024</option>
+                <option value="2-222 от 6-го марта 2024г">2-222 от 06.03.2024</option>
+            </select>
+            <br>
+            <input type="hidden" name="document_id" value = <?php echo $_GET['ID'] ?>>
+<button class="nav-button" type="submit">Отправить</button>
+</div>
+</form>
 <?php
 }
 }elseif ($_SESSION['ROLE'] == 'student')
@@ -278,102 +279,103 @@ $diary_document_record = $connectMySQL->query("SELECT STATUS, PRACTICE_PLACE FRO
 
 if ($diary_document_record['STATUS'] != '3' | !isset($diary_document_record['PRACTICE_PLACE']))
 {
-    header("Location: documents.php");
-    die();
+header("Location: documents.php");
+die();
 }
 ?>
-    <form action="../python/fill_student_data.php?ID=" . <?php echo $_GET['ID'] ?> method="post" enctype="multipart/form-data">
-        <div id="taskForm">
+<form action="../python/fill_student_data.php?ID=" . <?php echo $_GET['ID'] ?> method="post" enctype="multipart/form-data">
+            <div id="taskForm">
 
-        </div>
-        <button id="addPairButton" type="button">Добавить новую задачу</button>
-        <button id="removePairButton" type="button">Удалить последнюю задачу</button>
-        <h2>Выберите .csv файл для загрузки задач</h2>
-        <input type="file" name="fileToUpload" id="fileToUpload">
-        <input type="hidden" name="document_id" value = <?php echo $_GET['ID'] ?>>
-        <br>
-        <input type="submit" value="Отправить" name="submit">
-        <br>
-
-
-        <ion-icon class="icon" name="help-circle-outline"></ion-icon>
-        <div class="tooltip" style="font-size: 14px">
-            Добавьте задачи вручную или загрузите .csv таблицу
-        </div>
-    </form>
+            </div>
+            <button id="addPairButton" type="button">Добавить новую задачу</button>
+            <button id="removePairButton" type="button">Удалить
+                последнюю задачу</button>
+            <h2>Выберите .csv файл для загрузки задач</h2>
+            <input type="file" name="fileToUpload" id="fileToUpload">
+            <input type="hidden" name="document_id" value = <?php echo $_GET['ID'] ?>>
+<br>
+<input type="submit" value="Отправить" name="submit">
 <br>
 
 
-    <script>
-        function checkFormState() {
-            const tasks = document.querySelectorAll('.input-pair');
-            const fileInput = document.getElementById('fileToUpload');
-            const addButton = document.getElementById('addPairButton');
-            const removeButton = document.getElementById('removePairButton');
+<ion-icon class="icon" name="help-circle-outline"></ion-icon>
+<div class="tooltip" style="font-size: 14px">
+Добавьте задачи вручную или загрузите .csv таблицу
+</div>
+</form>
+<br>
 
-            if (tasks.length > 0) {
-                fileInput.disabled = true;
-                removeButton.disabled = false;
-            } else {
-                fileInput.disabled = false;
-                removeButton.disabled = true;
-            }
 
-            if (fileInput.value !== '') {
-                addButton.disabled = true;
-            } else {
-                addButton.disabled = false;
-            }
-        }
+<script>
+function checkFormState() {
+const tasks = document.querySelectorAll('.input-pair');
+const fileInput = document.getElementById('fileToUpload');
+const addButton = document.getElementById('addPairButton');
+const removeButton = document.getElementById('removePairButton');
 
-        addPairButton.addEventListener('click', function() {
-            const pairDiv = document.createElement('div');
-            pairDiv.className = 'input-pair';
+if (tasks.length > 0) {
+fileInput.disabled = true;
+removeButton.disabled = false;
+} else {
+fileInput.disabled = false;
+removeButton.disabled = true;
+}
 
-            const input1 = document.createElement('input');
-            input1.type = 'text';
-            input1.name = 'taskName[]';
-            input1.placeholder = 'Название задачи';
-            input1.required = true;
+if (fileInput.value !== '') {
+addButton.disabled = true;
+} else {
+addButton.disabled = false;
+}
+}
 
-            const input2 = document.createElement('input');
-            input2.type = 'text';
-            input2.name = 'taskDescription[]';
-            input2.placeholder = 'Дата';
-            input2.required = true;
+addPairButton.addEventListener('click', function() {
+const pairDiv = document.createElement('div');
+pairDiv.className = 'input-pair';
 
-            pairDiv.appendChild(input1);
-            pairDiv.appendChild(input2);
+const input1 = document.createElement('input');
+input1.type = 'text';
+input1.name = 'taskName[]';
+input1.placeholder = 'Название задачи';
+input1.required = true;
 
-            taskForm.appendChild(pairDiv);
-            checkFormState();
-        });
+const input2 = document.createElement('input');
+input2.type = 'text';
+input2.name = 'taskDescription[]';
+input2.placeholder = 'Дата';
+input2.required = true;
 
-        removePairButton.addEventListener('click', function() {
-            const pairs = document.querySelectorAll('.input-pair');
-            const lastPair = pairs[pairs.length - 1];
-            if (lastPair) {
-                taskForm.removeChild(lastPair);
-            }
-            checkFormState();
-        });
+pairDiv.appendChild(input1);
+pairDiv.appendChild(input2);
 
-        fileToUpload.addEventListener('change', function() {
-            checkFormState();
-        });
-    </script>
-    <?php
+taskForm.appendChild(pairDiv);
+checkFormState();
+});
+
+removePairButton.addEventListener('click', function() {
+const pairs = document.querySelectorAll('.input-pair');
+const lastPair = pairs[pairs.length - 1];
+if (lastPair) {
+taskForm.removeChild(lastPair);
+}
+checkFormState();
+});
+
+fileToUpload.addEventListener('change', function() {
+checkFormState();
+});
+</script>
+<?php
 } elseif ($_SESSION['ROLE'] == 'org_chief'){
-    header("Location: fill_org_chief.php?ID=" . $_GET['ID']);
+header("Location: fill_org_chief.php?ID=" . $_GET['ID']);
 }
 else
 {
-    header("Location: pick_org_chief.php?ID=" . $_GET['ID']);
+header("Location: pick_org_chief.php?ID=" . $_GET['ID']);
 }
 ?>
 
 
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+            <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>
 </html>
