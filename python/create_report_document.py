@@ -136,7 +136,7 @@ for student_fullname_failure in STUDENT_FULLNAME_FAILURE:
     row_cells = table.add_row().cells
     row_cells[0].text = str(i)
     row_cells[1].text = student_fullname_failure
-    row_cells[2].text = "Студент не выполнил минимальные требования задания"
+    row_cells[2].text = "Студент не выполнил минимальные требования"
     i = i + 1
 
 for row in table.rows:

@@ -190,7 +190,7 @@ if ($connectMySQL->query("SELECT TEMPLATE_ID FROM `diary_document` WHERE `ID` = 
     <form action="../python/fill_org_chief_data.php" method="post" enctype="multipart/form-data">
         <div class="container">
             <h2>В ходе выполнения практики продемонстрировал следующие качества:</h2>
-            <div class="chefs"><button type="button" onclick="selectRandom()">Выбрать рандомно</button></div>
+            <div class="chefs"><button type="button" onclick="selectRandom()">Выбрать случайно</button></div>
             <br>
             <div class='chefs'><input type='checkbox' name='qualities[]' id='checkbox1' value="пунктуальность"><label for='checkbox1'></label>пунктуальность</div>
             <div class='chefs'><input type='checkbox' name='qualities[]' id='checkbox2' value="ответственность"><label for='checkbox2'></label>ответственность</div>

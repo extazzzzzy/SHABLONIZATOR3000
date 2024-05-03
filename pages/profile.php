@@ -170,6 +170,9 @@ $PREPARATION_DIRECTION = $connectMySQL->query("SELECT `PREPARATION_DIRECTION` FR
     <?php
     while ($row = $result->fetch_assoc()) {
         ?>
+        <?php
+        if ($_SESSION['ROLE'] == 'student') {
+        ?>
         <form action="../php/change_profile_info.php" method="post">
             <input type="hidden" name="ID" value="<?php echo $row['ID']; ?>">
             <input type="text" minlength="10" id="FULLNAME" name="FULLNAME" value="<?php echo $FULLNAME; ?>" placeholder="Введите ФИО">
@@ -202,6 +205,24 @@ $PREPARATION_DIRECTION = $connectMySQL->query("SELECT `PREPARATION_DIRECTION` FR
                 <button class="nav-button" type="submit">Выйти из аккаунта</button>
             </form>
         <?php
+        }
+
+        else { ?>
+            <form action="../php/change_profile_info.php" method="post">
+                <input type="hidden" name="ID" value="<?php echo $row['ID']; ?>">
+                <input type="text" minlength="10" id="FULLNAME" name="FULLNAME" value="<?php echo $FULLNAME; ?>" placeholder="Введите ФИО">
+
+                <input type="text" id="LOGIN" name="LOGIN" value="<?php echo $LOGIN; ?>" placeholder="Введите логин">
+                <input type="password" maxlength="30" id="PASSWORD" name="PASSWORD" value="<?php echo $PASSWORD; ?>" placeholder="Введите пароль">
+                <button type="submit">Изменить данные</button>
+            </form>
+            <form action="../php/logout.php">
+                <button class="nav-button" type="submit">Выйти из аккаунта</button>
+            </form>
+
+
+            <?php
+        }
     }
     ?>
 </div>
