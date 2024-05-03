@@ -42,7 +42,7 @@ if($_SESSION['ID'] != '')
         }
         input[type="text"], input[type="password"] {
             color: #ffffff;
-            width: calc(100% - 20px);
+            width: 100%;
             padding: 10px;
             margin-bottom: 10px;
             background-color: #0a4d8c;
@@ -64,6 +64,7 @@ if($_SESSION['ID'] != '')
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            font-size: 16px;
         }
         input[type="submit"]:hover {
             background-color: rgba(120, 172, 227, 0.72);
@@ -75,6 +76,7 @@ if($_SESSION['ID'] != '')
             text-align: center;
             display: block;
             margin-top: 10px;
+            font-size: 18px;
         }
         a:hover {
             text-decoration: underline;
