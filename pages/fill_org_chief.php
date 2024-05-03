@@ -89,7 +89,7 @@ if ($connectMySQL->query("SELECT STATUS FROM `diary_document` WHERE `ID` = " . $
         ::placeholder {
             color: #ffffff;
         }
-        input[type="submit"] {
+        input[type="submit"], button {
             width: 100%;
             padding: 10px;
             background-color: #0a4d8c;
@@ -99,7 +99,7 @@ if ($connectMySQL->query("SELECT STATUS FROM `diary_document` WHERE `ID` = " . $
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
-        input[type="submit"]:hover {
+        input[type="submit"]:hover, button:hover {
             background-color: rgba(120, 172, 227, 0.72);
             color: #0a4d8c;
         }
@@ -172,9 +172,10 @@ if ($connectMySQL->query("SELECT TEMPLATE_ID FROM `diary_document` WHERE `ID` = 
     <form action="../python/fill_org_chief_data.php" method="post" enctype="multipart/form-data">
         <div class="container">
             <h2>В ходе выполнения практики продемонстрировал следующие качества:</h2>
+            <div class="chefs"><button type="button" onclick="selectRandom()">Выбрать рандомно</button></div>
+            <br>
             <div class='chefs'><input type='checkbox' name='qualities[]' id='checkbox1' value="пунктуальность"><label for='checkbox1'></label>пунктуальность</div>
-            <div class='chefs'><input type='checkbox' name='qualities[]' id='checkbox2'
-                                      value="ответственность"><label for='checkbox2'></label>ответственность</div>
+            <div class='chefs'><input type='checkbox' name='qualities[]' id='checkbox2' value="ответственность"><label for='checkbox2'></label>ответственность</div>
             <div class='chefs'><input type='checkbox' name='qualities[]' id='checkbox3' value="целеустремлённость"><label for='checkbox3'></label>целеустремлённость</div>
             <div class='chefs'><input type='checkbox' name='qualities[]' id='checkbox4' value="заинтересованность"><label for='checkbox4'></label>заинтересованность</div>
             <div class='chefs'><input type='checkbox' name='qualities[]' id='checkbox5' value="трудолюбие"><label for='checkbox5'></label>трудолюбие</div>
@@ -271,6 +272,22 @@ elseif ($connectMySQL->query("SELECT TEMPLATE_ID FROM `diary_document` WHERE `ID
         } else {
             otherPlaceInput.style.display = "none";
             otherPlaceInput.removeAttribute("required");
+        }
+    }
+</script>
+<script>
+    function selectRandom() {
+        var checkboxes = document.querySelectorAll('input[type="checkbox"][name="qualities[]"]');
+        var selectedIndexes = [];
+        checkboxes.forEach(function(checkbox) {
+            checkbox.checked = false;
+        });
+        while (selectedIndexes.length < 3) {
+            var randomIndex = Math.floor(Math.random() * checkboxes.length);
+            if (!selectedIndexes.includes(randomIndex)) {
+                selectedIndexes.push(randomIndex);
+                checkboxes[randomIndex].checked = true;
+            }
         }
     }
 </script>
