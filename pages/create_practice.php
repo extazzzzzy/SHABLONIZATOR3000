@@ -90,7 +90,7 @@ if (!isset($_SESSION['ID'])) {
         .students_list
         {
             overflow: auto;
-            height: 50px;
+            height: 150px;
         }
         ::-webkit-scrollbar
         {
@@ -136,9 +136,9 @@ if (!isset($_SESSION['ID'])) {
     <form action="../python/fill_practice_data.php" method="post">
         <input required type="text" name = "practice_place" placeholder="Место практики">
         <input required type="text" name = "practice_place_address" placeholder="Адрес места практики">
-        <input required type="text" name = "work_year" placeholder="Год работы">
+        <input required type="text" name="work_year" placeholder="Год работы" value="<?php echo date("Y"); ?>">
         <input required type="text" name = "practice_deadlines" placeholder="Сроки практики">
-
+        <br>
         <div class="students_list">
             <?php
             $students_list = $connectMySQL->query("SELECT * FROM `user` WHERE `ROLE` = 'student'");
@@ -154,6 +154,8 @@ if (!isset($_SESSION['ID'])) {
             }
             ?>
         </div>
+
+        <br>
 
         <input type="submit" name="submit" value="Отправить">
     </form>

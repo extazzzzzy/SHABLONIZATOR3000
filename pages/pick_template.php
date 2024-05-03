@@ -37,9 +37,12 @@ ob_start(); // начало буферизации вывода
     </div>
     <br>
     <div class="container4">
-            <input type="text" id="WEEK_NUMBER" name="WEEK_NUMBER" placeholder="Введите номер недели" required>
+        <select id="WEEK_NUMBER" name="WEEK_NUMBER" required>
+            <option value="">Выберите неделю практики</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+        </select>
     </div>
-    <br>
     <input type="submit" name="submit" value="Отправить документы">
     <?php
     $output = ob_get_contents(); // сохраняем буфер
@@ -149,7 +152,7 @@ ob_start(); // начало буферизации вывода
         }
         .container4 {
             width: 400px;
-            height: 50px;
+            height: 120px;
             overflow: auto;
             scrollbar-width: none;
             font-weight: bold;

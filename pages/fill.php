@@ -155,8 +155,36 @@ if ($_SESSION['ROLE'] == 'usu_chief') {
         </div>
     </div>
     <form action="../python/fill_usu_chief_data.php" method="post">
-        <input type="text" id="student_group" name="student_group" placeholder="Введите номер группы">
-        <input type="text" id="practice_kind" name="practice_kind" placeholder="Введите вид практики">
+        <?php
+        $servername = "localhost";
+        $username = "root";
+        $password = "root";
+        $dbname = "shablonizator3000";
+
+        $conn = new mysqli($servername, $username, $password, $dbname);
+
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+
+        $sql = "SELECT DISTINCT STUDENT_GROUP FROM user WHERE STUDENT_GROUP IS NOT NULL";
+
+        $result = $conn->query($sql);
+
+        echo '<select id="student_group" name="student_group" required>';
+        echo '<option value="">Выберите группу</option>';
+        while ($row = $result->fetch_assoc()) {
+            echo '<option value="' . $row["STUDENT_GROUP"] . '">' . $row["STUDENT_GROUP"] . '</option>';
+        }
+        echo '</select>';
+
+        $conn->close();
+        ?>
+        <select id="practice_kind" name="practice_kind" required>
+            <option value="">Выберите вид практики</option>
+            <option value="Учебная">Учебная</option>
+            <option value="Производственная">Производственная</option>
+        </select>
         <input type="hidden" name="document_id" value = <?php echo $_GET['ID'] ?>>
         <button class="nav-button" type="submit">Отправить</button>
     </form>

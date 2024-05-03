@@ -203,7 +203,7 @@ if ($connectMySQL->query("SELECT STATUS FROM `diary_document` WHERE `ID` = " . $
         </div>
 
         <div class="container">
-            <input type="text" id="remarks" placeholder="Замечания" name="remarks">
+            <input type="text" id="remarks" placeholder="Замечания(необязательно к заполнению)" name="remarks">
         </div>
 
         <div class="container">
