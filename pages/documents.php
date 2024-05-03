@@ -43,10 +43,10 @@ function check_status($doc_status_id, $doc_id, $connectMySQL) {
     $user_id = $_SESSION['ID'];
     $accept_record = $connectMySQL->query("SELECT AGREEMENT FROM `user_to_document_to_agreement` 
                                         WHERE `USER_ID` = " . $user_id . " AND `DOCUMENT_ID` = '$doc_id'")->fetch_assoc()['AGREEMENT'];
-    if ($doc_status_id == 5 && !isset($accept_record))
+    if (($doc_status_id == 5 && !isset($accept_record) && $_SESSION['ROLE'] != 'admin') || ($_SESSION['ROLE'] == 'admin' && $doc_status_id == 6))
     {
         echo "<button id='accept_btn' onclick='accept_or_reject(1, " . $doc_id . ")'>Принять</button>
-                <button id='reject_btn' onclick='accept_or_reject(0, " . $doc_id . ")'>Отклонить</button>";
+                <a id='btn' href=write_comment.php?DOCUMENT_ID=" . $doc_id .">Отклонить</a>";
     }
     else
         echo '';
@@ -104,6 +104,8 @@ function generate_document_table($connectMySQL) {
             $doc_id = $row['ID'];
             $template_name = $connectMySQL->query("SELECT `NAME` FROM `template` WHERE `ID` = ". $row['TEMPLATE_ID'])->fetch_assoc()['NAME'];
 
+            $week_number = $connectMySQL->query("SELECT `WEEK_NUMBER` FROM `diary_document` WHERE `ID` = ". $doc_id)->fetch_assoc()['WEEK_NUMBER'];
+
             $student_fullname = isset($row['STUDENT_ID']) ? $connectMySQL->query("SELECT `FULLNAME` FROM `user` WHERE `ID` = ".
                 $row['STUDENT_ID'])->fetch_assoc()['FULLNAME'] : "";
             $usu_chief_fullname = isset($row['USU_CHIEF_ID']) ? $connectMySQL->query("SELECT `FULLNAME` FROM `user`WHERE `ID` = ".
@@ -116,7 +118,7 @@ function generate_document_table($connectMySQL) {
             ?>
             <tr>
                 <td><a href="fill.php?ID=<?php echo $doc_id;?>"><?php echo $doc_id;?></a></td>
-                <td><?php echo $template_name; ?></td>
+                <td><?php echo $template_name . ' (' . $week_number . ' неделя)'; ?></td>
                 <td><?php view_status($doc_status_id); ?></td>
                 <td><?php echo $student_fullname; ?></td>
                 <td><?php echo $usu_chief_fullname; ?></td>
@@ -238,11 +240,15 @@ function generate_document_table($connectMySQL) {
 
         #btn {
             display: inline-block;
-            background-color: rgb(51, 136, 85);
-            color: #fff;
-            padding: 8px;
+            padding: 8.5px;
             text-decoration: none;
+            background-color: rgb(51, 136, 85);
+            border-style: none;
             border-radius: 5px;
+            color: white;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+            font-size: medium;
         }
         #btn:hover {
             background-color: rgba(120, 172, 227, 0.72);
@@ -256,6 +262,7 @@ function generate_document_table($connectMySQL) {
             <a href='pick_template.php'>Создать документ</a>
             <a href='profile.php'>Профиль</a>
             <a href='../php/logout.php'>Выход из аккаунта</a>
+            <a href='add_chief.php'>Добавить руководителя</a>
             <?php
             if ($_SESSION['ROLE'] == "org_chief")
             {
