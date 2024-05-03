@@ -37,6 +37,9 @@ else if ($_SESSION['ROLE'] != 'admin') {
             padding: 20px;
             width: 300px;
             text-align: center;
+            max-height: 700px;
+            overflow: auto;
+            scrollbar-width: none;
         }
         h1 {
             color: #0a4d8c;
@@ -47,21 +50,9 @@ else if ($_SESSION['ROLE'] != 'admin') {
             display: flex;
             flex-direction: column;
         }
-        select {
-            background-color: #0a4d8c;
-            border-style: none;
-            border-radius: 5px;
-            height: 40px;
-            width: 300px;
-            color: white;
-            transition: background-color 0.3s ease;
-            margin-top: 10px;
-            margin-bottom: 10px;
-            font-size: medium;
-        }
         input[type="text"], input[type="password"] {
             color: #ffffff;
-            width: calc(100% - 20px);
+            width: calc(100% - 25px);
             padding: 10px;
             margin-bottom: 10px;
             background-color: #0a4d8c;
@@ -83,10 +74,12 @@ else if ($_SESSION['ROLE'] != 'admin') {
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            font-size: 16px;
         }
         input[type="submit"]:hover {
             background-color: rgba(120, 172, 227, 0.72);
             color: #0a4d8c;
+            font-size: 16px;
         }
         a {
             text-decoration: none;
@@ -97,11 +90,6 @@ else if ($_SESSION['ROLE'] != 'admin') {
         }
         a:hover {
             text-decoration: underline;
-        }
-        .students_list
-        {
-            overflow: auto;
-            height: 50px;
         }
         ::-webkit-scrollbar
         {
@@ -123,16 +111,28 @@ else if ($_SESSION['ROLE'] != 'admin') {
             background-color: rgba(120, 172, 227, 0.72);
             text-decoration: underline;
         }
+        select {
+            background-color: #0a4d8c;
+            border-style: none;
+            border-radius: 5px;
+            height: 40px;
+            width: 100%;
+            color: white;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            font-size: medium;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
 <div class="container">
     <nav>
         <a href='documents.php'>Вернуться к списку документов</a>
-        <br>
         <a href='../php/logout.php'>Выход из аккаунта</a>
     </nav>
-    <h1>Регистрация руководителя</h1>
+    <h3>Регистрация руководителя</h3>
     <form action="../php/registration_chief.php" method="post">
         <input type="text" minlength="15" id="FULLNAME" name="FULLNAME" placeholder="Введите ФИО" required>
         <input type="text" id="LOGIN" name="LOGIN" placeholder="Введите логин" required>
