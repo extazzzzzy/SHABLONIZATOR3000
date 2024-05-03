@@ -58,6 +58,11 @@ function check_status($doc_status_id, $doc_id, $connectMySQL) {
         echo '';
 }
 
+function delete_btn($doc_id) {
+    if ($_SESSION['ROLE'] == 'admin')
+        echo "<button id='delete_btn' onclick='delete_document(" . $doc_id . ")'>Удалить</button>";
+}
+
 function generate_document_table($connectMySQL) {
     ob_start(); // начало буферизации вывода
     ?>
@@ -133,7 +138,7 @@ function generate_document_table($connectMySQL) {
                 <td><?php echo $timestamp; ?></td>
                 <td><?php echo $comment; ?></td>
                 <td><?php check_link($doc_src); ?></td>
-                <td><?php check_status($doc_status_id, $doc_id, $connectMySQL); ?></td>
+                <td><?php check_status($doc_status_id, $doc_id, $connectMySQL); delete_btn($doc_id);?></td>
             <tr>
                 <?php
                 }
@@ -296,6 +301,20 @@ function generate_document_table($connectMySQL) {
         
         document.getElementById('accept_btn').remove();
         document.getElementById('reject_btn').remove();
+    }
+
+    function delete_document(document_id) {
+        var formData = new FormData();
+            formData.append('doc_id', document_id);
+            
+        var xhr = new XMLHttpRequest();
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    location.reload();
+                };
+            }
+            xhr.open('POST', '../php/delete_record.php', true);
+            xhr.send(formData);
     }
 </script>
 </body>
