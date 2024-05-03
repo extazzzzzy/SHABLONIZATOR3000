@@ -9,8 +9,12 @@ import os
 
 morph = pymorphy2.MorphAnalyzer()
 # Страница документа №1
-INSTITUTE = "Инженерная школа цифровых технологий"
-PRACTICE_KIND_ROD = "Учебная"
+EDUCATION_FORM = "Очная"
+
+NAME_FILE = sys.argv[1]
+
+INSTITUTE = sys.argv[2]
+PRACTICE_KIND_ROD = sys.argv[3]
 PRACTICE_KIND_ROD_SPLIT = PRACTICE_KIND_ROD.split()
 PRACTICE_KIND_ROD_ARR = []
 for i in PRACTICE_KIND_ROD_SPLIT:
@@ -19,7 +23,7 @@ for i in PRACTICE_KIND_ROD_SPLIT:
     PRACTICE_KIND_ROD_ARR.append(PRACTICE_KIND_ROD_WORD)
 PRACTICE_KIND_ROD = ' '.join(PRACTICE_KIND_ROD_ARR)
 
-PRACTICE_TYPE_ROD = "Ознакомительная"
+PRACTICE_TYPE_ROD = sys.argv[4]
 PRACTICE_TYPE_ROD_SPLIT = PRACTICE_TYPE_ROD.split()
 PRACTICE_TYPE_ROD_ARR = []
 for i in PRACTICE_TYPE_ROD_SPLIT:
@@ -28,27 +32,30 @@ for i in PRACTICE_TYPE_ROD_SPLIT:
     PRACTICE_TYPE_ROD_ARR.append(PRACTICE_TYPE_ROD_WORD)
 PRACTICE_TYPE_ROD = ' '.join(PRACTICE_TYPE_ROD_ARR)
 
-YEAR = "2023/2024"
-CODE_AND_PREPARATION_DIRECTION = "09.03.04 Программная инженерия"
-EDUCATION_FORM = "Очная"
-STUDENTS_COURSE = "2"
-STUDENTS_GROUP = "1521б"
-REPORT_YEAR = "2024"
+YEAR = sys.argv[5]
+CODE_AND_PREPARATION_DIRECTION = sys.argv[6]
+
+STUDENTS_COURSE = sys.argv[7]
+STUDENTS_GROUP = sys.argv[8]
+REPORT_YEAR = sys.argv[9]
 
 # Страница документа №2
-PRACTICE_DEADLINES = "с 26 апреля 2024 года по 5 мая 2024 года"
-ORDER_NUMBER_AND_DATE = "2-222 от 06.03.2024"
-PRACTICE_KIND_IMEN = "Учебная"
-PRACTICE_TYPE_IMEN = "Ознакомительная"
-SUCCESS_STUDENT_COUNT = "28"
-
-STUDENT_FULLNAME_SUCCESS = "Иванов Иван Иванович,Петров Петр Петрович,Александров Александр Александрович".split(',')
-STUDENT_FULLNAME_FAILURE = "Коваль Данил Вячеславович,Модин Александр Игоревич,Низамутдинов Виктор Ринатович,Поздеева Ульяна Александровна".split(',')
-PRACTICE_PLACE = "Югорский государственный университет"
-USU_CHIEF_FULLNAME = "Змеев Денис Олегович"
+PRACTICE_DEADLINES = sys.argv[10]
+ORDER_NUMBER_AND_DATE = sys.argv[11]
+PRACTICE_KIND_IMEN = sys.argv[3]
+PRACTICE_TYPE_IMEN = sys.argv[4]
 
 
-doc = Document("report_document_template.docx")
+STUDENT_FULLNAME_SUCCESS = sys.argv[12].split(',')
+STUDENT_FULLNAME_FAILURE = sys.argv[13].split(',')
+SUCCESS_STUDENT_COUNT = len(STUDENT_FULLNAME_SUCCESS)
+FAILURE_STUDENT_COUNT = len(STUDENT_FULLNAME_FAILURE)
+PRACTICE_PLACE = sys.argv[14]
+USU_CHIEF_FULLNAME = sys.argv[15]
+ORGANIZATION_CHIEF_FULLNAME = sys.argv[16]
+
+
+doc = Document("../templates/report_document_template.docx")
 
 for style in doc.styles:
     if style.type == 1:
@@ -102,10 +109,10 @@ for paragraph in doc.paragraphs:
         parent.remove(paragraph._element)
         break
 
-doc.save("ready.docx")
+doc.save(NAME_FILE)
 
-FAILURE_STUDENT_COUNT = "2"
-doc1 = Document("ready.docx")
+
+doc1 = Document(NAME_FILE)
 
 for style in doc1.styles:
     if style.type == 1:
@@ -148,10 +155,10 @@ for paragraph in doc1.paragraphs:
         parent.remove(paragraph._element)
         break
 
-doc1.save("ready.docx")
+doc1.save(NAME_FILE)
 
-doc2 = DocxTemplate("ready.docx")
-ORGANIZATION_CHIEF_FULLNAME = "Самарин Валерий Анатольевич"
+doc2 = DocxTemplate(NAME_FILE)
+
 
 context = {"INSTITUTE": INSTITUTE, "PRACTICE_KIND_ROD": PRACTICE_KIND_ROD, "PRACTICE_TYPE_ROD": PRACTICE_TYPE_ROD,
            "YEAR": YEAR, "CODE_AND_PREPARATION_DIRECTION": CODE_AND_PREPARATION_DIRECTION, "EDUCATION_FORM": EDUCATION_FORM,
@@ -160,7 +167,7 @@ context = {"INSTITUTE": INSTITUTE, "PRACTICE_KIND_ROD": PRACTICE_KIND_ROD, "PRAC
            "PRACTICE_TYPE_IMEN": PRACTICE_TYPE_IMEN, "SUCCESS_STUDENT_COUNT": SUCCESS_STUDENT_COUNT, "FAILURE_STUDENT_COUNT": FAILURE_STUDENT_COUNT,
            "USU_CHIEF_FULLNAME": USU_CHIEF_FULLNAME, "ORGANIZATION_CHIEF_FULLNAME": ORGANIZATION_CHIEF_FULLNAME}
 doc2.render(context)
-doc2.save("ready.docx")
+doc2.save(NAME_FILE)
 
 
 

@@ -12,13 +12,13 @@ if ($connectMySQL->query($sql) === TRUE) {
 
     if ($connectMySQL->query($sql) === TRUE) {
         header('Location: ../pages/documents.php');
-    }
-    else {
+    } else {
         echo "Ошибка при удалении документа: " . $connectMySQL->error;
     }
 }
 else {
     echo "Ошибка при удалении документа: " . $connectMySQL->error;
 }
+
 $connectMySQL->close();
 ?>
