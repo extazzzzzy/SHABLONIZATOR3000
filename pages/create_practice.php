@@ -6,6 +6,10 @@ if (!isset($_SESSION['ID'])) {
     header("Location: auth.php");
     die();
 }
+if($_SESSION['ROLE'] != 'org_chief')
+{
+    header("Location: profile.php");
+}
 ?>
 
 <!DOCTYPE html>
@@ -124,6 +128,18 @@ if (!isset($_SESSION['ID'])) {
             outline: none;
             font-size: 16px;
         }
+        select {
+            background-color: #0a4d8c;
+            border-style: none;
+            border-radius: 5px;
+            height: 40px;
+            width: 300px;
+            color: white;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            font-size: medium;
+        }
     </style>
 </head>
 <body>
@@ -134,7 +150,13 @@ if (!isset($_SESSION['ID'])) {
         </nav>
     <h3>Информация о документе</h3>
     <form action="../python/fill_practice_data.php" method="post">
-        <input required type="text" name = "practice_place" placeholder="Место практики">
+        <select id="practice_place" required name="practice_place" onchange="toggleInput()" >
+            <option value="">Выберите место практики</option>
+            <option value="Югорский государственный университет">Югорский государственный университет</option>
+            <option value="Югорский  научно-исследовательский институт информационных технологий">Югорский  научно-исследовательский институт информационных технологий</option>
+            <option value="other">Нет нужного варианта</option>
+        </select>
+        <input type="text" id="other_place" name="other_place" placeholder="Введите другое место практики" style="display: none;">
         <input required type="text" name = "practice_place_address" placeholder="Адрес места практики">
         <input required type="text" name="work_year" placeholder="Год работы" value="<?php echo date("Y"); ?>">
         <input required type="text" name = "practice_deadlines" placeholder="Сроки практики">
@@ -160,6 +182,20 @@ if (!isset($_SESSION['ID'])) {
         <input type="submit" name="submit" value="Отправить">
     </form>
 </div>
+</script>
+<script>
+    function toggleInput() {
+        var selectElement = document.getElementById("practice_place");
+        var otherPlaceInput = document.getElementById("other_place");
+
+        if (selectElement.value === "other") {
+            otherPlaceInput.style.display = "block";
+            otherPlaceInput.setAttribute("required", "true");
+        } else {
+            otherPlaceInput.style.display = "none";
+            otherPlaceInput.removeAttribute("required");
+        }
+    }
 </script>
 </body>
 </html>

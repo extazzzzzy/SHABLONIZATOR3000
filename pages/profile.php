@@ -1,5 +1,9 @@
 <?php
 session_start();
+if($_SESSION['ID'] == '')
+{
+    header("Location: auth.php");
+}
 $connectMySQL = new mysqli('localhost', 'root', 'root', 'shablonizator3000');
 
 $ID = $_SESSION['ID'];

@@ -10,6 +10,9 @@ $diary_document_id = $_POST['document_id']; //
 $connectMySQL = new mysqli('localhost', 'root', 'root', 'shablonizator3000');
 
 $practice_place = $_POST['practice_place'];
+if ($practice_place == "other") {
+    $practice_place = $_POST['other_place'];
+}
 $practice_place_address = $_POST['practice_place_address'];
 $work_year = $_POST['work_year'];
 $practice_deadlines = $_POST['practice_deadlines'];

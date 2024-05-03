@@ -1,3 +1,13 @@
+<?php
+session_start();
+if($_SESSION['ID'] == '')
+{
+    header("Location: auth.php");
+}
+else if ($_SESSION['ROLE'] != 'admin') {
+    header("Location: profile.php");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

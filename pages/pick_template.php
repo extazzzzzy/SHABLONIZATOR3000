@@ -6,6 +6,11 @@ if (!isset($_SESSION['ID'])) {
     header("Location: auth.php");
     die();
 }
+if ($_SESSION['ROLE'] != "admin")
+{
+    header("Location: ../pages/profile.php");
+    die;
+}
 
 function generate_document_list($connectMySQL) {
 ob_start(); // начало буферизации вывода
