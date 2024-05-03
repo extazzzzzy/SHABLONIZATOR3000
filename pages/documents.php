@@ -433,14 +433,18 @@ function generate_document_table($connectMySQL) {
 <header>
     <div class="container">
         <nav>
-            <a href='pick_template.php'>Создать документ</a>
             <a href='profile.php'>Профиль</a>
             <a href='../php/logout.php'>Выход из аккаунта</a>
-            <a href='add_chief.php'>Добавить руководителя</a>
+
             <?php
             if ($_SESSION['ROLE'] == "org_chief")
             {
                 echo "<a href='create_practice.php'>Создать практику</a>";
+            }
+            else if ($_SESSION['ROLE'] == "admin")
+            {
+                echo "<a href='pick_template.php'>Создать документ</a>";
+                echo "<a href='add_chief.php'>Добавить руководителя</a>";
             }
             ?>
         </nav>
