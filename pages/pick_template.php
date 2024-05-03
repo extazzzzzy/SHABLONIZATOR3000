@@ -30,6 +30,7 @@ ob_start(); // начало буферизации вывода
     </select>
     <h3>Выберите руководителей ЮГУ, которым хотите отправить документ:</h3>
     <div class="students_list">
+        <div class="students"><input type="checkbox" id="select-all">Выбрать всех</div>
         <?php //здесь список всех ЮГУшек, которым его можно отправить
         $usu_chief_list = $connectMySQL->query("SELECT * FROM `user` WHERE `ROLE` = 'usu_chief'");
         while ($row = $usu_chief_list->fetch_assoc()) {
@@ -207,12 +208,30 @@ ob_start(); // начало буферизации вывода
     </div>
 </header>
 <script>
-    function pick_all()
-    {
-//Хотел написать скрипт для кнопки, чтобы можно было выбрать сразу всех руков или снять галочки со всех
-        document.getElementById('pick_all').innerHTML = "Убрать со всех";
-        return 1;
-    }
+    document.addEventListener("DOMContentLoaded", function() {
+        var selectAllCheckbox = document.getElementById('select-all');
+        var otherCheckboxes = document.querySelectorAll('.students_list input[type="checkbox"]:not(#select-all)');
+        function updateSelectAllCheckbox() {
+            var allChecked = true;
+            for (var i = 0; i < otherCheckboxes.length; i++) {
+                if (!otherCheckboxes[i].checked) {
+                    allChecked = false;
+                    break;
+                }
+            }
+            selectAllCheckbox.checked = allChecked;
+        }
+        for (var i = 0; i < otherCheckboxes.length; i++) {
+            otherCheckboxes[i].addEventListener('change', function() {
+                updateSelectAllCheckbox();
+            });
+        }
+        selectAllCheckbox.addEventListener('change', function() {
+            for (var i = 0; i < otherCheckboxes.length; i++) {
+                otherCheckboxes[i].checked = this.checked;
+            }
+        });
+    });
 </script>
 </body>
 </html>
