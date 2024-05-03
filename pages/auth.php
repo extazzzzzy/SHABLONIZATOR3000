@@ -51,7 +51,7 @@ if($_SESSION['ID'] != '')
         }
         input[type="text"], input[type="password"] {
             color: #ffffff;
-            width: 100%;
+            width: calc(100% - 25px);
             padding: 10px;
             margin-bottom: 10px;
             background-color: #0a4d8c;
