@@ -9,7 +9,7 @@ if ($mysql->connect_errno) {
     exit("Ошибка подключения к базе данных: " . $mysql->connect_error);
 }
 
-if (isset($_POST["ID"]) && isset($_POST["FULLNAME"]) && isset($_POST["FULLNAME_ROD"]) && isset($_POST["FULLNAME_DAT"]) && isset($_POST["LOGIN"]) && isset($_POST["PASSWORD"]) && isset($_POST["STUDENT_COURSE"]) && isset($_POST["STUDENT_GROUP"]) && isset($_POST["INSTITUTE"]) && isset($_POST["PREPARATION_DIRECTION"])) {
+if ($_SESSION['ROLE'] == 'student' && isset($_POST["ID"]) && isset($_POST["FULLNAME"]) && isset($_POST["FULLNAME_ROD"]) && isset($_POST["FULLNAME_DAT"]) && isset($_POST["LOGIN"]) && isset($_POST["PASSWORD"]) && isset($_POST["STUDENT_COURSE"]) && isset($_POST["STUDENT_GROUP"]) && isset($_POST["INSTITUTE"]) && isset($_POST["PREPARATION_DIRECTION"])) {
     $ID = $_POST["ID"];
 
     $FULLNAME = $_POST["FULLNAME"];
@@ -32,8 +32,23 @@ if (isset($_POST["ID"]) && isset($_POST["FULLNAME"]) && isset($_POST["FULLNAME_R
     } else {
         echo "Ошибка: " . $mysql->error;
     }
-} else {
-    echo "Некорректные данные.";
+} else if ($_SESSION['ROLE'] != 'student' && isset($_POST["ID"]) && isset($_POST["FULLNAME"]) && isset($_POST["LOGIN"]) && isset($_POST["PASSWORD"])) {
+    $ID = $_POST["ID"];
+    $FULLNAME = $_POST["FULLNAME"];
+    $LOGIN = $_POST["LOGIN"];
+    $PASSWORD = $_POST["PASSWORD"];
+
+    $sql = "UPDATE user SET FULLNAME = '$FULLNAME', LOGIN = '$LOGIN', PASSWORD = '$PASSWORD' WHERE ID = '$ID'";
+
+
+    if ($mysql->query($sql) === TRUE) {
+        header('Location: ../pages/profile.php');
+    } else {
+        echo "Ошибка: " . $mysql->error;
+    }
+}
+else {
+    echo "Ошибка! Некорректный ввод данных";
 }
 
 $mysql->close();
