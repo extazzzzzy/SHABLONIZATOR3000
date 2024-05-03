@@ -22,7 +22,7 @@ function view_status($doc_status_id) {
             echo "Ожидает заполнения данных о практике от руководителя организации/ожидает заполнение данных студентом";
             break;
         case 4:
-            echo "Ожидает получения характеристики студента от руководителя организации";
+            echo "Ожидает получения данных от руководителя организации";
             break;
         case 5:
             echo "Ожидает подтверждения всех участников";
@@ -58,9 +58,13 @@ function check_status($doc_status_id, $doc_id, $connectMySQL) {
         echo '';
 }
 
-function delete_btn($doc_id) {
+function delete_and_clear_btn($doc_status_id, $doc_id) {
     if ($_SESSION['ROLE'] == 'admin')
+    {
         echo "<button id='delete_btn' onclick='delete_document(" . $doc_id . ")'>Удалить</button>";
+        if ($doc_status_id == -1)
+            echo "<button id='clear_btn' onclick='clear_document(" . $doc_id . ")'>Очистить</button>";
+    }
 }
 
 function generate_document_table($connectMySQL) {
@@ -138,7 +142,7 @@ function generate_document_table($connectMySQL) {
                     <td><?php echo $timestamp; ?></td>
                     <td><?php echo $comment; ?></td>
                     <td><?php check_link($doc_src); ?></td>
-                    <td><?php check_status($doc_status_id, $doc_id, $connectMySQL); delete_btn($doc_id);?></td>
+                    <td><?php check_status($doc_status_id, $doc_id, $connectMySQL); delete_and_clear_btn($doc_status_id, $doc_id);?></td>
                 <tr>
             <?php
             }
@@ -306,6 +310,7 @@ function generate_document_table($connectMySQL) {
     function delete_document(document_id) {
         var formData = new FormData();
             formData.append('doc_id', document_id);
+            formData.append('check', 0);
             
         var xhr = new XMLHttpRequest();
             xhr.onload = function() {
@@ -313,7 +318,22 @@ function generate_document_table($connectMySQL) {
                     location.reload();
                 };
             }
-            xhr.open('POST', '../php/delete_record.php', true);
+            xhr.open('POST', '../php/delete_clear_record.php', true);
+            xhr.send(formData);
+    }
+
+    function clear_document(document_id) {
+        var formData = new FormData();
+            formData.append('doc_id', document_id);
+            formData.append('check', 1);
+
+        var xhr = new XMLHttpRequest();
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    location.reload();
+                };
+            }
+            xhr.open('POST', '../php/delete_clear_record.php', true);
             xhr.send(formData);
     }
 </script>
