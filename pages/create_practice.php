@@ -182,7 +182,6 @@ if($_SESSION['ROLE'] != 'org_chief')
         <input type="submit" name="submit" value="Отправить">
     </form>
 </div>
-</script>
 <script>
     function toggleInput() {
         var selectElement = document.getElementById("practice_place");
