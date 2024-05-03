@@ -16,7 +16,7 @@ function generate_document_list($connectMySQL) {
 ob_start(); // начало буферизации вывода
 ?>
 <form action="../php/create_new_record.php" method="post">
-    <h2>Выберите шаблон для документа:</h2>
+    <h3>Выберите шаблон для документа:</h3>
         <select name = "template_name">
             <?php //тут выводится список шаблонов документа на отправку
             $template_list = $connectMySQL->query("SELECT * FROM `template`");
@@ -28,14 +28,14 @@ ob_start(); // начало буферизации вывода
     }
     ?>
     </select>
-    <h2>Выберите руководителей ЮГУ, которым хотите отправить документ:</h2>
-    <div class="container4">
+    <h3>Выберите руководителей ЮГУ, которым хотите отправить документ:</h3>
+    <div class="students_list">
         <?php //здесь список всех ЮГУшек, которым его можно отправить
         $usu_chief_list = $connectMySQL->query("SELECT * FROM `user` WHERE `ROLE` = 'usu_chief'");
         while ($row = $usu_chief_list->fetch_assoc()) {
             $usu_chief = $row['FULLNAME'];
             ?>
-            <div class='chefs'><input type='checkbox' name="usu_chiefs[]" value="<?php echo $usu_chief; ?>"><?php echo $usu_chief; ?></div>
+            <div class='students'><input type='checkbox' name="usu_chiefs[]" value="<?php echo $usu_chief; ?>"><?php echo $usu_chief; ?></div>
             <?php
         }
         ?>
@@ -72,109 +72,40 @@ ob_start(); // начало буферизации вывода
             background-color: rgba(120, 172, 227, 0.72);
             margin: 0;
             padding: 0;
-            display: block;
+            display: flex;
             justify-content: center;
-            align-content: center;
+            align-items: center;
+            height: 100vh;
         }
-        img {
-            max-width: 300px;
-            text-align: center;
-        }
-        input[type="text"]::placeholder,
-        select {
-            color: #ffffff;
-        }
-
-        input[type="text"]:hover {
-            background-color: rgba(120, 172, 227, 0.72);
-            color: #0a4d8c;
-        }
-
         img {
             max-width: 300px;
             text-align: center;
         }
         h3 {
             color: #0a4d8c;
-            font-weight: normal;
-            font-size: medium;
-        }
-        form {
-            display: flex;
-            flex-direction: column;
-        }
-        .chefs {
-            color: #ffffff;
-            width: calc(100% - 30px);
-            padding: 10px;
-            margin-bottom: 10px;
-            background-color: #0a4d8c;
-            border-color: #0a4d8c;
-            border-radius: 5px;
-            border-style: solid;
-            outline: none;
-            font-size: 16px;
-        }
-        ::placeholder {
-            color: #ffffff;
-        }
-        button {
-            background-color: #0a4d8c;
-            border-style: none;
-            border-radius: 5px;
-            height: 50px;
-            color: white;
-            transition: background-color 0.3s ease;
-            margin-top: 20px;
-            margin-bottom: 10px;
-            font-size: 18px;
-        }
-        button:hover {
-            background-color: #6A5ACD;
-        }
-        ::-webkit-scrollbar {
-            display: none;
-        }
-        select {
-            background-color: #0a4d8c;
-            border-style: none;
-            border-radius: 5px;
-            height: 40px;
-            width: 300px;
-            color: white;
-            transition: background-color 0.3s ease;
-            margin-top: 10px;
-            margin-bottom: 10px;
-            font-size: medium;
         }
         .container {
             background-color: #78ace3;
-            width: 400px;
+            border-radius: 8px;
+            padding: 20px;
+            width: 300px;
             text-align: center;
-            padding: 10px;
-            margin: 0 auto;
-            border-radius: 5px;
-            font-weight: bold;
-            font-size: 18px;
-        }
-        .container4 {
-            width: 400px;
-            height: 120px;
+            max-height: 700px;
             overflow: auto;
             scrollbar-width: none;
-            font-weight: bold;
-            font-size: 18px;
+        }
+        h1 {
+            color: #0a4d8c;
+            text-align: center;
+            margin-bottom: 10px;
         }
         form {
             display: flex;
             flex-direction: column;
-            align-items: center;
-            width: 100%;
         }
-        input[type="text"], input[type="password"], select {
-            transition: background-color 0.3s ease;
+        input[type="text"], input[type="password"] {
             color: #ffffff;
-            width: 100%;
+            width: calc(100% - 20px);
             padding: 10px;
             margin-bottom: 10px;
             background-color: #0a4d8c;
@@ -196,12 +127,12 @@ ob_start(); // начало буферизации вывода
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s ease;
-            height: 40px;
             font-size: 16px;
         }
         input[type="submit"]:hover {
             background-color: rgba(120, 172, 227, 0.72);
             color: #0a4d8c;
+            font-size: 16px;
         }
         a {
             text-decoration: none;
@@ -212,6 +143,15 @@ ob_start(); // начало буферизации вывода
         }
         a:hover {
             text-decoration: underline;
+        }
+        .students_list
+        {
+            overflow: auto;
+            height: 150px;
+        }
+        ::-webkit-scrollbar
+        {
+            display: none;
         }
         nav {
             margin-bottom: 10px;
@@ -229,24 +169,29 @@ ob_start(); // начало буферизации вывода
             background-color: rgba(120, 172, 227, 0.72);
             text-decoration: underline;
         }
-        h1 {
-            color: #0a4d8c;
-            text-align: center;
+        .students {
+            color: #ffffff;
+            width: calc(100% - 30px);
+            padding: 10px;
             margin-bottom: 10px;
+            background-color: #0a4d8c;
+            border-color: #0a4d8c;
+            border-radius: 5px;
+            border-style: solid;
+            outline: none;
+            font-size: 16px;
         }
-        h2 {
-            color: #0a4d8c;
-            text-align: center;
-            font-size: large;
-        }
-        label {
-            color: #0a4d8c;
+        select {
+            background-color: #0a4d8c;
+            border-style: none;
+            border-radius: 5px;
+            height: 40px;
+            width: 300px;
+            color: white;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+            margin-bottom: 10px;
             font-size: medium;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-        img {
-            max-width: 300px;
             text-align: center;
         }
     </style>
