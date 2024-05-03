@@ -5,7 +5,8 @@
     $agree = $_POST['answer'];
     $comment = $_POST['comment'];
 
-    echo $agree;
+    if ($agree == 1)
+        $comment = "принят";
 
     $connectMySQL = new mysqli('localhost', 'root', 'root', 'shablonizator3000');
         $connectMySQL->query("INSERT INTO `user_to_document_to_agreement` (`USER_ID`, `DOCUMENT_ID`, `AGREEMENT`)
@@ -24,6 +25,33 @@
     $sql = "UPDATE diary_document SET COMMENT = '$comment' WHERE ID = '$doc_id'";
 
     $connectMySQL->query($sql);
+
+    $view_agree = $connectMySQL->query("SELECT * FROM user_to_document_to_agreement
+                                            WHERE DOCUMENT_ID = '$doc_id'");
+
+    if (isset($view_agree)) {
+        $count_accept= 0;
+        while ($row = $view_agree->fetch_assoc()) {
+            if ($row['AGREEMENT'] == 0) {
+                $sql = "UPDATE diary_document SET STATUS = -1 WHERE ID = '$doc_id'";
+
+                $connectMySQL->query($sql);
+                break;
+            }
+            else
+                $count_accept++;
+        }
+        if($count_accept == 3) {
+            $sql = "UPDATE diary_document SET STATUS = 6 WHERE ID = '$doc_id'";
+
+            $connectMySQL->query($sql);
+        }
+        else if($count_accept == 4) {
+            $sql = "UPDATE diary_document SET STATUS = 7 WHERE ID = '$doc_id'";
+
+            $connectMySQL->query($sql);
+        }
+    }
     
     if ($agree == 0)
         header('Location: ../pages/documents.php');
