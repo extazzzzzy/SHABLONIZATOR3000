@@ -155,7 +155,7 @@ if($_SESSION['ROLE'] != 'org_chief')
         </nav>
     <h3>Информация о документе</h3>
     <form action="../python/fill_practice_data.php" method="post">
-        <select id="practice_place" required name="practice_place" onchange="toggleInput()" >
+        <select id="practice_place" required name="practice_place" onchange="toggleInput()">
             <option value="">Выберите место практики</option>
             <option value="Югорский государственный университет">Югорский государственный университет</option>
             <option value="Югорский  научно-исследовательский институт информационных технологий">Югорский  научно-исследовательский институт информационных технологий</option>
@@ -170,9 +170,9 @@ if($_SESSION['ROLE'] != 'org_chief')
         <div class="students_list">
             <?php
             $students_list = $connectMySQL->query("SELECT DISTINCT STUDENT_GROUP FROM user WHERE STUDENT_GROUP IS NOT NULL");
-            while ($row = $students_list->fetch_assoc()) {
+            while ($row = $students_list->fetch_assoc()){
                 $student_group = $row["STUDENT_GROUP"];
-                echo "<div class='students'><input type='checkbox' id='group_$student_group' name='student_group[]' value='$student_group'>";
+                echo "<div class='students'><input type='checkbox' id='group_$student_group' name='student_groups[]' value='$student_group'>";
                 echo "<label for='group_$student_group'>$student_group</label></div>";
             }
             ?>
