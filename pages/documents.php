@@ -130,7 +130,10 @@ function generate_document_table($connectMySQL) {
                 $practice_place = isset($row['PRACTICE_PLACE']) ? $row['PRACTICE_PLACE'] : "";
                 $timestamp = $row['TIMESTAMP'];
                 $comment = isset($row['COMMENT']) ? $row['COMMENT'] : "";
-                ?>
+
+                //$isagree = $connectMySQL->query("SELECT * FROM `user_to_document_to_agreement` WHERE `ID` = ". $doc_id ." AND `USER_ID` = '".$_SESSION["ID"]."'");
+
+            ?>
             <?php
             if ($_SESSION['ROLE'] == 'admin') { ?>
                 <?php if ($doc_status_id == '1' || $doc_status_id == '6') { ?>
@@ -265,7 +268,7 @@ function generate_document_table($connectMySQL) {
                         <td style="background-color: #D4AC0D"><?php check_status($doc_status_id, $doc_id, $connectMySQL); delete_and_clear_btn($doc_status_id, $doc_id);?></td>
                     <tr>
                 <?php } ?>
-                <?php if ($doc_status_id != '3' && $doc_status_id != '5') { ?>
+                <?php if ($doc_status_id != '3' && $doc_status_id != '5' && $doc_status_id != '7') { ?>
                     <tr>
                         <td><a href="fill.php?ID=<?php echo $doc_id;?>"><?php echo $doc_id;?></a></td>
                         <td><?php echo $template_name . ' (' . $week_number . ' неделя)'; ?></td>
