@@ -12,6 +12,10 @@ else if ($_SESSION['ROLE'] != 'admin') {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+
+    <link rel="icon" href="../images/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon">
+
     <title>Добавление руководителя</title>
     <style>
         body {
