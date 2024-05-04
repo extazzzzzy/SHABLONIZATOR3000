@@ -16,6 +16,9 @@ if ($practice_place == "other") {
 $practice_place_address = $_POST['practice_place_address'];
 $work_year = $_POST['work_year'];
 $practice_deadlines = $_POST['practice_deadlines'];
+$practice_deadlines1 = $_POST['practice_deadlines1'];
+$practice_deadlines = "c " . $practice_deadlines . " по " . $practice_deadlines1;
+
 $students_groups = $_POST['student_groups'];
 
 foreach ($students_groups as $students_group)

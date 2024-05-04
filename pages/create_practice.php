@@ -59,7 +59,7 @@ if($_SESSION['ROLE'] != 'org_chief')
             display: flex;
             flex-direction: column;
         }
-        input[type="text"], input[type="password"] {
+        input[type="text"], input[type="password"],input[type="date"] {
             color: #ffffff;
             width: calc(100% - 20px);
             padding: 10px;
@@ -168,7 +168,9 @@ if($_SESSION['ROLE'] != 'org_chief')
         <input type="text" id="other_place" name="other_place" placeholder="Введите другое место практики" style="display: none;">
         <input required type="text" name = "practice_place_address" placeholder="Адрес места практики">
         <input required type="text" name="work_year" placeholder="Год работы" value="<?php echo date("Y"); ?>">
-        <input required type="text" name = "practice_deadlines" placeholder="Сроки практики">
+        <h3>Сроки практики (с, по)</h3>
+        <input required type="date" name = "practice_deadlines">
+        <input required type="date" name = "practice_deadlines1">
         <br>
         <h3>Выберите номер группы</h3>
         <div class="students_list">

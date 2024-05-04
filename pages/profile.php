@@ -57,7 +57,7 @@ $PREPARATION_DIRECTION = $connectMySQL->query("SELECT `PREPARATION_DIRECTION` FR
             border-radius: 8px;
             padding: 20px;
             width: 300px;
-            height: 700px;
+            max-height: 700px;
             overflow-y: auto;
             scrollbar-width: none;
         }

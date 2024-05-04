@@ -82,7 +82,7 @@ if ($connectMySQL->query("SELECT STATUS FROM `diary_document` WHERE `ID` = " . $
             align-items: center;
             width: calc(100% - 20px);
         }
-        input[type="text"], input[type="password"], select {
+        input[type="text"], input[type="password"], input[type="date"], select {
             color: #ffffff;
             width: 89%;
             padding: 10px;
@@ -259,7 +259,9 @@ elseif ($connectMySQL->query("SELECT TEMPLATE_ID FROM `diary_document` WHERE `ID
                 </select>
                 <input type="text" id="other_place" name="other_place" placeholder="Введите другое место практики" style="display: none;">
 
-                <input type="text" name="PRACTICE_DEADLINES" id="PRACTICE_DEADLINES" placeholder="Сроки практики по календарному учебному графику">
+                <h3>Сроки практики (с, по)</h3>
+                <input required type="date" name = "practice_deadlines">
+                <input required type="date" name = "practice_deadlines1">
                 <input type="submit" value="Запустить документ" name="submit">
             <input type="hidden" name="document_id" value=<?php echo $_GET['ID'] ?>>
             </div>

@@ -20,7 +20,9 @@ if ($PRACTICE_PLACE == "other")
     $PRACTICE_PLACE = $_POST['other_place'];
 }
 
-$PRACTICE_DEADLINES = $_POST['PRACTICE_DEADLINES'];
+$PRACTICE_DEADLINES = $_POST['practice_deadlines'];
+$practice_deadlines1 = $_POST['practice_deadlines1'];
+$PRACTICE_DEADLINES = "c " . $PRACTICE_DEADLINES . " по " . $practice_deadlines1;
 
 $connectMySQL->query("UPDATE `diary_document` SET `PRACTICE_PLACE` = '$PRACTICE_PLACE', `PRACTICE_DEADLINES` = '$PRACTICE_DEADLINES', `STATUS` = '5' WHERE `id` = '$diary_document_id'");
 
