@@ -31,6 +31,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $ROLE = $_POST['ROLE'];
     $POSITION = $_POST['POSITION'];
 
+
+
     $statement = $mysql->prepare("INSERT INTO user (FULLNAME, LOGIN, PASSWORD, ROLE, POSITION) VALUES (?, ?, ?, ?, ?)");
     if (!$statement) {
         die("Ошибка подготовки запроса: " . $mysql->error);

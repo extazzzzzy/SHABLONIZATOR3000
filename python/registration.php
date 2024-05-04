@@ -40,6 +40,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $INSTITUTE = $_POST['INSTITUTE'];
     $PREPARATION_DIRECTION = $_POST['PREPARATION_DIRECTION'];
 
+
+
+
     $result = shell_exec('python fullname_variations.py ' . escapeshellarg($FULLNAME));
     $output = json_decode($result, true);
     $STUDENT_FULLNAME_ROD = $output["STUDENT_FULLNAME_ROD"];

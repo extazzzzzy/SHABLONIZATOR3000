@@ -85,6 +85,19 @@ if($_SESSION['ID'] != '')
         a:hover {
             text-decoration: underline;
         }
+        select {
+            background-color: #0a4d8c;
+            border-style: none;
+            border-radius: 5px;
+            height: 40px;
+            width: 100%;
+            color: white;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            font-size: medium;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -98,9 +111,20 @@ if($_SESSION['ID'] != '')
         <input type="text" id="LOGIN" name="LOGIN" placeholder="Введите логин" required>
         <input type="password" maxlength="30" id="PASSWORD" name="PASSWORD" placeholder="Введите пароль" required>
         <input type="text" id="STUDENT_COURSE" name="STUDENT_COURSE" placeholder="Введите номер курса" required>
-        <input type="text" id="STUDENT_GROUP" name="STUDENT_GROUP" placeholder="Введите номер группы" required>
-        <input type="text" minlength="10" id="INSTITUTE" name="INSTITUTE" placeholder="Введите название Высшей школы" required>
-        <input type="text" minlength="10" id="PREPARATION_DIRECTION" name="PREPARATION_DIRECTION" placeholder="Введите направление подготовки" required>
+        <select id="STUDENT_GROUP" name="STUDENT_GROUP" required>
+            <option value="">Выберите номер группы</option>
+            <option value="1521б">1521б</option>
+            <option value="1121б">1121б</option>
+        </select>
+        <select id="INSTITUTE" name="INSTITUTE" required>
+            <option value="">Выберите название высшей школы</option>
+            <option value="Инженерная школа цифровых технология">Инженерная школа цифровых технология</option>
+        </select>
+        <select id="PREPARATION_DIRECTION" name="PREPARATION_DIRECTION" required>
+            <option value="">Введите направление подготовки</option>
+            <option value="Программная инженерия">Программная инженерия</option>
+            <option value="Программная инженерия">Информатика и вычислительная техника</option>
+        </select>
         <input type="submit" name="submit" value="Отправить">
     </form>
     <a href="auth.php">Уже есть аккаунт</a>
