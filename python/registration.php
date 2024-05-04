@@ -31,23 +31,24 @@ if ($check_statement->num_rows > 0) {
 
 $check_statement->close();
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] == "POST")
+{
     $FULLNAME = $_POST['FULLNAME'];
     $LOGIN = $_POST['LOGIN'];
     $PASSWORD = $_POST['PASSWORD'];
-    $STUDENT_COURSE = $_POST['STUDENT_COURSE'];
     $STUDENT_GROUP = $_POST['STUDENT_GROUP'];
     $INSTITUTE = $_POST['INSTITUTE'];
-    $PREPARATION_DIRECTION = $_POST['PREPARATION_DIRECTION'];
 
-
+    $GROUP_TO_DIRECTION = ["1521б" => "Программная инженерия", "1121б" => "Информатика и вычислительная техника"];
+    $GROUP_TO_COURSE = ["1521б" => "2", "1121б" => "2"];
+    $PREPARATION_DIRECTION = $GROUP_TO_DIRECTION[$STUDENT_GROUP];
+    $STUDENT_COURSE = $GROUP_TO_COURSE[$STUDENT_GROUP];
 
 
     $result = shell_exec('python fullname_variations.py ' . escapeshellarg($FULLNAME));
     $output = json_decode($result, true);
     $STUDENT_FULLNAME_ROD = $output["STUDENT_FULLNAME_ROD"];
     $STUDENT_FULLNAME_DAT = $output["STUDENT_FULLNAME_DAT"];
-
 
     $statement = $mysql->prepare("INSERT INTO user (FULLNAME, FULLNAME_ROD, FULLNAME_DAT, LOGIN, PASSWORD, STUDENT_COURSE, STUDENT_GROUP, INSTITUTE, PREPARATION_DIRECTION) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
     if (!$statement) {
@@ -66,3 +67,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     header('Location: ../pages/auth.php');
 }
+?>

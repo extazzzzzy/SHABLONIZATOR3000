@@ -110,21 +110,41 @@ if($_SESSION['ID'] != '')
         <input type="text" minlength="15" id="FULLNAME" name="FULLNAME" placeholder="Введите ФИО" required>
         <input type="text" id="LOGIN" name="LOGIN" placeholder="Введите логин" required>
         <input type="password" maxlength="30" id="PASSWORD" name="PASSWORD" placeholder="Введите пароль" required>
-        <input type="text" id="STUDENT_COURSE" name="STUDENT_COURSE" placeholder="Введите номер курса" required>
-        <select id="STUDENT_GROUP" name="STUDENT_GROUP" required>
-            <option value="">Выберите номер группы</option>
-            <option value="1521б">1521б</option>
-            <option value="1121б">1121б</option>
-        </select>
+
         <select id="INSTITUTE" name="INSTITUTE" required>
             <option value="">Выберите название высшей школы</option>
-            <option value="Инженерная школа цифровых технология">Инженерная школа цифровых технология</option>
+            <option value="0">Инженерная школа цифровых технология</option>
+            <option value="1">Высшая школа гуманитарных наук</option>
         </select>
-        <select id="PREPARATION_DIRECTION" name="PREPARATION_DIRECTION" required>
-            <option value="">Введите направление подготовки</option>
-            <option value="Программная инженерия">Программная инженерия</option>
-            <option value="Программная инженерия">Информатика и вычислительная техника</option>
+        <select id="STUDENT_GROUP" name="STUDENT_GROUP" required disabled>
+            <option value="">Выберите номер группы</option>
         </select>
+
+        <script>
+            var institutes_to_directions =[['1521б', '1121б', '1101б', '1111б'], ['3101б', '3111б', '3121б', '3121м']];
+
+            var INSTITUTE = document.getElementById("INSTITUTE");
+            var STUDENT_GROUP = document.getElementById("STUDENT_GROUP");
+            INSTITUTE.onchange=function()
+            {
+                STUDENT_GROUP.innerHTML = '<option value="">Выберите номер группы</option>';
+
+                STUDENT_GROUP.disabled=false;
+                institute_id = this.value;
+                if(institute_id != "")
+                {
+                    for(var i = 0; i < institutes_to_directions[institute_id].length; i++)
+                    {
+                        STUDENT_GROUP.innerHTML+='<option value="' + i +'">'+institutes_to_directions[institute_id][i]+'</option>';
+                    }
+                }
+                else
+                {
+                    STUDENT_GROUP.disabled=true;
+                }
+            }
+        </script>
+
         <input type="submit" name="submit" value="Отправить">
     </form>
     <a href="auth.php">Уже есть аккаунт</a>

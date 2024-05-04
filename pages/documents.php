@@ -98,19 +98,19 @@ function generate_document_table($connectMySQL) {
             <?php
             if ($_SESSION['ROLE'] == "student")
             {
-                $doc_list = $connectMySQL->query("SELECT * FROM `diary_document` WHERE `STUDENT_ID` = ". $_SESSION['ID']);
+                $doc_list = $connectMySQL->query("SELECT * FROM `diary_document` WHERE `STUDENT_ID` = ". $_SESSION['ID'] . "  ORDER BY `TIMESTAMP` DESC");
             }
             elseif ($_SESSION['ROLE'] == "usu_chief")
             {
-                $doc_list = $connectMySQL->query("SELECT * FROM `diary_document` WHERE `USU_CHIEF_ID` = ". $_SESSION['ID']);
+                $doc_list = $connectMySQL->query("SELECT * FROM `diary_document` WHERE `USU_CHIEF_ID` = ". $_SESSION['ID'] . "  ORDER BY `TIMESTAMP` DESC");
             }
             elseif ($_SESSION['ROLE'] == "org_chief")
             {
-                $doc_list = $connectMySQL->query("SELECT * FROM `diary_document` WHERE `ORGANIZATION_CHIEF_ID` = ". $_SESSION['ID']);
+                $doc_list = $connectMySQL->query("SELECT * FROM `diary_document` WHERE `ORGANIZATION_CHIEF_ID` = ". $_SESSION['ID'] . "  ORDER BY `TIMESTAMP` DESC");
             }
             else
             {
-                $doc_list = $connectMySQL->query("SELECT * FROM `diary_document`");
+                $doc_list = $connectMySQL->query("SELECT * FROM `diary_document`  ORDER BY `TIMESTAMP` DESC");
             }
 
             while ($row = $doc_list->fetch_assoc())
